@@ -1,0 +1,5 @@
+"","Pathogen","Host","Transmission Parameters","Latent/incubation","Pathogen Survival","Diagnostic","Within Herd Prevalence","Regional Prevalence","Control Programme"
+"1","Avian Influenza","Poultry","R0; Beta; direct/indirect contact; pathogen survival","Infectious; latent; incubation","Disinfection; human skin; water; temperature","PCR; HI; iIFA; bELISA; cELISA; NP-ELISA; AGP",NA,NA,NA
+"2","Foot and Mouth Disease","Pigs/cattle/SR","R0; Beta; direct/indirect contact; pathogen survival","Infectious; latent; incubation","Floor, wall, trough, faeces","ELISA; PCR; LFD",NA,NA,NA
+"3","ASF","Pigs","R0; Beta; direct/indirect contact; pathogen survival","Infectious; Latent; incubation","Wood, brick, soil, Faeces, urine, oral fluid, Stainless steel (non-porous surface), Glass, metal, rubber, cellulose paper, feed dust","ELISA; PCR; LFD; Pen Side ELISA",NA,NA,NA
+"4","PPR","Small ruminants","R0; Beta","Infectious; incubation","Temperature; pH; disinfectants; survival in chilled/frozen tissue [WOAH techical disease card - limited experimental information covering this topic]","ELISA (multiple); PCR (multiple); LFD",NA,NA,NA

@@ -1,0 +1,13 @@
+"","Pathogen","Host","Transmission Parameters","Latent/incubation","Pathogen Survival","Diagnostic","Within Herd Prevalence","Regional Prevalence","Control Programme"
+"1","BVD","Cattle","R0; Beta","Latent; infectious","Pathogen survival; disinfection","ELISA; PCR; Virus Isolation in Cell Culture","Yes","Spain; UK; Greece; Belgium; Ireland; Estonia; Large scale review of 73 countries",NA
+"2","IBR","Cattle","R0; Beta","latent","Pathogens survival; disinfection","ELISA; PCR","Yes","Spain; Estonia",NA
+"3","Salmonella Dublin","Cattle","R0; Beta","Latent; infectious","Pathogen survivial; disinfection","ELISA; Faecal culture; PCR","Yes","UK; France; Denmark; Ireland; Estonia",NA
+"4","PTB","Cattle","R0; Beta; direct/indirect contact","latent","Pathogen survival","ELISA; PCR; Faecal culture; Environmental testing","Yes","UK; Ireland; Switzerland; Belgium; Germany; Ireland; Estonia; Large scale review of multiple countries",NA
+"5","BRSV","Cattle","R0; Beta","Incubation","Pathogen survival (RSV); disinfection (RSV)","ELISA; RT-PCR","Yes","Sweden; Ireland; Estonia; Switzerland; Italy; Norway",NA
+"6","Tuberculosis (mycobacterium)","Cattle","R0; Beta (indoor/outdoor)","latent","Pathogen survivial","SICCT; PCR; Culture","Yes (but not in Europe)","Spain; UK (NI); Greece; Italy; Portugal; Bosnia, Hungary, Poland, Slovakia, Czechia, Slovenia Europe wide reviews",NA
+"7","PRRS","Pigs","R0; Beta; direct/indirect contact","Latent; infectious","Pathogen survival","ELISA; RT-PCR","Yes","UK; Belgium",NA
+"8","Swine Influneza","Pigs","R0; R; Beta (direct/airborne)","Latent; infectious","Pathogen survival; disinfection","ELISA; PCR","Yes","Europe (14 countries); Global; Norway, Spain, England; Belgium; Italy; France",NA
+"9","Hepatitis E","Pigs","R0; beta (direct/indirect/environmental); oral infectious dose","Latent; infectious","Pathogen survivial; disinfection","ELISA; PCR","Yes","UK; Portugal; Spain; Netherlands; Italy; Czechia; Italy; Germany; Denmark; Bulgaria",NA
+"10","Campylobacter","Poultry","Beta","Latent; infectious","Pathogen survival","Culture; RT-PCR; PCR; Sandwich Hybridisation","Yes","Bulgaria; Estonia; Latvia; Lithuania; Spain; UK; France; Italy; Denmark; Ireland",NA
+"11","Contagious agalactia (mycoplasma)","Small ruminants","unable to locate any papers describing R0; Beta; direct/indirect contact","Incubation","Disinfection","ELISA; PCR","Yes","Spain; France; Czechia",NA
+"12","Coxiella Burnetti (q-fever)","Cattle; Small ruminants","Beta; infection probability","Infectious","Pathogen survival","ELISA; CFT","Yes","UK, Netherlands, Denmark, Spain, Portugal, Hungary, Spain, Germany; France; Italy; Global",NA
