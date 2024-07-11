@@ -1,0 +1,33 @@
+---
+title: "PARAMETRA data analysis"
+author: "Natalia Ciria"
+format: html
+editor: visual
+---
+
+## Introduction
+
+## Data Description
+
+## Data Analysis
+
+```{r}
+params<-parametra%>%
+  group_by(Pathogen, Parameter)%>%
+  summarise(n = n())
+
+matrix<-tidyr::pivot_wider(data=params[!is.na(params$n),],
+                           id_cols=Parameter,
+                           names_from=Pathogen,
+                           values_from=n)
+  
+#matrix row names
+rnames<-matrix$Parameter
+matrix$Parameter<-NULL
+matrix<-as.matrix(matrix)
+row.names(matrix)<-rnames
+
+matrix[is.na(matrix)]<-0
+
+heatmap(matrix)  
+```
