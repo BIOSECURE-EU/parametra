@@ -12,22 +12,30 @@ editor: visual
 ## Data Analysis
 
 ```{r}
-params<-parametra%>%
+unique(parametra$Pathogen)
+params<-parametra[!grepl(";", parametra$Pathogen),]%>%
   group_by(Pathogen, Parameter)%>%
-  summarise(n = n())
+  summarise(n = n())%>%
+  arrange(desc(n))
+
 
 matrix<-tidyr::pivot_wider(data=params[!is.na(params$n),],
-                           id_cols=Parameter,
-                           names_from=Pathogen,
+                           id_cols=Pathogen,
+                           names_from=Parameter,
                            values_from=n)
-  
+matrix_df<-as.data.frame(matrix)
+
+write.csv(matrix_df, file = "outputs/param_matrix.csv", row.names = FALSE)
+
+
 #matrix row names
-rnames<-matrix$Parameter
-matrix$Parameter<-NULL
+rnames<-matrix$Pathogen
+matrix$Pathogen<-NULL
 matrix<-as.matrix(matrix)
 row.names(matrix)<-rnames
 
 matrix[is.na(matrix)]<-0
 
-heatmap(matrix)  
+
+heatmap(matrix)
 ```

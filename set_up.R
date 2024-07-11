@@ -9,25 +9,41 @@ sheet_names<-excel_sheets(path = file)
 
 new_words<-c(`African Swine Fever`="African Swine Fever Virus",
              `African Swine Fever`="ASF",
-             `Swine Influenza`="Swine Influenza Virus",
-             `Swine Influenza`="Swine Influneza",
-             `Swine Influenza`="Swine Influneza",
-             `Swine Influenza`="Swine Influenza Virus (H1N1pmd09)",
              `Bovine Viral Diarrhoea Virus`="Bovine viral diarrhoea virus",
              `Bovine Viral Diarrhoea Virus`="Bovine Viral Diarrhoea Virus - Persistent infection",
-             `Bovine Viral Diarrhoea Virus`="Bovine Viral diarrhoea virus - Transient infection",
+             `Bovine Viral Diarrhoea Virus`="Bovine Viral Diarrhoea Virus - Transient infection",
              `Bovine Viral Diarrhoea Virus`="BVD",
-             `Paratuberculosis`="Paratuberculosis (MAP)",
+             `Paratuberculosis`="Paratuberculosis \\(MAP\\)",
              `Paratuberculosis`="PTB",
+             `Paratuberculosis`="Paratuberulosis",
+             `Paratuberculosis`="Paratuberculosis \\(MAP\\)",
              `Foot and Mouth Disease`="FMDv",
              `Infectious Bovine Rhinotracheitis`="Infectious bovine rhinotracheitis",
              `Infectious Bovine Rhinotracheitis`="IBR",
+             `E. coli`="E. coli \\(ETEC\\/STEC\\)",
              `E. coli`="E coli",
              `E. coli`="E coli ",
              `E. coli`="E.coli ",
+             `E. coli`="E.coli",
              `PRRS`="PRRSv",
+             `Peste des Petits Ruminants`="PPRV",
+             `Peste des Petits Ruminants`="PPR",
+             `Coxiella burnetii`="Coxiella Burnetti \\(q\\-fever\\)",
+             `Coxiella burnetii`="Coxiella burnetti",
+             `Bovine Respiratory Syncytial Virus`="BRSV",
+             `Bovine Respiratory Syncytial Virus`="RSV",
+             `Bovine Respiratory Syncytial Virus`="Bovine respiratory syncytial virus",
+             `Bovine Respiratory Syncytial Virus`="Bovine Respiratory Syncytial Virus; BCoV",
              `Salmonella`="Salmonella ",
-             `Swine Influenza Virus`="Swine Influenza Virus (H1N1pmd09)")
+             `Swine Influenza`="Swine Influenza virus",
+             `Swine Influenza`="Swine Influenza Virus",
+             `Swine Influenza`="Swine Influneza",
+             `Swine Influenza`="Swine Influenza \\(H1N1pmd09\\)",
+             `Contagious agalactia`="Contagious agalactia \\(mycoplasma\\)",
+             `Bovine Tuberculosis`="Tuberculosis \\(mycobacterium\\)",
+             `Bovine Tuberculosis`="Bovine tuberculosis",
+             `Campylobacter`="Campylobacter jejuni",
+             `Campylobacter`="Campylobacter coli")
 
 parametra<-data.frame()
 
@@ -35,7 +51,6 @@ for(i in 1:length(sheet_names)){
   
   #Read excel
   csv <- read_xlsx(path = file, sheet = sheet_names[i])
-  
   good_colnames<-names(csv)
   
   #Replace new_words
@@ -57,12 +72,4 @@ for(i in 1:length(sheet_names)){
   
 }
 
-parametra%>%
-  group_by(Pathogen, Parameter)%>%
-  summarise(n = n())
-
 unique(parametra$Pathogen)
-unique(parametra$Parameter)
-
-matrix<-tidyr::pivot_wider(data=data[data[[by_y]]%in%list_top&!is.na(data[measure]),],
-                           id_cols=all_of(by_y),names_from=all_of(by_x),values_from=all_of(measure))

@@ -68,11 +68,11 @@
 "67","Pathogen",NA,"Bluetongue",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "68","Pathogen",NA,"Bovine Tuberculosis",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "69","Pathogen",NA,"Bovine Viral Diarrhoea Virus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"70","Pathogen",NA,"BRSV",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"70","Pathogen",NA,"Bovine Respiratory Syncytial Virus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "71","Pathogen",NA,"Campylobacter",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "72","Pathogen",NA,"Classical Swine Fever",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "73","Pathogen",NA,"Contagious agalactia",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"74","Pathogen",NA,"Coxiella burnetti",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"74","Pathogen",NA,"Coxiella burnetii",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "75","Pathogen",NA,"E. coli",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "76","Pathogen",NA,"Campylobacter",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "77","Pathogen",NA,"Enterococci",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -83,9 +83,9 @@
 "82","Pathogen",NA,"Paratuberculosis",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "83","Pathogen",NA,"Pathogen",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "84","Pathogen",NA,"Peste des Petits Ruminants",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"85","Pathogen",NA,"PPRV",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"85","Pathogen",NA,"Peste des Petits Ruminants",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "86","Pathogen",NA,"PRRS",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"87","Pathogen",NA,"RSV",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"87","Pathogen",NA,"Bovine Respiratory Syncytial Virus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "88","Pathogen",NA,"Salmonella",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "89","Pathogen",NA,"Swine Influenza",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "90","Country",NA,"Austria",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
