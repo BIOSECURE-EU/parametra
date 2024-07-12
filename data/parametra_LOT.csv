@@ -1,9 +1,9 @@
 "","Type","Table","Term","Explanation...4","...5","...6","...7","...8","...9","...10","...11","...12","...13","...14","...15","Material","Explanation...17"
-"1","Parameter","Transmission","Transmission parameter","Number of new cases per infectious individual per unit of time  (synonyms transmission coefficient, transmission rate)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Mud",NA
+"1","Parameter","Transmission","Transmission parameter","Number of new cases per infectious individual per unit of time (synonyms transmission coefficient, transmission rate)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Mud",NA
 "2","Parameter","Transmission","Reproduction number","Total number of new infectious individuals per infectious individual during its entire infectious period (also called effective reproduction number also include things stated as Rc, Rv, Rt)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Feces",NA
-"3","Parameter","Transmission","Basic Reproduction number","Total number of new infectious individuals per infectious individual during its entire infectious period in a totally susceptible population",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Litter",NA
-"4","Parameter","Transmission","Probability of  transmission via direct contact","Probability of susceptible animal becoming infected after direct contact with an infected animal",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Floor",NA
-"5","Parameter","Transmission","Probability of  transmission via indirect contact","Probability of susceptible animal becoming infected after contact with a contaminated surface",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Bedding",NA
+"3","Parameter","Transmission","Basic reproduction number","Total number of new infectious individuals per infectious individual during its entire infectious period in a totally susceptible population",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Litter",NA
+"4","Parameter","Transmission","Probability of transmission via direct contact","Probability of susceptible animal becoming infected after direct contact with an infected animal",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Floor",NA
+"5","Parameter","Transmission","Probability of transmission via indirect contact","Probability of susceptible animal becoming infected after contact with a contaminated surface",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Bedding",NA
 "6","Parameter","Transmission","Probability of reactivation of latent infection",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"…",NA
 "7","Parameter","Transmission","Other","…",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "8","Parameter","InfectiousLatentIncubatperiod","Infectious period","Duration of infectious period",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -12,12 +12,12 @@
 "11","Parameter","InfectiousLatentIncubatperiod","Shape","Shape parameter of gamma distributed infectious period",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "12","Parameter","InfectiousLatentIncubatperiod","Other","…",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "13","Parameter","InfectiousLatentIncubatperiod","Latent period","Duration of latent (infected but not infectious period)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"14","Parameter","InfectiousLatentIncubatperiod","Incubation peiod","Duration of period between infection and first clinical signs",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"14","Parameter","InfectiousLatentIncubatperiod","Incubation period","Duration of period between infection and first clinical signs",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "15","Parameter","PathogenSurvival","Decay rate","Rate at which pathogen is cleared from environmetn",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "16","Parameter","PathogenSurvival","Probability of survival","Probability pathogen survives a certain time",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "17","Parameter","PathogenSurvival","Other","…",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "18","Parameter","DiagnosticTest","Sensitivity","Probability of a positive test result, conditioned on the condition truly being positive",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"19","Parameter","DiagnosticTest","Specificty","Probability of a negative test result, conditioned on the condition truly being negative",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"19","Parameter","DiagnosticTest","Specificity","Probability of a negative test result, conditioned on the condition truly being negative",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "20","Test Type","DiagnosticTest","ELISA Ab","Antibody detection ELISA",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "21","Test Type","DiagnosticTest","ELISA Ag","Antigen detection ELISA",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "22","Test Type","DiagnosticTest","PCR","Polymerase chain reaction",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -32,7 +32,7 @@
 "31","Type of model",NA,"None (descriptive)","The parameter was not estimated using a model, only descriptive results were reported in the study.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "32","Type of model",NA,"Other",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "33","Mixing",NA,"Density","Density dependent mixing or mass action (equation often: beta * S * I)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"34","Mixing",NA,"Frequency","Frequency dependent mixing or  pseudomass action (beta *S*I/N)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"34","Mixing",NA,"Frequency","Frequency dependent mixing or pseudomass action (beta *S*I/N)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "35","Study",NA,"Observational","Field observations used to estimate parameters",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "36","Study",NA,"Experimental Isolator","Experiment is isolators",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "37","Study",NA,"Experimental Stable","Experiment in stable",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA

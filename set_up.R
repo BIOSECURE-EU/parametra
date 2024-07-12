@@ -43,7 +43,19 @@ new_words<-c(`African Swine Fever`="African Swine Fever Virus",
              `Bovine Tuberculosis`="Tuberculosis \\(mycobacterium\\)",
              `Bovine Tuberculosis`="Bovine tuberculosis",
              `Campylobacter`="Campylobacter jejuni",
-             `Campylobacter`="Campylobacter coli")
+             `Campylobacter`="Campylobacter coli",
+             
+             #Parameters
+             `Basic reproduction number`="Basic Reproduction number",
+             `Within herd prevalence`="Within herd prevalence of persistently infected animals",
+             `Within herd prevalence`="Within-herd prevalence of viremic animals",
+             `Herd prevalence`="Herd Prevalence",
+             `Incubation period`="Incubation peiod",
+             `Incubation period`="Incubation peiod",
+             `Specificity`="Specificty",
+             
+             #Double space
+             ` `="  ")
 
 parametra<-data.frame()
 

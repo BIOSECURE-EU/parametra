@@ -1,4 +1,4 @@
-"","Pathogen","Host","Transmission Parameters","Latent/incubation","Pathogen Survival","Diagnostic","Within Herd Prevalence","Regional Prevalence","Control Programme"
+"","Pathogen","Host","Transmission Parameters","Latent/incubation","Pathogen Survival","Diagnostic","Within Herd prevalence","Regional Prevalence","Control Programme"
 "1","Bovine Viral Diarrhoea Virus","Cattle","R0; Beta","Latent; infectious","Pathogen survival; disinfection","ELISA; PCR; Virus Isolation in Cell Culture","Yes","Spain; UK; Greece; Belgium; Ireland; Estonia; Large scale review of 73 countries",NA
 "2","Infectious Bovine Rhinotracheitis","Cattle","R0; Beta","latent","Pathogens survival; disinfection","ELISA; PCR","Yes","Spain; Estonia",NA
 "3","SalmonellaDublin","Cattle","R0; Beta","Latent; infectious","Pathogen survivial; disinfection","ELISA; Faecal culture; PCR","Yes","UK; France; Denmark; Ireland; Estonia",NA
