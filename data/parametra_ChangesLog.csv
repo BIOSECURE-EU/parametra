@@ -1,0 +1,20 @@
+"","Denote major changes to the template in this sheet","...2","...3"
+"1","Major changes are at least:",NA,NA
+"2",NA,"Adding / removing worksheet",NA
+"3",NA,"Adding / removing categories in the LOT (list of terms)",NA
+"4",NA,"Adding / removing columns",NA
+"5",NA,"Removing / moving entries",NA
+"6",NA,NA,NA
+"7",NA,NA,NA
+"8","Date","Who","What"
+"9","45092","EF","Added ChangesLog"
+"10","45092","EF","Renamed infectious period to infectious latent period"
+"11","45092","EF","Added Latent period and incubation period to LOT"
+"12","45092","EF","Added worksheet OtherRelevantStudies"
+"13","45092","EF","Added review and metaanalysis as studies"
+"14","45100","AA","Added parameters columns to the pathogens sheet to track which parameters have been added for which diseases"
+"15","45201","AA","Added large quantity of data from an offline version of the sheet that had been accidentally working on, and reorganised the diseases to give space between of one or two lines and reduced line size to improve readability"
+"16","45201","AA","Added contact details for Arvo Viltrop to the LOT as Arvo had added study to sheet"
+"17","45306","AA","Added within herd and regional prevalence columns to endemic pathogens"
+"18","45378","AA","New version of the database created with every numeric value now assigned an individual row"
+"19","45428","AA","Bluetongue; Classical Swine Fever parameters added following EU stakeholder prioritation exercise"
