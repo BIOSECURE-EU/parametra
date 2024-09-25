@@ -1,8 +1,10 @@
-#PARAMETRA
+PARAMETRA
+
 Welcome to the PARAMETRA livestock disease transmission database. This database has been assembled by the BIOSECURE consortium to facilitate livestock disease transmission modelling. The PARAMETRA database is designed to be directly downloaded into programming environments such as R. In this ReadMe you will find an overview of the data currently available.
 The PARAMETRA database currently contains parameter values for up to 20 different livestock diseases. PARAMETRA was populated using a semi-systematic literature review. For further information on methodology please consult the accompanying publication [doi: XXXX - add when we submit to Biorxiv].
 
-#DATABASE STRUCTURE
+DATABASE STRUCTURE
+
 The PARAMETRA database is subdivided by disease and by parameter. Parameters included in the database are 
 Transmission: Reproduction number; transmission parameter; probability of infection given direct/indirect contact; probability of reactivation of latent infection; other
 Infectious/Latent/Incubation: Infectious period; latent Period; incubation period; shape; other
@@ -17,7 +19,8 @@ Endemic pathogens: contains a list of endemic pathogens and a summary of the ava
 Epidemic pathogens: contains a list of endemic pathogens and a summary of the availability of parameters per disease
 AMR pathogens: antimicrobial resistance pathogens, contains a list of AMR pathogens and a summary of the availability of parameters per disease
 
-#FOLDERS AND FILES
+FOLDERS AND FILES
+
 data: this folder contains all parameter value data in separate .csv files and the full database as a single .xlsx file
 	parametra.xslx: the full PARAMETRA database
 	parametra_AMR_Pathogens.cv: summary of available data for AMR pathogens
@@ -51,21 +54,25 @@ parametra.Rproj: R project file for the database
 renv.lock:
 set_up.R:
 
-#SET UP
+SET UP
+
 1. open parametra.Rproj in RStudio (recommended)
 2. Alternatively set your working directory to the project folder
 3. Install required packages
 	install.packages(c("mc2d", "ggplot2", "dplyr", "tidyr"))
 
-#USAGE
+USAGE
+
 The database and individual sheets can be downloaded directly into R or other programming environments. The database is designed to be used in the development of transmission models for livestock diseases. 
 
-#DATABASE MODIFICATION
+DATABASE MODIFICATION
+
 The database can only be modified by administrators (contact information below). If you wish to make a modification to the database, if you notice an error in the database, or you would like to include an additional disease or parameter to the database please contact the administrators to discuss this.
 
-#LICENSE
+LICENSE
 
 
-#CONTACT
+CONTACT
+
 Natalia Ciria Artiga: Natalia.Ciria@uab.cat
 Alistair Antonopoulos: Alistair@kreavet.com
