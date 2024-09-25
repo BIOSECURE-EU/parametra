@@ -34,43 +34,73 @@ AMR pathogens: antimicrobial resistance pathogens, contains a list of AMR pathog
 FOLDERS AND FILES
 
 data: this folder contains all parameter value data in separate .csv files and the full database as a single .xlsx file
-	parametra.xslx: the full PARAMETRA database
-	parametra_AMR_Pathogens.cv: summary of available data for AMR pathogens
+	
+ 	parametra.xslx: the full PARAMETRA database
+	
+ 	parametra_AMR_Pathogens.cv: summary of available data for AMR pathogens
+	
 	parametra_ChangesLog.csv: summary of changes made to the database
-	parametra_ControlPlan.csv: national and regional control plan data
-	parametra_DiagnosticTest.csv: diagnostic test sensitivity and specificity data
-	parametra_Endemic_Pathogens.csv: summary of available data for endemic pathogens
-	parametra_Epidemic_Pathogens.cv: summary of available data for epidemic pathogens
-	parametra_InfectiousLatentIncubation.csv: infectious latent incubation period data
-	parametra_LOT.csv: list of terms
-	parametra_OtherRelevantInformation.csv: other relevant publications
-	parametra_PathogenSurvival.csv: pathogen survival and disinfection on surfaces data
-	parametra_RegionalPrevalence.csv: regional prevalence data
-	parametra_Transmission.csv: transmission parameter data
-	parametra_WithinHerdPrevalence.csv: within herd prevalence data
+	
+ 	parametra_ControlPlan.csv: national and regional control plan data
+	
+ 	parametra_DiagnosticTest.csv: diagnostic test sensitivity and specificity data
+	
+ 	parametra_Endemic_Pathogens.csv: summary of available data for endemic pathogens
+	
+ 	parametra_Epidemic_Pathogens.cv: summary of available data for epidemic pathogens
+	
+ 	parametra_InfectiousLatentIncubation.csv: infectious latent incubation period data
+	
+ 	parametra_LOT.csv: list of terms
+	
+ 	parametra_OtherRelevantInformation.csv: other relevant publications
+	
+ 	parametra_PathogenSurvival.csv: pathogen survival and disinfection on surfaces data
+	
+ 	parametra_RegionalPrevalence.csv: regional prevalence data
+	
+ 	
+  	parametra_Transmission.csv: transmission parameter data
+	
+ 	parametra_WithinHerdPrevalence.csv: within herd prevalence data
 
 outputs: this folder contains the matrix summarising the database contents
-	param_matrix.csv: database summary matrix
-	param_matrix.xlsx: database summary matrix
+	
+ 	param_matrix.csv: database summary matrix
+	
+ 	param_matrix.xlsx: database summary matrix
 
 renv: this folder contains R environment files
+	
+ 	.gitignore:
+	
+ 	activate.R:
+
+
+
+	.Rprofile:
+
 	.gitignore:
-	activate.R:
 
+	README.md: read me file for the database
 
-.Rprofile:
-.gitignore:
-README.md: read me file for the database
-data_analysis.qmd:
-parametra.Rproj: R project file for the database
-renv.lock:
-set_up.R:
+	data_analysis.qmd:
+	
+ 	parametra.Rproj: R project file for the database
+
+	renv.lock:
+
+	set_up.R:
 
 SET UP
 
+
 1. open parametra.Rproj in RStudio (recommended)
+
 2. Alternatively set your working directory to the project folder
+
 3. Install required packages
+
 	install.packages(c("mc2d", "ggplot2", "dplyr", "tidyr"))
 
 USAGE
@@ -87,4 +117,5 @@ LICENSE
 CONTACT
 
 Natalia Ciria Artiga: Natalia.Ciria@uab.cat
+
 Alistair Antonopoulos: Alistair@kreavet.com
