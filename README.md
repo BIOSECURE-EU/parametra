@@ -5,18 +5,30 @@ The PARAMETRA database currently contains parameter values for up to 20 differen
 
 DATABASE STRUCTURE
 
-The PARAMETRA database is subdivided by disease and by parameter. Parameters included in the database are 
+The PARAMETRA database is subdivided by disease and by parameter. Parameters included in the database are:
+
 Transmission: Reproduction number; transmission parameter; probability of infection given direct/indirect contact; probability of reactivation of latent infection; other
+
 Infectious/Latent/Incubation: Infectious period; latent Period; incubation period; shape; other
+
 Pathogen survival: no numeric parameters, this section of the database contains a summary of relevant publications relating to pathogen survival on a variety of surfaces and disinfection procedures
+
 Diagnostic Test: Specificity; sensitivity
+
 Within Herd Prevalence: Within herd prevalence
+
 Regional Prevalence: Herd prevalence; global prevalence
+
 Control Plan: no numeric parameters, this section of the database contains a summary of relevant publications relating to the presence of voluntary or compulsory national and regional control plans for various diseases
+
 Other Relevant Information: no numeric parameters, this section of the database contains a summary of publications which may be of interest of relevance for modelling but which do not fit directly into any of the numeric parameter categories included in the database
+
 LOT: List of terms, this section contains a list of terms used in the database and their meanings
+
 Endemic pathogens: contains a list of endemic pathogens and a summary of the availability of parameters per disease
+
 Epidemic pathogens: contains a list of endemic pathogens and a summary of the availability of parameters per disease
+
 AMR pathogens: antimicrobial resistance pathogens, contains a list of AMR pathogens and a summary of the availability of parameters per disease
 
 FOLDERS AND FILES
