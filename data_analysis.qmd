@@ -7,6 +7,10 @@ editor: visual
 
 ## Introduction
 
+```{r}
+source("set_up.R")
+```
+
 ## Data Description
 
 ## Data Analysis

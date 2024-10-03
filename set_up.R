@@ -54,7 +54,19 @@ new_words<-c(`African Swine Fever`="African Swine Fever Virus",
              `Incubation period`="Incubation peiod",
              `Incubation period`="Incubation peiod",
              `Specificity`="Specificty",
-             
+             `Probability of transmission via indirect contact`="Probability of infection via indirect contact",
+             `Probability of transmission via direct contact`="Probability of infection via direct contact",
+             `Ppathogen survival/Ddisinfection`="Pathogen survival/Disinfection",
+             `Pathogen survival/Ddisinfection`="Pathogen survival",
+             `Pathogen survival/Disinfection`="Disinfection",
+             `Disinfection`="Ddisinfection",
+             `Pathogen`="Ppathogen",
+             `Pathogen survival/Disinfection`="Decay Rate \\(α\\)",
+             `Pathogen survival/Disinfection`="Rate of decontamination \\(δ\\)",
+             `Transmission on fomites`="Transmission on fomites in cold weather conditions",
+             `Transmission on fomites`="Transmission in contaminated transport vehicle",
+             `Shape`="Latent period shape",
+
              #Double space
              ` `="  ")
 
@@ -85,4 +97,10 @@ for(i in 1:length(sheet_names)){
   
 }
 
+#Remove empty rows
+parametra<-parametra[rowSums(is.na(parametra)) != ncol(parametra),]
+parametra<-parametra[!is.na(parametra$Pathogen),]
+parametra$Parameter[is.na(parametra$Parameter)]<-"Other"
+
 unique(parametra$Pathogen)
+unique(parametra$Parameter)

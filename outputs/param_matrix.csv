@@ -1,23 +1,22 @@
-"Pathogen","NA","Basic reproduction number","Transmission parameter","Infectious period","Sensitivity","Specificity","Within herd prevalence","Latent period","Shape","Incubation period","Other","Reproduction number","Herd prevalence","Probability of transmission via indirect contact","Probability of transmission via direct contact","Pathogen survival","Probability fomite testing positive","Disinfection","Pathogen survival/Disinfection","Probability of infection via direct contact","Probability of infection via indirect contact","Transmission on fomites","Global Prevalence","Probability of  transmission via direct contact","Decay Rate (α)","Rate of decontamination (δ)","Probability of reactivation of latent infection","Transmission in contaminated transport vehicle","Transmission on fomites in cold weather conditions"
-NA,183,NA,NA,NA,NA,NA,NA,NA,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Avian Influenza",1,169,129,112,15,15,NA,76,NA,29,NA,NA,NA,6,6,2,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Paratuberculosis",3,22,49,2,111,101,NA,3,NA,NA,10,NA,8,1,2,4,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA,NA
-"E. coli",3,18,53,3,99,90,NA,3,NA,NA,22,1,NA,9,3,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Hepatitis E",1,25,32,36,2,2,94,34,1,NA,1,7,17,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Bovine Tuberculosis",5,12,15,NA,65,39,7,6,NA,NA,11,6,9,NA,NA,1,NA,NA,1,NA,NA,NA,1,NA,NA,NA,NA,NA,NA
-"Swine Influenza",1,2,43,16,7,3,8,10,NA,NA,NA,16,4,NA,NA,1,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"African Swine Fever",5,32,36,26,15,8,NA,7,32,NA,19,NA,NA,7,2,4,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Salmonella",2,30,7,2,11,8,27,2,NA,NA,5,NA,5,NA,NA,2,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"PRRS",1,20,27,2,11,8,10,3,NA,NA,15,13,2,2,2,1,NA,NA,NA,NA,NA,2,NA,NA,NA,NA,NA,1,1
-"Foot and Mouth Disease",1,6,8,13,13,11,NA,3,NA,NA,3,19,NA,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,1,1,NA,NA,NA
-"Campylobacter",1,NA,12,3,18,17,5,2,NA,NA,7,NA,5,NA,NA,1,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Bluetongue",NA,15,NA,NA,3,3,1,NA,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Coxiella burnetii",1,NA,15,5,4,3,12,NA,NA,NA,NA,1,11,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Classical Swine Fever",NA,10,13,2,2,2,NA,1,2,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,2,2,NA,NA,NA,NA,NA,NA,NA,NA
-"Bovine Respiratory Syncytial Virus",1,11,9,NA,3,2,1,NA,NA,2,2,NA,9,NA,NA,1,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Peste des Petits Ruminants",1,4,3,1,10,3,NA,NA,NA,2,1,2,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Bovine Viral Diarrhoea Virus",2,3,7,3,7,7,7,NA,NA,NA,NA,NA,8,NA,NA,NA,3,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA
-"Contagious agalactia",2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Multiple",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Infectious Bovine Rhinotracheitis",2,1,NA,1,3,2,3,NA,NA,NA,NA,NA,2,NA,1,1,NA,2,1,NA,NA,NA,NA,NA,NA,NA,1,NA,NA
-"S. aureus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Pathogen","Basic reproduction number","Transmission parameter","Infectious period","Sensitivity","Specificity","Within herd prevalence","Latent period","Shape","Incubation period","Other","Reproduction number","Herd prevalence","Probability of transmission via indirect contact","Pathogen survival/Disinfection","Probability of transmission via direct contact","Transmission on fomites","Probability fomite testing positive","Global Prevalence","Probability of reactivation of latent infection"
+"Avian Influenza",169,129,112,15,15,NA,76,NA,29,1,NA,NA,6,3,6,NA,NA,NA,NA
+"Paratuberculosis",22,49,2,111,101,NA,3,NA,NA,13,NA,8,1,4,2,NA,NA,NA,1
+"E. coli",18,53,3,99,90,NA,3,NA,NA,25,1,NA,9,1,3,NA,NA,NA,NA
+"Hepatitis E",25,32,36,2,2,94,34,1,NA,2,7,17,NA,2,NA,NA,NA,NA,NA
+"Bovine Tuberculosis",12,15,NA,65,39,7,6,NA,NA,16,6,9,NA,2,NA,NA,NA,1,NA
+"Swine Influenza",2,43,16,7,3,8,10,NA,NA,1,16,4,NA,2,NA,NA,NA,NA,NA
+"African Swine Fever",32,36,26,15,8,NA,7,32,NA,24,NA,NA,7,6,2,NA,NA,NA,NA
+"Salmonella",30,7,2,11,8,27,2,NA,NA,7,NA,5,NA,4,NA,NA,NA,NA,NA
+"PRRS",20,27,2,11,8,10,3,NA,NA,16,13,2,2,1,2,4,NA,NA,NA
+"Foot and Mouth Disease",6,8,13,13,11,NA,3,NA,NA,4,19,NA,NA,4,NA,NA,NA,NA,NA
+"Campylobacter",NA,12,3,18,17,5,2,NA,NA,8,NA,5,NA,2,NA,NA,NA,NA,NA
+"Bluetongue",15,NA,NA,3,3,1,NA,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Coxiella burnetii",NA,15,5,4,3,12,NA,NA,NA,1,1,11,NA,2,NA,NA,NA,NA,NA
+"Classical Swine Fever",10,13,2,2,2,NA,1,2,NA,NA,5,NA,2,NA,2,NA,NA,NA,NA
+"Bovine Respiratory Syncytial Virus",11,9,NA,3,2,1,NA,NA,2,3,NA,9,NA,3,NA,NA,NA,NA,NA
+"Peste des Petits Ruminants",4,3,1,10,3,NA,NA,NA,2,2,2,NA,NA,1,NA,NA,NA,NA,NA
+"Bovine Viral Diarrhoea Virus",3,7,3,7,7,7,NA,NA,NA,2,NA,8,1,NA,NA,NA,3,NA,NA
+"Contagious agalactia",NA,NA,NA,NA,NA,NA,NA,NA,NA,2,NA,5,NA,1,NA,NA,NA,NA,NA
+"Multiple",NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Infectious Bovine Rhinotracheitis",1,NA,1,3,2,3,NA,NA,NA,2,NA,2,NA,4,1,NA,NA,NA,1
+"S. aureus",NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA
