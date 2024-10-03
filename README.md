@@ -48,7 +48,7 @@ The database and individual sheets can be downloaded directly into R or other pr
 To download just one table you can use the following code:
 
 ``` r
-data<-read.cs("https://raw.githubusercontent.com/..")
+data<-read.csv("https://raw.githubusercontent.com/..")
 ```
 
 To download and name multiple tables you can use the following code:
