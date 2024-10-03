@@ -1,121 +1,76 @@
-PARAMETRA
+# PARAMETRA
 
-Welcome to the PARAMETRA livestock disease transmission database. This database has been assembled by the BIOSECURE consortium to facilitate livestock disease transmission modelling. The PARAMETRA database is designed to be directly downloaded into programming environments such as R. In this ReadMe you will find an overview of the data currently available.
-The PARAMETRA database currently contains parameter values for up to 20 different livestock diseases. PARAMETRA was populated using a semi-systematic literature review. For further information on methodology please consult the accompanying publication [doi: XXXX - add when we submit to Biorxiv].
+Welcome to the PARAMETRA livestock disease transmission database. This database has been assembled by the BIOSECURE consortium to facilitate livestock disease transmission modelling.
 
-DATABASE STRUCTURE
+## Overview
+
+The PARAMETRA database is designed to be directly downloaded into programming environments such as R. It currently contains parameter values for up to 20 different livestock diseases, populated using a semi-systematic literature review.
+
+For further information on methodology, please consult the accompanying publication [doi: XXXX - add when we submit to Biorxiv].
+
+![Parameter availability](images/2024_10_03_param_matrix.png)
+
+## Database Structure
 
 The PARAMETRA database is subdivided by disease and by parameter. Parameters included in the database are:
 
-Transmission: Reproduction number; transmission parameter; probability of infection given direct/indirect contact; probability of reactivation of latent infection; other
+1.  **Transmission**: Reproduction number, transmission parameter, probability of infection given direct/indirect contact, probability of reactivation of latent infection, other
+2.  **Infectious/Latent/Incubation**: Infectious period, latent period, incubation period, shape, other
+3.  **Pathogen survival**: Summary of relevant publications relating to pathogen survival on various surfaces and disinfection procedures
+4.  **Diagnostic Test**: Specificity, sensitivity
+5.  **Within Herd Prevalence**: Within herd prevalence
+6.  **Regional Prevalence**: Herd prevalence, global prevalence
+7.  **Control Plan**: Summary of relevant publications relating to voluntary or compulsory national and regional control plans
+8.  **Other Relevant Information**: Summary of publications relevant for modelling
+9.  **LOT (List of Terms)**: List of terms used in the database and their meanings
+10. **Endemic pathogens**: List of endemic pathogens and parameter availability summary
+11. **Epidemic pathogens**: List of epidemic pathogens and parameter availability summary
+12. **AMR pathogens**: List of antimicrobial resistance pathogens and parameter availability summary
 
-Infectious/Latent/Incubation: Infectious period; latent Period; incubation period; shape; other
+## Folders and Files
 
-Pathogen survival: no numeric parameters, this section of the database contains a summary of relevant publications relating to pathogen survival on a variety of surfaces and disinfection procedures
+`data/` : Contains all parameter value data in separate .csv files and the full database as a single .xlsx file.
 
-Diagnostic Test: Specificity; sensitivity
+`outputs/`: Contains the matrix summarizing the database contents, in excel and csv format.
 
-Within Herd Prevalence: Within herd prevalence
+## Usage
 
-Regional Prevalence: Herd prevalence; global prevalence
+The database and individual sheets can be downloaded directly into R or other programming environments. The database is designed to be used in the development of transmission models for livestock diseases.
 
-Control Plan: no numeric parameters, this section of the database contains a summary of relevant publications relating to the presence of voluntary or compulsory national and regional control plans for various diseases
+**How to download parametra csv files in R**
 
-Other Relevant Information: no numeric parameters, this section of the database contains a summary of publications which may be of interest of relevance for modelling but which do not fit directly into any of the numeric parameter categories included in the database
+1.  Go to the CSV file
 
-LOT: List of terms, this section contains a list of terms used in the database and their meanings
+2.  Click on the **raw** option present on the top right of the data
 
-Endemic pathogens: contains a list of endemic pathogens and a summary of the availability of parameters per disease
+3.  Copy de link (it starts with [https://raw.githubusercontent.com/..](https://raw.githubusercontent.com/).)
 
-Epidemic pathogens: contains a list of endemic pathogens and a summary of the availability of parameters per disease
+To download just one table you can use the following code:
 
-AMR pathogens: antimicrobial resistance pathogens, contains a list of AMR pathogens and a summary of the availability of parameters per disease
+``` r
+data<-read.cs("https://raw.githubusercontent.com/..")
+```
 
-FOLDERS AND FILES
+To download and name multiple tables you can use the following code:
 
-data: this folder contains all parameter value data in separate .csv files and the full database as a single .xlsx file
-	
- 	parametra.xslx: the full PARAMETRA database
-	
- 	parametra_AMR_Pathogens.cv: summary of available data for AMR pathogens
-	
-	parametra_ChangesLog.csv: summary of changes made to the database
-	
- 	parametra_ControlPlan.csv: national and regional control plan data
-	
- 	parametra_DiagnosticTest.csv: diagnostic test sensitivity and specificity data
-	
- 	parametra_Endemic_Pathogens.csv: summary of available data for endemic pathogens
-	
- 	parametra_Epidemic_Pathogens.cv: summary of available data for epidemic pathogens
-	
- 	parametra_InfectiousLatentIncubation.csv: infectious latent incubation period data
-	
- 	parametra_LOT.csv: list of terms
-	
- 	parametra_OtherRelevantInformation.csv: other relevant publications
-	
- 	parametra_PathogenSurvival.csv: pathogen survival and disinfection on surfaces data
-	
- 	parametra_RegionalPrevalence.csv: regional prevalence data
-	
- 	
-  	parametra_Transmission.csv: transmission parameter data
-	
- 	parametra_WithinHerdPrevalence.csv: within herd prevalence data
+``` r
+table_names<-c("Transmission", "InfectiousLatentIncubatperiod", "PathogenSurvival","DiagnosticTest","WithinHerdPrevalence", "RegionalPrevalence", "ControlPlan", "OtherRelevantInformation", "LOT", "ChangesLog", "Endemic_Pathogens", "Epidemic_Pathogens", "AMR_Pathogens")               
 
-outputs: this folder contains the matrix summarising the database contents
-	
- 	param_matrix.csv: database summary matrix
-	
- 	param_matrix.xlsx: database summary matrix
+for(i in 1:lenght(table_names)){
+  table_i<-read.csv(paste0("https://github.com/BIOSECURE-EU/parametra/blob/main/data/",table_names[i]))
+  assign(table_names[i],table_i)
+}
+```
 
-renv: this folder contains R environment files
-	
- 	.gitignore:
-	
- 	activate.R:
+## Database Modification
 
+The database can only be modified by administrators. If you wish to make a modification, notice an error, or would like to include an additional disease or parameter, please contact the administrators.
 
+## License
 
-	.Rprofile:
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-	.gitignore:
+## Contact
 
-	README.md: read me file for the database
-
-	data_analysis.qmd:
-	
- 	parametra.Rproj: R project file for the database
-
-	renv.lock:
-
-	set_up.R:
-
-SET UP
-
-
-1. open parametra.Rproj in RStudio (recommended)
-
-2. Alternatively set your working directory to the project folder
-
-3. Install required packages
-
-	install.packages(c("mc2d", "ggplot2", "dplyr", "tidyr"))
-
-USAGE
-
-The database and individual sheets can be downloaded directly into R or other programming environments. The database is designed to be used in the development of transmission models for livestock diseases. 
-
-DATABASE MODIFICATION
-
-The database can only be modified by administrators (contact information below). If you wish to make a modification to the database, if you notice an error in the database, or you would like to include an additional disease or parameter to the database please contact the administrators to discuss this.
-
-LICENSE
-
-
-CONTACT
-
-Natalia Ciria Artiga: Natalia.Ciria@uab.cat
-
-Alistair Antonopoulos: Alistair@kreavet.com
+-   Natalia Ciria Artiga: [Natalia.Ciria\@uab.cat](mailto:Natalia.Ciria@uab.cat){.email}
+-   Alistair Antonopoulos: [Alistair\@kreavet.com](mailto:Alistair@kreavet.com){.email}
