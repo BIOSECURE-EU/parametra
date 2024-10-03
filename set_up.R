@@ -1,11 +1,11 @@
 library(readxl)
+library(xlsx)
 library(dplyr)
 library(tidyr)
 
 file<-"data/parametra.xlsx"
 
 sheet_names<-excel_sheets(path = file)
-
 
 new_words<-c(`African Swine Fever`="African Swine Fever Virus",
              `African Swine Fever`="ASF",
@@ -85,8 +85,13 @@ for(i in 1:length(sheet_names)){
     names(csv)<-good_colnames
   }
   
-  #Save csv in data directory
+  #Write csv
   write.csv(csv, file = paste0("data/parametra_",sheet_names[i],".csv"))
+
+  #Write excel file
+  write.xlsx(csv,"data/parametra_new.xlsx", 
+              sheetName=sheet_names[i], 
+              col.names = TRUE,showNA=FALSE,append=TRUE) 
   
   #Joint table
   csv$ParameterType<-sheet_names[i]
@@ -104,3 +109,34 @@ parametra$Parameter[is.na(parametra$Parameter)]<-"Other"
 
 unique(parametra$Pathogen)
 unique(parametra$Parameter)
+
+unique(parametra$Pathogen)
+
+
+
+#Create Parameter availability matrix
+params<-parametra[!grepl(";", parametra$Pathogen),]%>%
+  group_by(Pathogen, Parameter)%>%
+  summarise(n = n())%>%
+  arrange(desc(n))
+
+
+matrix<-tidyr::pivot_wider(data=params[!is.na(params$n),],
+                           id_cols=Pathogen,
+                           names_from=Parameter,
+                           values_from=n)
+matrix_df<-as.data.frame(matrix)
+
+write.csv(matrix_df, file = "outputs/param_matrix.csv", row.names = FALSE)
+
+
+#matrix row names
+rnames<-matrix$Pathogen
+matrix$Pathogen<-NULL
+matrix<-as.matrix(matrix)
+row.names(matrix)<-rnames
+
+matrix[is.na(matrix)]<-0
+
+
+heatmap(matrix)
