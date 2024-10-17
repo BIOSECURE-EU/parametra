@@ -72,5 +72,5 @@ The database can only be modified by administrators. If you wish to make a modif
 
 ## Contact
 
--   Natalia Ciria Artiga: [Natalia.Ciria\@uab.cat](mailto:Natalia.Ciria@uab.cat){.email}
--   Alistair Antonopoulos: [Alistair\@kreavet.com](mailto:Alistair@kreavet.com){.email}
+-   Natalia Ciria Artiga: [Natalia.Ciria\@uab.cat](mailto:Natalia.Ciria@uab.cat)
+-   Alistair Antonopoulos: [Alistair\@kreavet.com](mailto:Alistair@kreavet.com)
