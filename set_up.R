@@ -66,11 +66,16 @@ new_words<-c(`African Swine Fever`="African Swine Fever Virus",
              `Transmission on fomites`="Transmission on fomites in cold weather conditions",
              `Transmission on fomites`="Transmission in contaminated transport vehicle",
              `Shape`="Latent period shape",
+             
+             # Study types
+             `Experimental Field` = "Experimental field",
+             `Meta-analysis` = "Systematic review and meta-analysis",
 
              #Double space
              ` `="  ")
 
 parametra<-data.frame()
+file.remove("data/parametra_new.xlsx")
 
 for(i in 1:length(sheet_names)){
   
@@ -107,36 +112,8 @@ parametra<-parametra[rowSums(is.na(parametra)) != ncol(parametra),]
 parametra<-parametra[!is.na(parametra$Pathogen),]
 parametra$Parameter[is.na(parametra$Parameter)]<-"Other"
 
-unique(parametra$Pathogen)
-unique(parametra$Parameter)
-
-unique(parametra$Pathogen)
+#Save parametra long
+write.csv(parametra, file = paste0("data/parametra_long.csv"))
 
 
 
-#Create Parameter availability matrix
-params<-parametra[!grepl(";", parametra$Pathogen),]%>%
-  group_by(Pathogen, Parameter)%>%
-  summarise(n = n())%>%
-  arrange(desc(n))
-
-
-matrix<-tidyr::pivot_wider(data=params[!is.na(params$n),],
-                           id_cols=Pathogen,
-                           names_from=Parameter,
-                           values_from=n)
-matrix_df<-as.data.frame(matrix)
-
-write.csv(matrix_df, file = "outputs/param_matrix.csv", row.names = FALSE)
-
-
-#matrix row names
-rnames<-matrix$Pathogen
-matrix$Pathogen<-NULL
-matrix<-as.matrix(matrix)
-row.names(matrix)<-rnames
-
-matrix[is.na(matrix)]<-0
-
-
-heatmap(matrix)

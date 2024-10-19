@@ -1,0 +1,14 @@
+"Pathogen","SIR model","SLIR","SIS","GLM","SIRS","SI","SLI/SLIE/SLICE","Final size","SI model","SIR","Exponential growth rate","SEIR model","SI/SIS","SLICE","Stochastic herd level simulation","Final size, Bayesian hierarchical model","SOEI","2R-SIR","SEIR","SLI-SC","Bayesian analysis","SIR/SEIR model","Time series data and generation time","SLI","SLRI","Time-rooted phylodynamic evolutionary model","Continuous Markov Chain Model","SUD","1R-SIR","Transmission network analysis","/year","Si","Doubling time","Epidemic doubling time","Nearest infectious neighbour","Nearest infectious neighbour (Euclidean distance)","Nearest infectious neighbour (road distance)","Stochastic mathematical model","None (descriptive)","FS","Multiscale model","Seasonal matrix population model"
+"Avian Influenza",46,41,NA,30,NA,NA,NA,20,18,NA,8,8,NA,NA,NA,7,NA,NA,NA,NA,4,4,4,NA,NA,3,NA,NA,NA,NA,NA,NA,1,1,1,1,1,1,NA,NA,NA,NA
+"E. coli",NA,NA,31,NA,NA,23,NA,NA,NA,6,NA,NA,8,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Salmonella",NA,NA,NA,NA,28,NA,NA,NA,NA,10,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"PRRS",NA,NA,NA,NA,23,NA,NA,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Paratuberculosis",NA,NA,NA,NA,NA,6,22,NA,NA,NA,NA,NA,NA,8,8,NA,NA,NA,NA,NA,NA,NA,NA,NA,4,NA,NA,NA,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA
+"Classical Swine Fever",NA,NA,NA,NA,NA,11,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"African Swine Fever",NA,NA,NA,NA,NA,8,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2,4,NA,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Campylobacter",NA,NA,NA,NA,NA,7,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Foot and Mouth Disease",NA,NA,NA,6,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA,NA
+"Bovine Tuberculosis",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA,NA,NA,NA,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Peste des Petits Ruminants",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1
+"Bovine Viral Diarrhoea Virus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA,NA,NA
+"Infectious Bovine Rhinotracheitis",NA,1,NA,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
