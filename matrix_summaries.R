@@ -69,8 +69,7 @@ heatmap(matrix, Colv = NA, Rowv = NA)
 
 #### Year of publishing ####
 study_year<-parametra%>%
-  separate(Reference,c("First Author","Year"), sep=", ")%>%
-  mutate(Year=as.numeric(Year))%>%
+  mutate(Year = as.numeric(stringr::str_extract_all(Reference, "\\b\\d{4}\\b")))%>%
   filter(!grepl(";", Pathogen))%>%  #Filter for only individual pathogens
   group_by(Pathogen, Year)%>%
   summarise(n = n())%>%
