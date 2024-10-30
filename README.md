@@ -78,7 +78,3 @@ The database can only be modified by administrators. If you wish to make a modif
 ## Acknowledgments
 
 This open source software code was developed the BIOSECURE Project, funded from the European Union’s HORIZON Europe FARM2FORK project.
-
-[![](images/biosecure_logo.png){width="100"}](https://biosecure.eu/)
-
-![](images/funded_by_eu.png){width="300"}
