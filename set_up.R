@@ -74,8 +74,10 @@ new_words<-c(`African Swine Fever`="African Swine Fever Virus",
              
              # Study types
              `Experimental Field` = "Experimental field",
+             `Experimental Lab` = "Experimental lab",
              `Meta-analysis` = "Systematic review and meta-analysis",
-
+             `SIR` = "SIR model",
+             `SEIR` = "SEIR model",
              #Double space
              ` `="  ")
 
