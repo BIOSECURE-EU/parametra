@@ -73,12 +73,12 @@ The database can only be modified by administrators. If you wish to make a modif
 
 ## License
 
-![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg){alt="License: GPL v3"}
+![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
 
 ## Acknowledgments
 
 This open source software code was developed the BIOSECURE Project, funded from the European Union’s HORIZON Europe FARM2FORK project.
 
-|                                |                              |
-|--------------------------------|------------------------------|
-| ![](images/biosecure_logo.png) | ![](images/funded_by_eu.png) |
+[![](images/biosecure_logo.png){width="100"}](https://biosecure.eu/)
+
+![](images/funded_by_eu.png){width="300"}
