@@ -1,0 +1,24 @@
+Pathogen;n_param;n_ref
+Avian Influenza;561;73
+Paratuberculosis;317;29
+E. coli;305;25
+Hepatitis E;254;26
+African Swine Fever;195;36
+Bovine Tuberculosis;178;27
+PRRS;121;28
+Swine Influenza;112;21
+Salmonella;103;24
+Foot and Mouth Disease;81;15
+Campylobacter;72;27
+Coxiella burnetii;54;22
+Bovine Viral Diarrhoea Virus;48;25
+Bovine Respiratory Syncytial Virus;43;21
+Classical Swine Fever;41;7
+Peste des Petits Ruminants;28;11
+Bluetongue;26;4
+Infectious Bovine Rhinotracheitis;20;18
+Contagious agalactia;8;8
+Multiple;5;5
+"African Swine Fever; FMD; CSF";1;1
+"E. coli; Campylobacter; Enterococci";1;1
+S. aureus;1;1
