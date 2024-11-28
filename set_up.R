@@ -74,8 +74,10 @@ new_words<-c(`African Swine Fever`="African Swine Fever Virus",
              
              # Study types
              `Experimental Field` = "Experimental field",
+             `Experimental Lab` = "Experimental lab",
              `Meta-analysis` = "Systematic review and meta-analysis",
-
+             `SIR` = "SIR model",
+             `SEIR` = "SEIR model",
              #Double space
              ` `="  ")
 
@@ -100,17 +102,25 @@ for(i in 1:length(sheet_names)){
     csv<-csv%>%
       mutate(Reference=ifelse(!grepl("\\.",Reference)&!grepl(",",Reference),paste0(Reference,"."),Reference))%>%
       left_join(review, by=c("Reference" = "Authors", "Variant/Strain"="Type"))%>%
-      mutate(Reference=ifelse(!is.na(new_Reference),new_Reference,Reference))
+      mutate(Reference=ifelse(!is.na(new_Reference),new_Reference,Reference))%>%
+      distinct()
+    
+    #Remove empty rows
+    csv[rowSums(is.na(csv)) != ncol(csv), ]
+    
   }
 
   
   #Write csv
-  write.csv(csv, file = paste0("data/parametra_",sheet_names[i],".csv"))
+  write.csv(csv, file = paste0("data/parametra_",sheet_names[i],".csv"), row.names=FALSE)
 
   #Write excel file
-  write.xlsx(csv,"data/parametra_new.xlsx", 
-              sheetName=sheet_names[i], 
-              col.names = TRUE,showNA=FALSE,append=TRUE) 
+  write.xlsx(csv,"data/parametra_new.xlsx",
+             sheetName=sheet_names[i],
+             col.names = TRUE,
+             row.names=FALSE,
+             showNA=FALSE,
+             append=TRUE) 
   
   #Joint table
   csv$ParameterType<-sheet_names[i]

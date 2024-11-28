@@ -1,117 +1,117 @@
-"","Type","Table","Term","Explanation...4","...5","...6","...7","...8","...9","...10","...11","...12","...13","...14","...15","Material","Explanation...17"
-"1","Parameter","Transmission","Transmission parameter","Number of new cases per infectious individual per unit of time (synonyms transmission coefficient, transmission rate)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Mud",NA
-"2","Parameter","Transmission","Reproduction number","Total number of new infectious individuals per infectious individual during its entire infectious period (also called effective reproduction number also include things stated as Rc, Rv, Rt)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Feces",NA
-"3","Parameter","Transmission","Basic reproduction number","Total number of new infectious individuals per infectious individual during its entire infectious period in a totally susceptible population",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Litter",NA
-"4","Parameter","Transmission","Probability of transmission via direct contact","Probability of susceptible animal becoming infected after direct contact with an infected animal",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Floor",NA
-"5","Parameter","Transmission","Probability of transmission via indirect contact","Probability of susceptible animal becoming infected after contact with a contaminated surface",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Bedding",NA
-"6","Parameter","Transmission","Probability of reactivation of latent infection",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"…",NA
-"7","Parameter","Transmission","Other","…",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"8","Parameter","InfectiousLatentIncubatperiod","Infectious period","Duration of infectious period",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"9","Parameter","InfectiousLatentIncubatperiod","Recovery rate","Rate of recovery (exponentially distributed infectious period)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"10","Parameter","InfectiousLatentIncubatperiod","Scale","Scale parameter of gamma distributed infectious period",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"11","Parameter","InfectiousLatentIncubatperiod","Shape","Shape parameter of gamma distributed infectious period",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"12","Parameter","InfectiousLatentIncubatperiod","Other","…",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"13","Parameter","InfectiousLatentIncubatperiod","Latent period","Duration of latent (infected but not infectious period)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"14","Parameter","InfectiousLatentIncubatperiod","Incubation period","Duration of period between infection and first clinical signs",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"15","Parameter","PathogenSurvival","Decay rate","Rate at which pathogen is cleared from environmetn",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"16","Parameter","PathogenSurvival","Probability of survival","Probability pathogen survives a certain time",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"17","Parameter","PathogenSurvival","Other","…",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"18","Parameter","DiagnosticTest","Sensitivity","Probability of a positive test result, conditioned on the condition truly being positive",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"19","Parameter","DiagnosticTest","Specificity","Probability of a negative test result, conditioned on the condition truly being negative",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"20","Test Type","DiagnosticTest","ELISA Ab","Antibody detection ELISA",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"21","Test Type","DiagnosticTest","ELISA Ag","Antigen detection ELISA",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"22","Test Type","DiagnosticTest","PCR","Polymerase chain reaction",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"23","Type of sample","DiagnosticTest","Serum (individual)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"24","Type of sample","DiagnosticTest","Milk (individual)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"25","Type of sample","DiagnosticTest","Milk (tank)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"26","Type of model",NA,"SIR","Susceptible-Infectious-Recovered compartmental model",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"27","Type of model",NA,"SLIR","Susceptible-Latent-Infectious-Recovered compartmental model (also often denoted as SEIR)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"28","Type of model",NA,"SIS","Susceptible-Infectious-Susceptible compartmental model",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"29","Type of model",NA,"SLIS","Susceptible-Latent-Infectious-Susceptible compartmental model (also often denoted as SEIS)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"30","Type of model",NA,"Other compartmetal model",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"31","Type of model",NA,"None (descriptive)","The parameter was not estimated using a model, only descriptive results were reported in the study.",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"32","Type of model",NA,"Other",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"33","Mixing",NA,"Density","Density dependent mixing or mass action (equation often: beta * S * I)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"34","Mixing",NA,"Frequency","Frequency dependent mixing or pseudomass action (beta *S*I/N)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"35","Study",NA,"Observational","Field observations used to estimate parameters",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"36","Study",NA,"Experimental Isolator","Experiment is isolators",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"37","Study",NA,"Experimental Stable","Experiment in stable",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"38","Study",NA,"Experimental Field","Experiment in field situation",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"39","Study",NA,"Experimental Lab","Experiment in laboratory",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"40","Study",NA,"Review","Review without meta analysis",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"41","Study",NA,"Meta-analysis","Review with meta analysis",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"42","Study",NA,"Other","…",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"43","Filled in by:",NA,"AA","Alistair Antonopoulos <alistair@kreavet.com>",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"44","Filled in by:",NA,"EF","Egil Fischer <e.a.j.fischer@uu.nl>",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"45","Filled in by:",NA,"Arvo","Arvo Viltrop <arvo.viltrop@emu.ee>",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"46","Filled in by:",NA,"NC","Natalia Ciria <natalia.ciria@uab.cat>",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"47","Parameter","RegionalPrevalence","Herd prevalence",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"48","Parameter","RegionalPrevalence","Other",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"49","Sampling purpose","RegionalPrevalence","Study",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"50","Sampling purpose","RegionalPrevalence","Control plan",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"51","Regional Information level","RegionalPrevalence","Only Country level","GADM GID_0",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"52","Regional Information level","RegionalPrevalence","First-Level","GADM GID_1 see https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"53","Regional Information level","RegionalPrevalence","Second-Level","GADM GID_2 see https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"54","Regional Information level","RegionalPrevalence","Third-Level","GADM GID_2 see https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"55","Control pogrammen in place","ControlPlan","Yes",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"56","Control pogrammen in place","ControlPlan","No",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"57","Type of programme","ControlPlan","Voluntary",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"58","Type of programme","ControlPlan","Compulsory",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"59","Country status for the disease","ControlPlan","Endemic",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"60","Country status for the disease","ControlPlan","Sporadic",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"61","Country status for the disease","ControlPlan","Officially free",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"62","Country status for the disease","ControlPlan","Perceived free",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"63","Control plan type","ControlPlan","Control",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"64","Control plan type","ControlPlan","Erradication",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"65","Pathogen",NA,"African Swine Fever",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"66","Pathogen",NA,"Avian Influenza",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"67","Pathogen",NA,"Bluetongue",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"68","Pathogen",NA,"Bovine Tuberculosis",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"69","Pathogen",NA,"Bovine Viral Diarrhoea Virus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"70","Pathogen",NA,"Bovine Respiratory Syncytial Virus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"71","Pathogen",NA,"Campylobacter",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"72","Pathogen",NA,"Classical Swine Fever",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"73","Pathogen",NA,"Contagious agalactia",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"74","Pathogen",NA,"Coxiella burnetii",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"75","Pathogen",NA,"E. coli",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"76","Pathogen",NA,"Campylobacter",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"77","Pathogen",NA,"Enterococci",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"78","Pathogen",NA,"Foot and Mouth Disease",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"79","Pathogen",NA,"Hepatitis E",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"80","Pathogen",NA,"Infectious Bovine Rhinotracheitis",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"81","Pathogen",NA,"Infectious Bovine Rhinotracheitis",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"82","Pathogen",NA,"Paratuberculosis",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"83","Pathogen",NA,"Pathogen",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"84","Pathogen",NA,"Peste des Petits Ruminants",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"85","Pathogen",NA,"Peste des Petits Ruminants",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"86","Pathogen",NA,"PRRS",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"87","Pathogen",NA,"Bovine Respiratory Syncytial Virus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"88","Pathogen",NA,"Salmonella",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"89","Pathogen",NA,"Swine Influenza",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"90","Country",NA,"Austria",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"91","Country",NA,"Belgium",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"92","Country",NA,"Bulgaria",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"93","Country",NA,"Croatia",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"94","Country",NA,"Cyprus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"95","Country",NA,"Czech Republic",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"96","Country",NA,"Denmark",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"97","Country",NA,"Estonia",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"98","Country",NA,"Finland",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"99","Country",NA,"France",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"100","Country",NA,"Germany",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"101","Country",NA,"Greece",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"102","Country",NA,"Hungary",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"103","Country",NA,"Ireland",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"104","Country",NA,"Italy",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"105","Country",NA,"Latvia",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"106","Country",NA,"Lithuania",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"107","Country",NA,"Luxembourg",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"108","Country",NA,"Malta",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"109","Country",NA,"Netherlands",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"110","Country",NA,"Poland",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"111","Country",NA,"Portugal",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"112","Country",NA,"Romania",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"113","Country",NA,"Slovakia",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"114","Country",NA,"Slovenia",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"115","Country",NA,"Spain",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"116","Country",NA,"Sweden",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Type","Table","Term","Explanation"
+"Parameter","Transmission","Transmission parameter","Number of new cases per infectious individual per unit of time (synonyms transmission coefficient, transmission rate)"
+"Parameter","Transmission","Reproduction number","Total number of new infectious individuals per infectious individual during its entire infectious period (also called effective reproduction number also include things stated as Rc, Rv, Rt)"
+"Parameter","Transmission","Basic reproduction number","Total number of new infectious individuals per infectious individual during its entire infectious period in a totally susceptible population"
+"Parameter","Transmission","Probability of transmission via direct contact","Probability of susceptible animal becoming infected after direct contact with an infected animal"
+"Parameter","Transmission","Probability of transmission via indirect contact","Probability of susceptible animal becoming infected after contact with a contaminated surface"
+"Parameter","Transmission","Probability of reactivation of latent infection",NA
+"Parameter","Transmission","Other","…"
+"Parameter","InfectiousLatentIncubatperiod","Infectious period","Duration of infectious period"
+"Parameter","InfectiousLatentIncubatperiod","Recovery rate","Rate of recovery (exponentially distributed infectious period)"
+"Parameter","InfectiousLatentIncubatperiod","Scale","Scale parameter of gamma distributed infectious period"
+"Parameter","InfectiousLatentIncubatperiod","Shape","Shape parameter of gamma distributed infectious period"
+"Parameter","InfectiousLatentIncubatperiod","Other","…"
+"Parameter","InfectiousLatentIncubatperiod","Latent period","Duration of latent (infected but not infectious period)"
+"Parameter","InfectiousLatentIncubatperiod","Incubation period","Duration of period between infection and first clinical signs"
+"Parameter","PathogenSurvival","Decay rate","Rate at which pathogen is cleared from environmetn"
+"Parameter","PathogenSurvival","Probability of survival","Probability pathogen survives a certain time"
+"Parameter","PathogenSurvival","Other","…"
+"Parameter","DiagnosticTest","Sensitivity","Probability of a positive test result, conditioned on the condition truly being positive"
+"Parameter","DiagnosticTest","Specificity","Probability of a negative test result, conditioned on the condition truly being negative"
+"Test Type","DiagnosticTest","ELISA Ab","Antibody detection ELISA"
+"Test Type","DiagnosticTest","ELISA Ag","Antigen detection ELISA"
+"Test Type","DiagnosticTest","PCR","Polymerase chain reaction"
+"Type of sample","DiagnosticTest","Serum (individual)",NA
+"Type of sample","DiagnosticTest","Milk (individual)",NA
+"Type of sample","DiagnosticTest","Milk (tank)",NA
+"Type of model",NA,"SIR","Susceptible-Infectious-Recovered compartmental model"
+"Type of model",NA,"SLIR","Susceptible-Latent-Infectious-Recovered compartmental model (also often denoted as SEIR)"
+"Type of model",NA,"SIS","Susceptible-Infectious-Susceptible compartmental model"
+"Type of model",NA,"SLIS","Susceptible-Latent-Infectious-Susceptible compartmental model (also often denoted as SEIS)"
+"Type of model",NA,"Other compartmetal model",NA
+"Type of model",NA,"None (descriptive)","The parameter was not estimated using a model, only descriptive results were reported in the study."
+"Type of model",NA,"Other",NA
+"Mixing",NA,"Density","Density dependent mixing or mass action (equation often: beta * S * I)"
+"Mixing",NA,"Frequency","Frequency dependent mixing or pseudomass action (beta *S*I/N)"
+"Study",NA,"Observational","Field observations used to estimate parameters"
+"Study",NA,"Experimental Isolator","Experiment is isolators"
+"Study",NA,"Experimental Stable","Experiment in stable"
+"Study",NA,"Experimental Field","Experiment in field situation"
+"Study",NA,"Experimental Lab","Experiment in laboratory"
+"Study",NA,"Review","Review without meta analysis"
+"Study",NA,"Meta-analysis","Review with meta analysis"
+"Study",NA,"Other","…"
+"Filled in by:",NA,"AA","Alistair Antonopoulos <alistair@kreavet.com>"
+"Filled in by:",NA,"EF","Egil Fischer <e.a.j.fischer@uu.nl>"
+"Filled in by:",NA,"Arvo","Arvo Viltrop <arvo.viltrop@emu.ee>"
+"Filled in by:",NA,"NC","Natalia Ciria <natalia.ciria@uab.cat>"
+"Parameter","RegionalPrevalence","Herd prevalence",NA
+"Parameter","RegionalPrevalence","Other",NA
+"Sampling purpose","RegionalPrevalence","Study",NA
+"Sampling purpose","RegionalPrevalence","Control plan",NA
+"Regional Information level","RegionalPrevalence","Only Country level","GADM GID_0"
+"Regional Information level","RegionalPrevalence","First-Level","GADM GID_1 see https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country"
+"Regional Information level","RegionalPrevalence","Second-Level","GADM GID_2 see https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country"
+"Regional Information level","RegionalPrevalence","Third-Level","GADM GID_2 see https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country"
+"Control pogrammen in place","ControlPlan","Yes",NA
+"Control pogrammen in place","ControlPlan","No",NA
+"Type of programme","ControlPlan","Voluntary",NA
+"Type of programme","ControlPlan","Compulsory",NA
+"Country status for the disease","ControlPlan","Endemic",NA
+"Country status for the disease","ControlPlan","Sporadic",NA
+"Country status for the disease","ControlPlan","Officially free",NA
+"Country status for the disease","ControlPlan","Perceived free",NA
+"Control plan type","ControlPlan","Control",NA
+"Control plan type","ControlPlan","Erradication",NA
+"Pathogen",NA,"African Swine Fever",NA
+"Pathogen",NA,"Avian Influenza",NA
+"Pathogen",NA,"Bluetongue",NA
+"Pathogen",NA,"Bovine Tuberculosis",NA
+"Pathogen",NA,"Bovine Viral Diarrhoea Virus",NA
+"Pathogen",NA,"Bovine Respiratory Syncytial Virus",NA
+"Pathogen",NA,"Campylobacter",NA
+"Pathogen",NA,"Classical Swine Fever",NA
+"Pathogen",NA,"Contagious agalactia",NA
+"Pathogen",NA,"Coxiella burnetii",NA
+"Pathogen",NA,"E. coli",NA
+"Pathogen",NA,"Campylobacter",NA
+"Pathogen",NA,"Enterococci",NA
+"Pathogen",NA,"Foot and Mouth Disease",NA
+"Pathogen",NA,"Hepatitis E",NA
+"Pathogen",NA,"Infectious Bovine Rhinotracheitis",NA
+"Pathogen",NA,"Infectious Bovine Rhinotracheitis",NA
+"Pathogen",NA,"Paratuberculosis",NA
+"Pathogen",NA,"Pathogen",NA
+"Pathogen",NA,"Peste des Petits Ruminants",NA
+"Pathogen",NA,"Peste des Petits Ruminants",NA
+"Pathogen",NA,"PRRS",NA
+"Pathogen",NA,"Bovine Respiratory Syncytial Virus",NA
+"Pathogen",NA,"Salmonella",NA
+"Pathogen",NA,"Swine Influenza",NA
+"Country",NA,"Austria",NA
+"Country",NA,"Belgium",NA
+"Country",NA,"Bulgaria",NA
+"Country",NA,"Croatia",NA
+"Country",NA,"Cyprus",NA
+"Country",NA,"Czech Republic",NA
+"Country",NA,"Denmark",NA
+"Country",NA,"Estonia",NA
+"Country",NA,"Finland",NA
+"Country",NA,"France",NA
+"Country",NA,"Germany",NA
+"Country",NA,"Greece",NA
+"Country",NA,"Hungary",NA
+"Country",NA,"Ireland",NA
+"Country",NA,"Italy",NA
+"Country",NA,"Latvia",NA
+"Country",NA,"Lithuania",NA
+"Country",NA,"Luxembourg",NA
+"Country",NA,"Malta",NA
+"Country",NA,"Netherlands",NA
+"Country",NA,"Poland",NA
+"Country",NA,"Portugal",NA
+"Country",NA,"Romania",NA
+"Country",NA,"Slovakia",NA
+"Country",NA,"Slovenia",NA
+"Country",NA,"Spain",NA
+"Country",NA,"Sweden",NA

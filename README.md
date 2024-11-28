@@ -1,6 +1,6 @@
 # PARAMETRA
 
-Welcome to the PARAMETRA livestock disease transmission database. This database has been assembled by the BIOSECURE consortium to facilitate livestock disease transmission modelling.
+Welcome to the PARAMETRA livestock disease transmission database. This database has been assembled by the [BIOSECURE](https://biosecure.eu/) consortium to facilitate livestock disease transmission modelling.
 
 ## Overview
 
@@ -14,18 +14,18 @@ For further information on methodology, please consult the accompanying publicat
 
 The PARAMETRA database is subdivided by disease and by parameter. Parameters included in the database are:
 
-1.  **Transmission**: Reproduction number, transmission parameter, probability of infection given direct/indirect contact, probability of reactivation of latent infection, other
-2.  **Infectious/Latent/Incubation**: Infectious period, latent period, incubation period, shape, other
-3.  **Pathogen survival**: Summary of relevant publications relating to pathogen survival on various surfaces and disinfection procedures
-4.  **Diagnostic Test**: Specificity, sensitivity
-5.  **Within Herd Prevalence**: Within herd prevalence
-6.  **Regional Prevalence**: Herd prevalence, global prevalence
-7.  **Control Plan**: Summary of relevant publications relating to voluntary or compulsory national and regional control plans
-8.  **Other Relevant Information**: Summary of publications relevant for modelling
-9.  **LOT (List of Terms)**: List of terms used in the database and their meanings
-10. **Endemic pathogens**: List of endemic pathogens and parameter availability summary
-11. **Epidemic pathogens**: List of epidemic pathogens and parameter availability summary
-12. **AMR pathogens**: List of antimicrobial resistance pathogens and parameter availability summary
+1.  [**Transmission**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_Transmission.csv): Reproduction number, transmission parameter, probability of infection given direct/indirect contact, probability of reactivation of latent infection, other
+2.  [**Infectious/Latent/Incubation**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_InfectiousLatentIncubatperiod.csv): Infectious period, latent period, incubation period, shape, other
+3.  [**Pathogen survival**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_PathogenSurvival.csv): Summary of relevant publications relating to pathogen survival on various surfaces and disinfection procedures
+4.  [**Diagnostic Test**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_DiagnosticTest.csv): Specificity, sensitivity
+5.  [**Within Herd Prevalence**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_WithinHerdPrevalence.csv): Within herd prevalence
+6.  [**Regional Prevalence**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_RegionalPrevalence.csv): Herd prevalence, global prevalence
+7.  [**Control Plan**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_ControlPlan.csv): Summary of relevant publications relating to voluntary or compulsory national and regional control plans
+8.  [**Other Relevant Information**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_OtherRelevantInformation.csv): Summary of publications relevant for modelling
+9.  [**LOT (List of Terms)**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_LOT.csv): List of terms used in the database and their meanings
+10. [**Endemic pathogens**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_Endemic_Pathogens.csv): List of endemic pathogens and parameter availability summary
+11. [**Epidemic pathogens**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_Epidemic_Pathogens.csv): List of epidemic pathogens and parameter availability summary
+12. [**AMR pathogens**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_AMR_Pathogens.csv): List of antimicrobial resistance pathogens and parameter availability summary
 
 ## Folders and Files
 
@@ -66,11 +66,15 @@ for(i in 1:lenght(table_names)){
 
 The database can only be modified by administrators. If you wish to make a modification, notice an error, or would like to include an additional disease or parameter, please contact the administrators.
 
-## License
-
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
 ## Contact
 
 -   Natalia Ciria Artiga: [Natalia.Ciria\@uab.cat](mailto:Natalia.Ciria@uab.cat)
 -   Alistair Antonopoulos: [Alistair\@kreavet.com](mailto:Alistair@kreavet.com)
+
+## License
+
+![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
+
+## Acknowledgments
+
+This open source software code was developed the BIOSECURE Project, funded from the European Union’s HORIZON Europe FARM2FORK project.
