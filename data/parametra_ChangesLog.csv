@@ -18,3 +18,4 @@ NA,NA,NA
 "45306","AA","Added within herd and regional prevalence columns to endemic pathogens"
 "45378","AA","New version of the database created with every numeric value now assigned an individual row"
 "45428","AA","Bluetongue; Classical Swine Fever parameters added following EU stakeholder prioritation exercise"
+"45641","NC","Clean database (double white spaces, consistent capitalization, typos…), remove empty rows and duplicates"

@@ -140,7 +140,7 @@ model_type<-parametra%>%
   summarise(n = n())%>%
   arrange(desc(n))
 
-# Create a comprehensive mapping dictionary for model names
+# Map model names
 model_mapping <- c(
   # Simple Dynamics
   "SIR model" = "SIR",

@@ -7,11 +7,6 @@ file<-"data/parametra.xlsx"
 
 sheet_names<-excel_sheets(path = file)
 
-review <- read.csv("data/review.csv", sep=";")%>%
-  select(Authors, Year, Type)%>%
-  mutate(new_Reference=paste0(Authors,", ", Year))%>%
-  distinct()
-
 new_words<-c(`African Swine Fever`="African Swine Fever Virus",
              `African Swine Fever`="ASF",
              `Bovine Viral Diarrhoea Virus`="Bovine viral diarrhoea virus",
@@ -97,19 +92,8 @@ for(i in 1:length(sheet_names)){
     names(csv)<-good_colnames
   }
   
-  #Fix references
-  if(all(c("Reference","Variant/Strain")%in%names(csv))){
-    csv<-csv%>%
-      mutate(Reference=ifelse(!grepl("\\.",Reference)&!grepl(",",Reference),paste0(Reference,"."),Reference))%>%
-      left_join(review, by=c("Reference" = "Authors", "Variant/Strain"="Type"))%>%
-      mutate(Reference=ifelse(!is.na(new_Reference),new_Reference,Reference))%>%
-      distinct()
-    
-    #Remove empty rows
-    csv[rowSums(is.na(csv)) != ncol(csv), ]
-    
-  }
-
+  #Remove empty rows
+  csv[rowSums(is.na(csv)) != ncol(csv), ]
   
   #Write csv
   write.csv(csv, file = paste0("data/parametra_",sheet_names[i],".csv"), row.names=FALSE)
