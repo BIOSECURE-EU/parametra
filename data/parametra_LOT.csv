@@ -24,8 +24,8 @@
 "Type of sample","DiagnosticTest","Serum (individual)",NA
 "Type of sample","DiagnosticTest","Milk (individual)",NA
 "Type of sample","DiagnosticTest","Milk (tank)",NA
-"Type of model",NA,"SIR","Susceptible-Infectious-Recovered compartmental model"
-"Type of model",NA,"SLIR","Susceptible-Latent-Infectious-Recovered compartmental model (also often denoted as SEIR)"
+"Type of model",NA,"SIR","Susceptible-Infectious-Removed compartmental model"
+"Type of model",NA,"SLIR","Susceptible-Latent-Infectious-Removed compartmental model (also often denoted as SEIR)"
 "Type of model",NA,"SIS","Susceptible-Infectious-Susceptible compartmental model"
 "Type of model",NA,"SLIS","Susceptible-Latent-Infectious-Susceptible compartmental model (also often denoted as SEIS)"
 "Type of model",NA,"Other compartmetal model",NA
@@ -33,6 +33,8 @@
 "Type of model",NA,"Other",NA
 "Mixing",NA,"Density","Density dependent mixing or mass action (equation often: beta * S * I)"
 "Mixing",NA,"Frequency","Frequency dependent mixing or pseudomass action (beta *S*I/N)"
+"Scale",NA,"Within-farm","Parameters were estimated at the animal level (e.g. transmission rate between animals, infectious period at the individual level)"
+"Scale",NA,"Between-farm","Parameters were estimated at the farm level (e.g. transmission rate between farms, infectious periiod at the farm level)"
 "Study",NA,"Observational","Field observations used to estimate parameters"
 "Study",NA,"Experimental Isolator","Experiment is isolators"
 "Study",NA,"Experimental Stable","Experiment in stable"
@@ -45,6 +47,8 @@
 "Filled in by:",NA,"EF","Egil Fischer <e.a.j.fischer@uu.nl>"
 "Filled in by:",NA,"Arvo","Arvo Viltrop <arvo.viltrop@emu.ee>"
 "Filled in by:",NA,"NC","Natalia Ciria <natalia.ciria@uab.cat>"
+"Filled in by:",NA,"SL","Sebastien Lambert <sebastien.lambert@envt.fr>"
+"Filled in by:",NA,"TV","Timothee Vergne <timothee.vergne@envt.fr>"
 "Parameter","RegionalPrevalence","Herd prevalence",NA
 "Parameter","RegionalPrevalence","Other",NA
 "Sampling purpose","RegionalPrevalence","Study",NA
