@@ -105,6 +105,7 @@ clean_parametra<-function(file, new_words){
     replacements_made <- sapply(new_words, function(x) {
       sum(grepl(x, table, fixed = TRUE))
     })
+
     if(sum(replacements_made) > 0) {
       message("Terms standardized in sheet '", sheet_names[i], "':")
       for(k in names(replacements_made)) {
@@ -149,7 +150,7 @@ clean_parametra<-function(file, new_words){
   parametra_long$Parameter[is.na(parametra_long$Parameter)] <- "Other"
 
   # Save final dataset
-  write.csv(parametra_long, file = "data-raw/parametra_long.csv")
+  write.csv(parametra_long, file = "data-raw/parametra_long.csv", row.names = FALSE)
   usethis::use_data(parametra_long, overwrite = TRUE)
 }
 
