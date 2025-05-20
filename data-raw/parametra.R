@@ -63,8 +63,49 @@ new_words<-c(`African Swine Fever`="African Swine Fever Virus",
              `Experimental Field` = "Experimental field",
              `Experimental Lab` = "Experimental lab",
              `Meta-analysis` = "Systematic review and meta-analysis",
+
+             # Models - Simple Dynamics
              `SIR` = "SIR model",
              `SEIR` = "SEIR model",
+             `SIR/SEIR` = "SIR\\/SEIR model",
+             `SIR` = "1R-SIR",
+             `SIR` = "2R-SIR",
+             `SLIR` = "SLRI",
+             `SLIR` = "SLI-SC",
+             `SIS` = "SI\\/SIS",
+             `SI` = "SI model",
+
+             # Models - Complex Dynamics
+             `SEIR` = "SEIR model",
+             `SLICE` = "SLI\\/SLIE\\/SLICE",
+
+             # Models - Statistical Methods
+             `Time Series` = "Time series data and generation time",
+             `Bayesian` = "Bayesian analysis",
+             `Bayesian` = "Bayesian hierarchical model",
+             `Stochastic` = "Stochastic herd level simulation",
+             `Stochastic` = "Stochastic mathematical model",
+
+             # Models - Growth and Transmission Patterns
+             `Exponential Growth` = "Exponential growth rate",
+             `Doubling Time` = "Doubling time",
+             `Doubling Time` = "Epidemic doubling time",
+             `Network Analysis` = "Transmission network analysis",
+             `Nearest Neighbor` = "Nearest infectious neighbour",
+             `Nearest Neighbor` = "Nearest infectious neighbour \\(Euclidean distance\\)",
+             `Nearest Neighbor` = "Nearest infectious neighbour \\(road distance\\)",
+
+             # Models - Advanced Models
+             `Phylodynamic` = "Time-rooted phylodynamic evolutionary model",
+             `Markov Chain` = "Continuous Markov Chain Model",
+             `Multiscale` = "Multiscale model",
+             `Seasonal Matrix` = "Seasonal matrix population model",
+
+             # Models - Other
+             `Final Size` = "Final size",
+             `Descriptive` = "None \\(descriptive\\)",
+             `Annual Rate` = "\\/year",
+
              #Double space
              ` `="  ")
 
@@ -75,7 +116,7 @@ clean_parametra<-function(file, new_words){
 
   for(i in 1:length(sheet_names)) {
     # Skip documentation sheets when processing
-    if(sheet_names[i] %in% c("ChangesLog", "LOT")) {
+    if(sheet_names[i] %in% c("ChangesLog", "LOT", "Endemic_Pathogens", "Epidemic_Pathogens", "AMR_Pathogens")) {
       next
     }
     # Read excel sheet
@@ -91,6 +132,11 @@ clean_parametra<-function(file, new_words){
     # Replace terms using dictionary
     good_colnames <- names(table)
 
+    # Print summary of replacements
+    replacements_made <- sapply(new_words, function(x) {
+      sum(grepl(x, table, fixed = TRUE))
+    })
+
     for(j in 1:length(new_words)) {
       table <- type.convert(data.frame(lapply(table, function(x) {
         gsub(new_words[j], names(new_words)[j], x)
@@ -101,17 +147,12 @@ clean_parametra<-function(file, new_words){
       names(table) <- good_colnames
     }
 
-    # Print summary of replacements
-    replacements_made <- sapply(new_words, function(x) {
-      sum(grepl(x, table, fixed = TRUE))
-    })
-
     if(sum(replacements_made) > 0) {
-      message("Terms standardized in sheet '", sheet_names[i], "':")
-      for(k in names(replacements_made)) {
+      message(sum(replacements_made>0)," terms standardized in sheet '", sheet_names[i], "':")
+      for(k in 1:length(replacements_made)) {
         if(replacements_made[k] > 0) {
-          message("  - Replaced '", k, "' with '", names(new_words)[which(new_words == k)],
-                  "' (", replacements_made[k], " occurrences)")
+          message("  - Replaced '",new_words[k], "' with '", names(replacements_made)[k],
+                  "' (in ", replacements_made[k], " columns)")
         }
       }
     }
