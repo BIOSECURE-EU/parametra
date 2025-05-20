@@ -1,8 +1,6 @@
-# PARAMETRA
+# parametra <img src="man/figures/logo.png" align="right" height="139"/>
 
-![](images/PARAMETRA_icon.jpg)
-
-Welcome to the PARAMETRA livestock disease transmission database. This database has been assembled by the [BIOSECURE](https://biosecure.eu/) consortium to facilitate livestock disease transmission modelling.
+A comprehensive database of livestock disease transmission parameters. Assembled by the [BIOSECURE](https://biosecure.eu/) consortium, this resource aims to support livestock disease transmission modelling.
 
 ## Overview
 

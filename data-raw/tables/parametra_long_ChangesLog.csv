@@ -1,0 +1,25 @@
+"Denote major changes to the template in this sheet","...2","...3"
+"Major changes are at least:",NA,NA
+NA,"Adding / removing worksheet",NA
+NA,"Adding / removing categories in the LOT (list of terms)",NA
+NA,"Adding / removing columns",NA
+NA,"Removing / moving entries",NA
+NA,NA,NA
+NA,NA,NA
+"Date","Who","What"
+"45092","EF","Added ChangesLog"
+"45092","EF","Renamed infectious period to infectious latent period"
+"45092","EF","Added Latent period and incubation period to LOT"
+"45092","EF","Added worksheet OtherRelevantStudies"
+"45092","EF","Added review and metaanalysis as studies"
+"45100","AA","Added parameters columns to the pathogens sheet to track which parameters have been added for which diseases"
+"45201","AA","Added large quantity of data from an offline version of the sheet that had been accidentally working on, and reorganised the diseases to give space between of one or two lines and reduced line size to improve readability"
+"45201","AA","Added contact details for Arvo Viltrop to the LOT as Arvo had added study to sheet"
+"45306","AA","Added within herd and regional prevalence columns to endemic pathogens"
+"45378","AA","New version of the database created with every numeric value now assigned an individual row"
+"45428","AA","Bluetongue; Classical Swine Fever parameters added following EU stakeholder prioritation exercise"
+"45641","NC","Clean database (double white spaces, consistent capitalization, typos…), remove empty rows and duplicates"
+"45643","SL","Added contact details for Timothee Vergne and Sebastien Lambert to the LOT"
+"45643","SL","Added column ""Scale"" to worksheet Transmission to describe within-farm or between-farm parameters, and added definitions to LOT"
+"45643","SL","Changed the definition of SIR and SLIR in the LOT by replacing ""recovered"" by ""removed"", the latter including both recovery and death"
+"45644","SL","Added column ""Estimation method"" to worksheet InfectiousLatentIncubatperiod"
