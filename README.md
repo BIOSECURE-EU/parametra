@@ -1,4 +1,6 @@
-# parametra <img src="man/figures/logo.png" align="right" height="139"/>
+# PARAMETRA
+
+![](man/figures/PARAMETRA_icon.jpg)
 
 A comprehensive database of livestock disease transmission parameters. Assembled by the [BIOSECURE](https://biosecure.eu/) consortium, this resource aims to support livestock disease transmission modelling.
 
@@ -8,7 +10,7 @@ The PARAMETRA database is designed to be directly downloaded into programming en
 
 For further information on methodology, please consult the accompanying publication [doi: XXXX - add when we submit to Biorxiv].
 
-![Parameter availability](images/2025_01_23_param_matrix.png)
+![Parameter availability](man/figures/2025_01_23_param_matrix.png)
 
 ## Database Structure
 
@@ -27,39 +29,41 @@ The PARAMETRA database is subdivided by disease and by parameter. Parameters inc
 11. [**Epidemic pathogens**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_Epidemic_Pathogens.csv): List of epidemic pathogens and parameter availability summary
 12. [**AMR pathogens**](https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_AMR_Pathogens.csv): List of antimicrobial resistance pathogens and parameter availability summary
 
-## Folders and Files
-
-`data/` : Contains all parameter value data in separate .csv files and the full database as a single .xlsx file.
-
-`outputs/`: Contains the matrix summarizing the database contents, in excel and csv format.
-
 ## Usage
 
-The database and individual sheets can be downloaded directly into R or other programming environments. The database is designed to be used in the development of transmission models for livestock diseases.
+### Installation as an R package <img src="man/figures/logo.png" align="right" height="139"/>
 
-**How to download parametra csv files in R**
+``` r
+# install.packages("devtools")
+devtools::install_github("BIOSECURE-EU/parametra/tree/r-package")
+```
 
-1.  Go to the CSV file
+### Excel File Access
 
-2.  Click on the **raw** option present on the top right of the data
+Find the original Excel file in `data-raw/parametra.xlsx`
 
-3.  Copy de link (it starts with [https://raw.githubusercontent.com/..](https://raw.githubusercontent.com/).)
+### URL Data Access
 
-To download just one table you can use the following code:
+Access the database and individual sheets directly in R or other programming environments for livestock disease transmission modeling.
+
+**Download CSV files in R**
+
+1.  Navigate to the CSV file in `data-raw/tables`
+2.  Click **raw** in the top right
+3.  Copy the link (starting with [https://raw.githubusercontent.com/..](https://raw.githubusercontent.com/.))
+
+Example: Download `parametra_long.csv` (containing all parameter tables) directly in R:
 
 ``` r
 data<-read.csv("https://raw.githubusercontent.com/..")
 ```
 
-To download and name multiple tables you can use the following code:
+Or in Python:
 
-``` r
-table_names<-c("Transmission", "InfectiousLatentIncubatperiod", "PathogenSurvival","DiagnosticTest","WithinHerdPrevalence", "RegionalPrevalence", "ControlPlan", "OtherRelevantInformation", "LOT", "ChangesLog", "Endemic_Pathogens", "Epidemic_Pathogens", "AMR_Pathogens")               
+``` python
+import pandas as pd
 
-for(i in 1:lenght(table_names)){
-  table_i<-read.csv(paste0("https://github.com/BIOSECURE-EU/parametra/blob/main/data/",table_names[i]))
-  assign(table_names[i],table_i)
-}
+data = pd.read_csv("https://raw.githubusercontent.com/...")
 ```
 
 ## Database Modification
