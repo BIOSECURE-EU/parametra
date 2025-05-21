@@ -116,7 +116,7 @@ clean_parametra<-function(file, new_words){
 
   for(i in 1:length(sheet_names)) {
     # Skip documentation sheets when processing
-    if(sheet_names[i] %in% c("ChangesLog", "LOT", "Endemic_Pathogens", "Epidemic_Pathogens", "AMR_Pathogens")) {
+    if(sheet_names[i] %in% c("ChangesLog", "LOT", "Endemic_Pathogens", "Epidemic_Pathogens", "AMR_Pathogens", "Crosref")) {
       next
     }
     # Read excel sheet
