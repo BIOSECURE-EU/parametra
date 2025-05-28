@@ -126,7 +126,7 @@ clean_parametra<-function(file, new_words){
     rownames(table)<-NULL
 
     # Check required columns
-    required_cols <- c("Pathogen", "Parameter", "Value", "Reference")
+    required_cols <- c("pathogen", "parameter", "value", "ref")
     missing_cols <- required_cols[!required_cols %in% names(table)]
 
     # Replace terms using dictionary
@@ -175,7 +175,9 @@ clean_parametra<-function(file, new_words){
               row.names = FALSE)
 
     # Add sheet identifier and combine
-    table$ParameterType <- sheet_names[i]
+    table$parameter_type <- sheet_names[i]
+    table$id <- paste0(table$parameter_type,"_",1:nrow(table))
+
     parametra_long <- bind_rows(parametra_long, table)
 
     # Create individual dataset
@@ -186,9 +188,9 @@ clean_parametra<-function(file, new_words){
   # Remove all-empty rows
   parametra_long <- parametra_long[rowSums(is.na(parametra_long)) != ncol(parametra_long), ]
   # Remove rows with now pathogen
-  parametra_long <- parametra_long[!is.na(parametra_long$Pathogen), ]
+  parametra_long <- parametra_long[!is.na(parametra_long$pathogen), ]
   # Add "Other" when Parameter is not specified
-  parametra_long$Parameter[is.na(parametra_long$Parameter)] <- "Other"
+  parametra_long$parameter[is.na(parametra_long$parameter)] <- "Other"
 
   # Save final dataset
   write.csv(parametra_long, file = "data-raw/parametra_long.csv", row.names = FALSE)

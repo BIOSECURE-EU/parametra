@@ -5,18 +5,18 @@
 #'
 #' @format A data frame with 12 variables:
 #' \describe{
-#'   \item{Parameter}{Parameter measured}
-#'   \item{If other}{Additional parameter specifications}
-#'   \item{Study}{Study type}
-#'   \item{Pathogen}{Name of the infectious agent}
-#'   \item{Variant/Strain}{Specific variant or strain}
-#'   \item{Material}{Type of material or medium where survival was measured}
-#'   \item{Remarks}{Additional notes or comments}
-#'   \item{Reference}{Citation for the source study}
-#'   \item{Year}{Year of publication}
-#'   \item{doi}{Digital Object Identifier}
-#'   \item{Filled in by:}{Data entry person identifier}
-#'   \item{ParameterType}{Category of parameter}
+#'   \item{parameter}{Parameter measured}
+#'   \item{if_other}{Additional parameter specifications}
+#'   \item{study_type}{Study type}
+#'   \item{pathogen}{Name of the infectious agent}
+#'   \item{variant_strain}{Specific variant or strain}
+#'   \item{material}{Type of material or medium where survival was measured}
+#'   \item{remarks}{Additional notes or comments}
+#'   \item{ref_short}{Short reference: source author and year}
+#'   \item{year}{Year of publication}
+#'   \item{ref}{Reference: source doi or url}
+#'   \item{filled_by}{Data entry person identifier}
+#'   \item{parameter_type}{Category of parameter}
 #' }
 #'
 #' @source Compiled from various scientific publications (see "Reference" column)
