@@ -66,9 +66,23 @@ import pandas as pd
 data = pd.read_csv("https://raw.githubusercontent.com/...")
 ```
 
-## Database Modification
+## How to Submit New Parameters
 
-The database can only be modified by administrators. If you wish to make a modification, notice an error, or would like to include an additional disease or parameter, please contact the administrators.
+There are two ways to contribute new parameters to the PARAMETRA database:
+
+### Option 1: Online Form Submission (Single Parameter)
+
+1.  Visit the [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission)
+2.  Fill in the required fields for your single parameter entry
+3.  Submit the form
+
+### Option 2: Bulk Submission (Excel Template)
+
+1.  Download the Excel template
+2.  Fill out the Excel template with your parameter entries, using PARAMETRA database as a reference for proper formatting.
+3.  Upload the file through [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission)
+
+> All submissions will be reviewed by the PARAMETRA administrators before being added to the database to ensure data quality and consistency.
 
 ## Contact
 
