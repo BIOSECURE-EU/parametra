@@ -5,20 +5,7 @@
 \alias{InfectiousLatentIncubatperiod}
 \title{Infectious, Latent, and Incubation Period Parameters Table}
 \format{
-An object of class \code{data.frame} with 415 rows and 26 columns.
-}
-\source{
-Compiled from various scientific publications (see "Reference" column)
-}
-\usage{
-InfectiousLatentIncubatperiod
-}
-\description{
-A dataset containing disease period parameters for various infectious diseases
-in animal populations.
-}
-\details{
-#' @format A data frame with 25 variables:
+A data frame with 25 variables:
 \describe{
 \item{parameter}{Parameter measured}
 \item{if_other}{Additional parameter specifications}
@@ -46,5 +33,15 @@ in animal populations.
 \item{filled_by}{Data entry person identifier}
 \item{parameter_type}{Category of parameter}
 }
+}
+\source{
+Compiled from various scientific publications (see "Reference" column)
+}
+\usage{
+InfectiousLatentIncubatperiod
+}
+\description{
+A dataset containing disease period parameters for various infectious diseases
+in animal populations.
 }
 \keyword{datasets}

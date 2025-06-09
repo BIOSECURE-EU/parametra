@@ -3,7 +3,7 @@
 #' A dataset containing disease period parameters for various infectious diseases
 #' in animal populations.
 #'
-#' #' @format A data frame with 25 variables:
+#' @format A data frame with 25 variables:
 #' \describe{
 #'   \item{parameter}{Parameter measured}
 #'   \item{if_other}{Additional parameter specifications}
