@@ -7,25 +7,25 @@
 \format{
 A data frame with 19 variables:
 \describe{
-\item{Country}{Country where the control plan is implemented}
-\item{Pathogen}{Name of the infectious agent}
-\item{Host}{Host species}
-\item{Host type}{Type of host}
-\item{Host breed}{Specific breed of host}
-\item{Host Age (group)}{Age or age group of hosts}
-\item{Host other characteristics}{Additional host characteristics}
-\item{Control programme in place}{Whether a control programme exists}
-\item{Type of programme}{Voluntary or compulsary programme}
-\item{Coverage (regional/national)}{Geographical scope of the program}
-\item{Country status for the disease}{Disease status classification}
-\item{Control plan type}{Type of control measures implemented}
-\item{Last updated}{Date of last program update}
-\item{Remarks}{Additional notes or comments}
-\item{Reference}{Citation for the source information}
-\item{Year}{Year of implementation or publication}
-\item{Link}{URL to program documentation}
-\item{Filled in by:}{Data entry person identifier}
-\item{ParameterType}{Category of parameter}
+\item{country}{Country where the control plan is implemented}
+\item{pathogen}{Name of the infectious agent}
+\item{host}{Host species}
+\item{host_type}{Type of host}
+\item{host_breed}{Specific breed of host}
+\item{host_age}{Age or age group of hosts}
+\item{host_other}{Additional host characteristics}
+\item{plan_implemented}{Whether a control plan is implemented}
+\item{plan_voluntary_compulsary}{Voluntary or compulsary plan}
+\item{plan_coverage}{Geographical scope of the plan}
+\item{country_disease_status}{Disease status classification}
+\item{plan_type}{Type of control plan}
+\item{last_updated}{Date of last control plan update}
+\item{remarks}{Additional notes or comments}
+\item{ref_short}{Short reference: source author and year}
+\item{year}{Year of publication}
+\item{ref}{Reference: source doi or url}
+\item{filled_by}{Data entry person identifier}
+\item{parameter_type}{Category of parameter}
 }
 }
 \source{
