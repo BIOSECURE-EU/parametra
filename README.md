@@ -1,4 +1,4 @@
-# PARAMETRA ![](man/figures/logo.png){align="right" height="139"}
+# PARAMETRA <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
 A curated database for animal disease modelling, that contains data on infectious periods, transmission rates, pathogen survival, diagnostic tests, prevalence, and control measures for multiple livestock diseases.
 
