@@ -34,7 +34,7 @@ A data frame with 24 variables:
 }
 }
 \source{
-Compiled from various scientific publications (see "Reference" column)
+Compiled from various scientific publications (see "ref" column)
 }
 \usage{
 OtherRelevantInformation

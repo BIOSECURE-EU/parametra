@@ -26,5 +26,5 @@
 #'   \item{parameter_type}{Category of parameter}
 #' }
 #'
-#' @source Compiled from various official sources and publications (see "Reference" column)
+#' @source Compiled from various official sources and publications (see "ref" column)
 "ControlPlan"

@@ -38,7 +38,7 @@ A data frame with 1072 rows and 28 variables:
 }
 }
 \source{
-Compiled from various scientific publications (see "Reference" column)
+Compiled from various scientific publications (see "ref" column)
 }
 \usage{
 Transmission

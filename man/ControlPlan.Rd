@@ -29,7 +29,7 @@ A data frame with 19 variables:
 }
 }
 \source{
-Compiled from various official sources and publications (see "Reference" column)
+Compiled from various official sources and publications (see "ref" column)
 }
 \usage{
 ControlPlan

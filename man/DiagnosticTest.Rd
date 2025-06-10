@@ -29,7 +29,7 @@ A data frame with 19 variables:
 }
 }
 \source{
-Compiled from various scientific publications (see "Reference" column)
+Compiled from various scientific publications (see "ref" column)
 }
 \usage{
 DiagnosticTest

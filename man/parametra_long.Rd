@@ -52,7 +52,7 @@ A data frame with 41 variables:
 }
 }
 \source{
-Combination of all individual parameter tables, compiled from various scientific publications (see "Reference" column)
+Combination of all individual parameter tables, compiled from various scientific publications (see "ref" column)
 }
 \usage{
 parametra_long

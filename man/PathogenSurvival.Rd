@@ -22,7 +22,7 @@ A data frame with 12 variables:
 }
 }
 \source{
-Compiled from various scientific publications (see "Reference" column)
+Compiled from various scientific publications (see "ref" column)
 }
 \usage{
 PathogenSurvival

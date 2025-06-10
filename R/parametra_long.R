@@ -52,5 +52,5 @@
 #'   \item{last_updated}{Date of last control plan update}
 #' }
 #'
-#' @source Combination of all individual parameter tables, compiled from various scientific publications (see "Reference" column)
+#' @source Combination of all individual parameter tables, compiled from various scientific publications (see "ref" column)
 "parametra_long"

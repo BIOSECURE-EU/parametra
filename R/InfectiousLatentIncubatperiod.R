@@ -32,5 +32,5 @@
 #'   \item{parameter_type}{Category of parameter}
 #' }
 #'
-#' @source Compiled from various scientific publications (see "Reference" column)
+#' @source Compiled from various scientific publications (see "ref" column)
 "InfectiousLatentIncubatperiod"
