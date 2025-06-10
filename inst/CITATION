@@ -1,0 +1,10 @@
+bibentry(
+  bibtype  = "Article",
+  Journal  = "SSRN",
+  title    = "PARAMETRA: A Transmission Modelling Database for Livestock Diseases",
+  author   = "Alistair Antonopoulos and {Ciria Artiga}, Natalia and Evelien Biebaut and Arvo Viltrop and Jeroen Dewulf and Johannes Charlier and Fischer, {Egil A.J.} and Alberto Allepuz and {\\\'A}ine Regan and Jerrold Tubay and Giovanna Ciaravino and Hayes, {Brandon H.} and Sebastien Lambert and Timoth{\\'e}e Vergne and Francisca Velkers",
+  year     = 2025,
+  urldate  = "2025-05-20",
+  url      = "https://papers.ssrn.com/abstract=5137563",
+  doi      = "10.2139/ssrn.5137563"
+)
