@@ -1,16 +1,16 @@
-# PARAMETRA
+# PARAMETRA ![](man/figures/logo.png){align="right" height="139"}
 
 A curated database for animal disease modelling, that contains data on infectious periods, transmission rates, pathogen survival, diagnostic tests, prevalence, and control measures for multiple livestock diseases.
 
-Originally developed by the [BIOSECURE](https://biosecure.eu/) consortium, through a semi-systematic literature review. For more information on the methodology, see the accompanying publication:
+Originally developed by the [BIOSECURE](https://biosecure.eu/) consortium through a semi-systematic literature review. For more information on the methodology, see the accompanying publication:
 
 > Antonopoulos, Alistair and Ciria Artiga, Natalia and Regan, Áine and Tubay, Jerrold and Ciaravino, Giovanna and Hayes, Brandon H. and Lambert, Sebastien and Vergne, Timothée and Velkers, Francisca and Biebaut, Evelien and Viltrop, Arvo and Dewulf, Jeroen and Charlier, Johannes and Fischer, Egil A.J. and Allepuz, Alberto, PARAMETRA: A Transmission Modelling Database for Livestock Diseases (January 31, 2024). Available at SSRN: <https://ssrn.com/abstract=5137563> or [http://dx.doi.org/10.2139/ssrn.5137563](https://dx.doi.org/10.2139/ssrn.5137563)
 
-The database continues to grow through user contributions via the [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission).
+The database continues to grow thanks to user contributions via the [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission).
 
 ## How to use it
 
-### Installation as an R package <img src="man/figures/logo.png" align="right" height="139"/>
+### Installation as an R package
 
 ``` r
 # install.packages("devtools")
@@ -88,7 +88,7 @@ There are two ways to contribute new parameters to the PARAMETRA database:
 
 1.  Download the [Excel template](https://github.com/BIOSECURE-EU/parametra/raw/refs/heads/main/data-raw/parametra_submission_template.xlsx)
 2.  Fill out the Excel template with your parameter entries, using PARAMETRA database as a reference for proper formatting.
-3.  Upload the file through [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission)
+3.  Upload the file through the [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission)
 
 > All submissions will be reviewed by PARAMETRA administrators before being added to the database to ensure data quality and consistency.
 
