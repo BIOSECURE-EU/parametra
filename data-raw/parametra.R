@@ -2,6 +2,7 @@ library(readxl)
 library(xlsx)
 library(dplyr)
 library(tidyr)
+library(devtools)
 
 # Dictionary for standardizing terms
 new_words<-c(`African Swine Fever`="African Swine Fever Virus",
@@ -121,6 +122,10 @@ clean_parametra<-function(file, new_words){
     }
     # Read excel sheet
     table <- read_xlsx(path = file, sheet = sheet_names[i])
+
+    table$new_ref<-NULL
+    table$new_ref_short<-NULL
+    table$conflict<-NULL
 
     # Remove row names
     rownames(table)<-NULL
