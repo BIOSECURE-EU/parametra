@@ -56,57 +56,21 @@
 <img src="logo.png" class="logo" alt=""><h1 id="parametra">PARAMETRA<a class="anchor" aria-label="anchor" href="#parametra"></a>
 </h1>
 </div>
-<p><img src="reference/figures/PARAMETRA_icon.jpg"></p>
-<p>A comprehensive database of livestock disease transmission parameters. Assembled by the <a href="https://biosecure.eu/" class="external-link">BIOSECURE</a> consortium, this resource aims to support livestock disease transmission modelling.</p>
+<p>A curated database for animal disease modelling, that contains data on infectious periods, transmission rates, pathogen survival, diagnostic tests, prevalence, and control measures for multiple livestock diseases.</p>
+<p>Originally developed by the <a href="https://biosecure.eu/" class="external-link">BIOSECURE</a> consortium, through a semi-systematic literature review. For more information on the methodology, see the accompanying publication:</p>
+<blockquote>
+<p>Antonopoulos, Alistair and Ciria Artiga, Natalia and Regan, Áine and Tubay, Jerrold and Ciaravino, Giovanna and Hayes, Brandon H. and Lambert, Sebastien and Vergne, Timothée and Velkers, Francisca and Biebaut, Evelien and Viltrop, Arvo and Dewulf, Jeroen and Charlier, Johannes and Fischer, Egil A.J. and Allepuz, Alberto, PARAMETRA: A Transmission Modelling Database for Livestock Diseases (January 31, 2024). Available at SSRN: <a href="https://ssrn.com/abstract=5137563" class="external-link uri">https://ssrn.com/abstract=5137563</a> or <a href="https://dx.doi.org/10.2139/ssrn.5137563" class="external-link">http://dx.doi.org/10.2139/ssrn.5137563</a></p>
+</blockquote>
+<p>The database continues to grow through user contributions via the <a href="https://ec.europa.eu/eusurvey/runner/parametra-submission" class="external-link">PARAMETRA submission form</a>.</p>
 <div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h2>
-<p>The PARAMETRA database is designed to be directly downloaded into programming environments such as R. It currently contains parameter values for up to 20 different livestock diseases, populated using a semi-systematic literature review.</p>
-<p>For further information on methodology, please consult the accompanying publication [doi: XXXX - add when we submit to Biorxiv].</p>
-<div class="float">
-<img src="reference/figures/2025_01_23_param_matrix.png" alt="Parameter availability"><div class="figcaption">Parameter availability</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="database-structure">Database Structure<a class="anchor" aria-label="anchor" href="#database-structure"></a>
-</h2>
-<p>The PARAMETRA database is subdivided by disease and by parameter. Parameters included in the database are:</p>
-<ol style="list-style-type: decimal">
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_Transmission.csv" class="external-link"><strong>Transmission</strong></a>: Reproduction number, transmission parameter, probability of infection given direct/indirect contact, probability of reactivation of latent infection, other</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_InfectiousLatentIncubatperiod.csv" class="external-link"><strong>Infectious/Latent/Incubation</strong></a>: Infectious period, latent period, incubation period, shape, other</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_PathogenSurvival.csv" class="external-link"><strong>Pathogen survival</strong></a>: Summary of relevant publications relating to pathogen survival on various surfaces and disinfection procedures</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_DiagnosticTest.csv" class="external-link"><strong>Diagnostic Test</strong></a>: Specificity, sensitivity</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_WithinHerdPrevalence.csv" class="external-link"><strong>Within Herd Prevalence</strong></a>: Within herd prevalence</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_RegionalPrevalence.csv" class="external-link"><strong>Regional Prevalence</strong></a>: Herd prevalence, global prevalence</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_ControlPlan.csv" class="external-link"><strong>Control Plan</strong></a>: Summary of relevant publications relating to voluntary or compulsory national and regional control plans</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_OtherRelevantInformation.csv" class="external-link"><strong>Other Relevant Information</strong></a>: Summary of publications relevant for modelling</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_LOT.csv" class="external-link"><strong>LOT (List of Terms)</strong></a>: List of terms used in the database and their meanings</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_Endemic_Pathogens.csv" class="external-link"><strong>Endemic pathogens</strong></a>: List of endemic pathogens and parameter availability summary</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_Epidemic_Pathogens.csv" class="external-link"><strong>Epidemic pathogens</strong></a>: List of epidemic pathogens and parameter availability summary</li>
-<li>
-<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data/parametra_AMR_Pathogens.csv" class="external-link"><strong>AMR pathogens</strong></a>: List of antimicrobial resistance pathogens and parameter availability summary</li>
-</ol>
-</div>
-<div class="section level2">
-<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+<h2 id="how-to-use-it">How to use it<a class="anchor" aria-label="anchor" href="#how-to-use-it"></a>
 </h2>
 <div class="section level3">
 <h3 id="installation-as-an-r-package-">Installation as an R package <img src="reference/figures/logo.png" align="right" height="139"><a class="anchor" aria-label="anchor" href="#installation-as-an-r-package-"></a>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"BIOSECURE-EU/parametra/tree/r-package"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"BIOSECURE-EU/parametra"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="excel-file-access">Excel File Access<a class="anchor" aria-label="anchor" href="#excel-file-access"></a>
@@ -126,19 +90,65 @@
 </ol>
 <p>Example: Download <code>parametra_long.csv</code> (containing all parameter tables) directly in R:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/.."</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">data</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/BIOSECURE-EU/parametra/refs/heads/main/data-raw/parametra_long.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>Or in Python:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/..."</span>)</span></code></pre></div>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/BIOSECURE-EU/parametra/refs/heads/main/data-raw/parametra_long.csv"</span>)</span></code></pre></div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="database-structure">Database Structure<a class="anchor" aria-label="anchor" href="#database-structure"></a>
+</h2>
+<p>Each PARAMETRA entry contains a parameter, pathogen, and reference. Additional information varies by parameter type and may include host species, study type, value, and upper and lower confidence intervals. The database organizes these entries into the following parameter tables:</p>
+<ol style="list-style-type: decimal">
+<li>
+<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_Transmission.csv" class="external-link"><strong>Transmission</strong></a>: Reproduction number, transmission parameter, probability of infection given direct/indirect contact, probability of reactivation of latent infection, other</li>
+<li>
+<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_InfectiousLatentIncubatperiod.csv" class="external-link"><strong>Infectious/Latent/Incubation</strong></a>: Infectious period, latent period, incubation period, shape, other</li>
+<li>
+<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_PathogenSurvival.csv" class="external-link"><strong>Pathogen survival</strong></a>: Pathogen survival on various surfaces and disinfection procedures</li>
+<li>
+<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_DiagnosticTest.csv" class="external-link"><strong>Diagnostic Test</strong></a>: Specificity, sensitivity</li>
+<li>
+<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_WithinHerdPrevalence.csv" class="external-link"><strong>Within Herd Prevalence</strong></a>: Within herd prevalence</li>
+<li>
+<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_RegionalPrevalence.csv" class="external-link"><strong>Regional Prevalence</strong></a>: Herd prevalence, global prevalence</li>
+<li>
+<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_ControlPlan.csv" class="external-link"><strong>Control Plan</strong></a>: Voluntary or compulsory national and regional control plans</li>
+<li>
+<a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_OtherRelevantInformation.csv" class="external-link"><strong>Other Relevant Information</strong></a>: Other relevant parameters for modelling</li>
+</ol>
+<p>All this tables are aggregated in <a href="https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/parametra_long.csv" class="external-link"><strong>parametra_long</strong></a>.</p>
+</div>
+<div class="section level2">
+<h2 id="crossref">Crossref<a class="anchor" aria-label="anchor" href="#crossref"></a>
+</h2>
+<p>The <a href="https://raw.githubusercontent.com/BIOSECURE-EU/parametra/refs/heads/main/data-raw/parametra_crossref.csv" class="external-link"><strong>parametra_crossref</strong></a> table contains bibliographic information found on <a href="https://www.crossref.org/" class="external-link">Crossref</a> for all references (“ref”) cited in the database.</p>
+</div>
+<div class="section level2">
+<h2 id="complementary-tables">Complementary tables<a class="anchor" aria-label="anchor" href="#complementary-tables"></a>
+</h2>
+<p>Only available in the excel file:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>LOT (List of Terms)</strong>: List of terms used in the database and their meanings</li>
+<li>
+<strong>Change log</strong>: Tracks modifications, updates, and version history</li>
+<li>
+<strong>Endemic pathogens</strong>: List of endemic pathogens and parameter availability summary</li>
+<li>
+<strong>Epidemic pathogens</strong>: List of epidemic pathogens and parameter availability summary</li>
+<li>
+<strong>AMR pathogens</strong>: List of antimicrobial resistance pathogens and parameter availability summary</li>
+</ol>
 </div>
 <div class="section level2">
 <h2 id="how-to-submit-new-parameters">How to Submit New Parameters<a class="anchor" aria-label="anchor" href="#how-to-submit-new-parameters"></a>
 </h2>
 <p>There are two ways to contribute new parameters to the PARAMETRA database:</p>
 <div class="section level3">
-<h3 id="option-1-online-form-submission-single-parameter">Option 1: Online Form Submission (Single Parameter)<a class="anchor" aria-label="anchor" href="#option-1-online-form-submission-single-parameter"></a>
+<h3 id="option-1-single-parameter-submission">Option 1: Single Parameter Submission<a class="anchor" aria-label="anchor" href="#option-1-single-parameter-submission"></a>
 </h3>
 <ol style="list-style-type: decimal">
 <li>Visit the <a href="https://ec.europa.eu/eusurvey/runner/parametra-submission" class="external-link">PARAMETRA submission form</a>
@@ -151,13 +161,14 @@
 <h3 id="option-2-bulk-submission-excel-template">Option 2: Bulk Submission (Excel Template)<a class="anchor" aria-label="anchor" href="#option-2-bulk-submission-excel-template"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Download the Excel template</li>
+<li>Download the <a href="https://github.com/BIOSECURE-EU/parametra/raw/refs/heads/main/data-raw/parametra_submission_template.xlsx" class="external-link">Excel template</a>
+</li>
 <li>Fill out the Excel template with your parameter entries, using PARAMETRA database as a reference for proper formatting.</li>
 <li>Upload the file through <a href="https://ec.europa.eu/eusurvey/runner/parametra-submission" class="external-link">PARAMETRA submission form</a>
 </li>
 </ol>
 <blockquote>
-<p>All submissions will be reviewed by the PARAMETRA administrators before being added to the database to ensure data quality and consistency.</p>
+<p>All submissions will be reviewed by PARAMETRA administrators before being added to the database to ensure data quality and consistency.</p>
 </blockquote>
 </div>
 </div>
@@ -181,7 +192,7 @@
 <div class="section level2">
 <h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
 </h2>
-<p>This open source software code was developed the BIOSECURE Project, funded from the European Union’s HORIZON Europe FARM2FORK project.</p>
+<p>PARAMETRA was developed as part of the <a href="https://biosecure.eu/" class="external-link">BIOSECURE</a> Project, funded from the European Union’s HORIZON Europe FARM2FORK project.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
