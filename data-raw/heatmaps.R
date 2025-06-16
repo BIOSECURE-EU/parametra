@@ -1,10 +1,14 @@
-parametra_heatmap <- function(x, y, data=parametra_long, order_by=NULL, filename = NULL) {
+parametra_heatmap <- function(x, y, data=parametra_long, order_by=NULL, filename = NULL, na.rm=FALSE) {
   # Create data summary
   data<-data %>%
     dplyr::filter(!grepl(";", .data[[x]])) %>%  #Filter for only individual items
     dplyr::group_by(across(all_of(c(x, y)))) %>%
     dplyr::summarise(n = n())
 
+  if(na.rm){
+    data <- data %>%
+      dplyr::filter(!is.na(.data[[y]]))
+  }
   # Rows order
   if(is.null(order_by)){
     data<-dplyr::arrange(data, desc(n))
@@ -35,6 +39,7 @@ parametra_heatmap <- function(x, y, data=parametra_long, order_by=NULL, filename
   # Save if filename provided
   if (!is.null(filename)) {
     matrix_df <- as.data.frame(matrix)
+    matrix_df[[x]]<-row.names(matrix)
     write.csv(matrix_df, file = filename, row.names = FALSE)
   }
 
@@ -42,26 +47,26 @@ parametra_heatmap <- function(x, y, data=parametra_long, order_by=NULL, filename
 }
 
 
-x<-"Pathogen"
-y<-"Parameter"
+x<-"pathogen"
+y<-"parameter"
 parametra_heatmap(x=x, y=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))
 
-x<-"Pathogen"
-y<-"Year"
+x<-"pathogen"
+y<-"year"
 parametra_heatmap(x=x, y=y, order_by=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))
 
-x<-"Pathogen"
-y<-"Study"
+x<-"pathogen"
+y<-"study_type"
 parametra_heatmap(x=x, y=y, order_by=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))
 
-x<-"Parameter"
-y<-"Study"
+x<-"parameter"
+y<-"study_type"
 parametra_heatmap(x=x, y=y, order_by=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))
 
-x<-"Pathogen"
-y<-"Model"
+x<-"pathogen"
+y<-"model_type"
 parametra_heatmap(x=x, y=y, order_by=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))
 
-x<-"Parameter"
-y<-"Model"
+x<-"parameter"
+y<-"model_type"
 parametra_heatmap(x=x, y=y, order_by=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))

@@ -1,22 +1,22 @@
-"Basic reproduction number","Transmission parameter","Sensitivity","Specificity","Within herd prevalence","Infectious period","Latent period","Incubation period","Shape","Other","Reproduction number","Herd prevalence","Probability of transmission via indirect contact","Pathogen survival/Disinfection","Probability of transmission via direct contact","Transmission on fomites","Probability fomite testing positive","Probability of transmission between farms","Global Prevalence","Probability of reactivation of latent infection"
-190,160,15,15,0,91,58,32,0,0,0,0,6,3,6,0,0,1,0,0
-22,47,111,101,0,2,3,0,0,12,0,8,1,4,2,0,0,0,0,1
-18,51,99,90,0,3,3,0,0,24,1,0,8,1,3,0,0,0,0,0
-25,32,2,2,94,36,29,0,1,1,7,17,0,2,0,0,0,0,0,0
-12,15,65,39,7,0,6,0,0,15,6,9,0,2,0,0,0,0,1,0
-2,43,7,3,8,16,10,0,0,0,16,4,0,2,0,0,0,0,0,0
-32,36,15,8,0,23,6,0,29,23,0,0,7,6,2,0,0,0,0,0
-30,7,11,8,27,2,2,0,0,6,0,5,0,4,0,0,0,0,0,0
-20,27,11,8,10,2,3,0,0,15,13,2,2,1,2,4,0,0,0,0
-6,8,13,11,0,13,3,0,0,3,19,0,0,3,0,0,0,0,0,0
-0,12,18,17,5,3,2,0,0,7,0,5,0,2,0,0,0,0,0,0
-15,0,3,3,1,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0
-0,15,4,3,12,5,0,0,0,0,1,11,0,2,0,0,0,0,0,0
-10,13,2,2,0,2,1,0,2,0,5,0,2,0,2,0,0,0,0,0
-11,9,3,2,1,0,0,2,0,2,0,9,0,3,0,0,0,0,0,0
-4,3,10,3,0,1,0,2,0,1,2,0,0,1,0,0,0,0,0,0
-3,7,7,7,7,3,0,0,0,1,0,8,1,0,0,0,3,0,0,0
-0,0,0,0,0,0,0,0,0,1,0,5,0,1,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0
-1,0,3,2,3,1,0,0,0,1,0,2,0,4,1,0,0,0,0,1
-0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+"Basic reproduction number","Transmission parameter","Sensitivity","Specificity","Other","Infectious period","Latent period","Incubation period","Shape","Reproduction number","Herd prevalence","Probability of transmission via indirect contact","Probability of transmission via direct contact","Pathogen survival/Disinfection","Transmission on fomites","Probability fomite testing positive","Probability of transmission between farms","Global Prevalence","Probability of reactivation of latent infection","pathogen"
+190,160,15,15,0,91,58,32,0,0,0,6,6,3,0,0,1,0,0,"Avian Influenza"
+22,47,111,101,11,2,3,0,0,0,8,1,2,4,0,0,0,0,1,"Paratuberculosis"
+18,51,99,90,22,3,3,0,0,1,0,8,4,1,0,0,0,0,0,"E. coli"
+25,32,2,2,95,36,29,0,1,7,17,0,0,2,0,0,0,0,0,"Hepatitis E"
+12,15,65,39,22,0,6,0,0,6,9,0,0,2,0,0,0,1,0,"Bovine Tuberculosis"
+2,43,6,2,8,16,10,0,0,16,4,0,0,2,0,0,0,0,0,"Swine Influenza"
+32,36,15,8,21,23,7,0,29,0,0,7,2,6,0,0,0,0,0,"African Swine Fever"
+30,7,11,8,33,2,2,0,0,0,5,0,0,4,0,0,0,0,0,"Salmonella"
+20,4,11,8,25,2,3,0,0,13,2,16,11,1,4,0,0,0,0,"PRRS"
+6,8,13,11,3,13,3,0,0,19,0,0,0,3,0,0,0,0,0,"Foot and Mouth Disease"
+0,12,18,17,12,3,2,0,0,0,5,0,0,2,0,0,0,0,0,"Campylobacter"
+15,0,3,3,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Bluetongue"
+0,15,4,3,12,5,0,0,0,1,11,0,0,2,0,0,0,0,0,"Coxiella burnetii"
+10,13,2,2,0,2,1,0,2,5,0,2,2,0,0,0,0,0,0,"Classical Swine Fever"
+11,9,3,2,3,0,0,2,0,0,9,0,0,2,0,0,0,0,0,"Bovine Respiratory Syncytial Virus"
+4,3,10,3,1,1,0,2,0,2,0,0,0,1,0,0,0,0,0,"Peste des Petits Ruminants"
+3,7,7,7,8,3,0,0,0,0,8,1,0,0,0,3,0,0,0,"Bovine Viral Diarrhoea Virus"
+0,0,0,0,1,0,0,0,0,0,5,0,0,1,0,0,0,0,0,"Contagious agalactia"
+0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Multiple"
+1,0,3,2,4,1,0,0,0,0,2,0,1,4,0,0,0,0,1,"Infectious Bovine Rhinotracheitis"
+0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"S. aureus"
