@@ -14,29 +14,40 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, include = FALSE}
+library(flextable)
+library(scales)
+library(dplyr)
+library(tidyr)
+library(parametra)
+```
+
 ```{r setup, include = FALSE}
+# Function to create a heatmap visualization
 parametra_heatmap <- function(x, y, data=parametra_long, order_by=NULL, filename = NULL, na.rm=FALSE) {
   # Create data summary
-  data<-data %>%
-    dplyr::filter(!grepl(";", .data[[x]])) %>%  #Filter for only individual items
+  data <- data %>%
+    dplyr::filter(!grepl(";", .data[[x]])) %>%  # Filter for only individual items
     dplyr::group_by(across(all_of(c(x, y)))) %>%
     dplyr::summarise(n = n())
 
+  # Remove NA values if specified
   if(na.rm){
     data <- data %>%
       dplyr::filter(!is.na(.data[[y]]))
   }
-  # Rows order
+  
+  # Order rows based on specified criteria or default to descending count
   if(is.null(order_by)){
-    data<-dplyr::arrange(data, desc(n))
+    data <- dplyr::arrange(data, desc(n))
   }else{
-    data<-dplyr::arrange(data, across(order_by), desc(n))
+    data <- dplyr::arrange(data, across(order_by), desc(n))
   }
 
   # Create pivot wider matrix
   matrix <- tidyr::pivot_wider(
     data = data[!is.na(data$n), ],
-    id_cols  = all_of(x),
+    id_cols = all_of(x),
     names_from = all_of(y),
     values_from = n
   )
@@ -50,20 +61,17 @@ parametra_heatmap <- function(x, y, data=parametra_long, order_by=NULL, filename
   # Replace NA with 0
   matrix[is.na(matrix)] <- 0
 
-  # Create heatmap
-  heatmap(matrix, Colv = NA, Rowv = NA)
-
-  # Save if filename provided
+  # Save to file if filename provided
   if (!is.null(filename)) {
     matrix_df <- as.data.frame(matrix)
-    matrix_df[[x]]<-row.names(matrix)
+    matrix_df[[x]] <- row.names(matrix)
     write.csv(matrix_df, file = filename, row.names = FALSE)
   }
 
   return(matrix)
 }
 
-# Custom function for dataframes
+# Function to capitalize all character columns in a dataframe
 capitalize_df <- function(df) {
   df[] <- lapply(df, function(x) {
     if(is.character(x)) {
@@ -80,6 +88,7 @@ capitalize_df <- function(df) {
   return(df)
 }
 
+# Function to capitalize individual strings
 capitalize_vector <- function(x) {
   if(is.character(x)) {
     s <- strsplit(tolower(x), " ")
@@ -94,93 +103,157 @@ capitalize_vector <- function(x) {
 }
 ```
 
-```{r, include = FALSE}
-library(flextable)
-library(scales)
-library(dplyr)
-library(parametra)
-```
+
 
 ```{r, include = FALSE}
-x<-"pathogen"
-y<-"parameter"
-y_by<-"parameter_type"
-disease_matrix<-parametra_heatmap(x=x, y=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))
+# Define main variables
+x <- "pathogen"
+y <- "parameter"
+y_by <- "parameter_type"
 
-# Convert disease_matrix to data frame if it's a matrix
+# Generate heatmap matrix
+disease_matrix <- parametra_heatmap(x=x, y=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))
+
+# Convert matrix to dataframe and handle NA values
 disease_df <- as.data.frame(disease_matrix)
 disease_df[is.na(disease_df)] <- 0
 disease_df[[x]] <- rownames(disease_matrix)
 
-headers_table<-unique(parametra_long[c(y,y_by)])%>%
+# Prepare headers table
+headers_table <- unique(parametra_long[c(y,y_by)]) %>%
   filter(!.data[[y]]=="Other")
 
-last_row_header<-data.frame(y="Other", y_by="Other")
-names(other_header)<-c(y,y_by)
-headers_table<-rbind(headers_table,other_header)
+# Add "Other" row
+last_row_header <- data.frame(y="Other", y_by="Other")
+names(last_row_header) <- c(y,y_by)
+headers_table <- rbind(headers_table, last_row_header)
 
-first_row_header<-data.frame(y=x, y_by=x)
-names(first_row_header)<-c(y,y_by)
-headers_table<-rbind(first_row_header,headers_table)
+# Add first row header
+first_row_header <- data.frame(y=x, y_by=x)
+names(first_row_header) <- c(y,y_by)
+headers_table <- rbind(first_row_header, headers_table)
 
-if("parameter_type"%in%names(headers_table)){
-  headers_table<-headers_table%>%
-    mutate(parameter_type = case_when(
-      parameter_type == "Transmission" ~ "Transmission",
-      parameter_type == "InfectiousLatentIncubatperiod" ~ "Time intervals",
-      parameter_type == "PathogenSurvival" ~ "Survival",
-      parameter_type == "DiagnosticTest" ~ "Tests",
-      parameter_type == "RegionalPrevalence" ~ "Regional Prevalence",
-      parameter_type == "Other" ~ "Other",
-      TRUE ~ parameter_type
-    ))
-}
-
-
-matrix_header<-data.frame(
+# Prepare matrix header
+matrix_header <- data.frame(
     col_keys = headers_table[[y]],
     line2 = headers_table[[y]],
     line3 = headers_table[[y_by]]
   )
 
-matrix_header<-capitalize_df(matrix_header)
-names(disease_df)<-capitalize_vector(names(disease_df))
+# Clean parameter types
+matrix_header <- matrix_header %>%
+  mutate(line3 = case_when(
+    line3 == "Transmission" ~ "Transmission",
+    line3 == "InfectiousLatentIncubatperiod" ~ "Time intervals",
+    line3 == "PathogenSurvival" ~ "Survival",
+    line3 == "DiagnosticTest" ~ "Tests",
+    line3 == "RegionalPrevalence" ~ "Regional Prevalence",
+    line3 == "Other" ~ "Other",
+    TRUE ~ line3
+  ))
 
-# Create color scale function using RColorBrewer
-color_scale <- colorRampPalette(c("#edf8fb", "#8c96c6","#810f7c"))
 
-# Create flextable
-ft <- flextable(disease_df, col_keys =matrix_header$col_keys ) %>%
-  set_header_df(mapping = matrix_header, key = "col_keys") %>% 
-  merge_h(part = "header") %>% 
-  merge_v(part = "header", j = c(1,nrow(matrix_header)))%>% 
-  # Set theme
+# Capitalize headers and column names
+# Fix column naming by replacing "/" with "_"
+matrix_header[["col_keys"]] <- gsub("/", " or ", matrix_header[["col_keys"]])
+matrix_header <- capitalize_df(matrix_header)
+
+# Update and check column alignment
+names(disease_df) <- gsub("/", " or ", names(disease_df))
+names(disease_df) <- capitalize_vector(names(disease_df))
+disease_df<-disease_df[intersect(matrix_header$col_keys,names(disease_df))] 
+
+parametra_count_x <- parametra_long %>%
+  group_by(across(all_of(c(x, "ref")))) %>%
+  summarise(entries = n(), .groups = 'drop') %>%
+  group_by(across(all_of(c( x)))) %>%
+  summarise(
+    n_entries = sum(entries),
+    n_studies = n_distinct(ref),
+    .groups = 'drop'
+  )
+
+
+parametra_count_y <- parametra_long %>%
+  group_by(across(all_of(c(y, "ref")))) %>%
+  summarise(entries = n(), .groups = 'drop') %>%
+  group_by(across(all_of(c( y)))) %>%
+  summarise(
+    n_entries = sum(entries),
+    n_studies = n_distinct(ref),
+    .groups = 'drop'
+  )
+
+if(!is.null(y_by)){
+  parametra_count_y_by <- parametra_long %>%
+    group_by(across(all_of(c(y_by, "ref")))) %>%
+    summarise(entries = n(), .groups = 'drop') %>%
+    group_by(across(all_of(c( y_by)))) %>%
+    summarise(
+      n_entries = sum(entries),
+      n_studies = n_distinct(ref),
+      .groups = 'drop'
+    )
+}
+
+
+disease_df[[1]]<-paste0(disease_df[[1]]," (",parametra_count_x$n_studies[match(disease_df[[1]],parametra_count_x[[1]])],")")
+matrix_header$line2<-paste0(matrix_header$line2," (",parametra_count_y$n_studies[match(headers_table[[y]],parametra_count_y[[y]])],")")
+matrix_header$line2 <- gsub(" \\(NA\\)", "", matrix_header$line2)
+
+matrix_header$line3<-paste0(matrix_header$line3," (",parametra_count_y_by$n_studies[match(headers_table[[y_by]],parametra_count_y_by[[y_by]])],")")
+matrix_header$line3 <- gsub(" \\(NA\\)", "", matrix_header$line3)
+
+# Color scale function
+color_scale <- function(x) {
+  # Handle case where all values are 0
+  if(all(x == 0, na.rm = TRUE)) return(rep("#edf8fb", length(x)))
+  
+  # Replace NA with 0 and create base colors
+  x[is.na(x)] <- 0
+  colors <- rep("#edf8fb", length(x))
+  non_zero <- x > 0
+  
+  if(any(non_zero)) {
+    non_zero_x <- x[non_zero]
+    scaled_values <- (non_zero_x - min(non_zero_x)) / 
+                     (max(non_zero_x) - min(non_zero_x))
+    # Ensure no NA values in color assignment
+    color_indices <- pmax(1, pmin(100, round(scaled_values * 99) + 1))
+    colors[non_zero] <- colorRampPalette(c("#8c96c6", "#810f7c"))(100)[color_indices]
+  }
+  
+  return(colors)
+}
+
+print("Matrix header column keys:")
+print(matrix_header$col_keys)
+print("Disease df column names:")
+print(names(disease_df))
+
+# Create flextable with improved formatting
+ft <- flextable(disease_df, col_keys = matrix_header$col_keys) %>%
+  set_header_df(mapping = matrix_header, key = "col_keys") %>%
+  merge_h(part = "header") %>%
+  merge_v(part = "header", j = c(1,nrow(matrix_header))) %>%
   theme_vanilla() %>%
-  vline(j =which(!duplicated(headers_table[[y_by]])),
-          border = fp_border_default())%>% 
-  # Only rotate line2 (first row)
+  vline(j = which(!duplicated(headers_table[[y_by]]))) %>%
   rotate(j = 2:ncol(disease_df), rotation = "btlr", part = "header", i = 1) %>%
-  align(align = "center", part = "header") %>%  # Center align headers
-  # Color cells based on values (excluding the first column)
+  align(align = "center", part = "header") %>%
   bg(bg = function(x) {
-       x <- as.numeric(as.character(x))  # Ensure proper numeric conversion
-       x[is.na(x)] <- 0  # Handle any remaining NAs
-       if(all(x == 0)) return(rep("#edf8fb", length(x)))  # Handle all-zero case
-       scaled_values <- (x - min(x, na.rm = TRUE)) / 
-                       (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
-       color_scale(100)[pmax(1, pmin(100, round(scaled_values * 99) + 1))]
+       x <- as.numeric(as.character(x))
+       x[is.na(x)] <- 0
+       colors <- color_scale(x)
+       if(any(is.na(colors))) colors[is.na(colors)] <- "#edf8fb"
+       colors
      },
-     j = c(2:nrow(matrix_header)),
+     j = 2:ncol(disease_df),
      part = "body") %>%
-  # Adjust column widths
   autofit() %>%
-  # Set font size
   fontsize(size = 9, part = "all") %>%
-  # Add borders
   border_outer() %>%
   border_inner()
 
-# Display table
+ft <- set_caption(ft, caption = paste0("Number of parametra entries by ", x, " and ", y, ". The numbers in parentheses indicate the count of studies where these entries were collected. Total number of studies: ", length(unique(parametra_long$ref))))
 ft
 ```
-
