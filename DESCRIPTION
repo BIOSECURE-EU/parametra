@@ -15,5 +15,8 @@ Depends:
 LazyData: true
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    flextable,
+    scales,
+    dplyr
 VignetteBuilder: knitr
