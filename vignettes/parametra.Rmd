@@ -198,38 +198,42 @@ if(!is.null(y_by)){
 
 
 disease_df[[1]]<-paste0(disease_df[[1]]," (",parametra_count_x$n_studies[match(disease_df[[1]],parametra_count_x[[1]])],")")
+
 matrix_header$line2<-paste0(matrix_header$line2," (",parametra_count_y$n_studies[match(headers_table[[y]],parametra_count_y[[y]])],")")
 matrix_header$line2 <- gsub(" \\(NA\\)", "", matrix_header$line2)
+matrix_header$line2[1]<-""
 
 matrix_header$line3<-paste0(matrix_header$line3," (",parametra_count_y_by$n_studies[match(headers_table[[y_by]],parametra_count_y_by[[y_by]])],")")
 matrix_header$line3 <- gsub(" \\(NA\\)", "", matrix_header$line3)
+matrix_header$line3 <- ifelse(matrix_header$line3=="Other",matrix_header$line2,matrix_header$line3)
+matrix_header$line3[1]<-""
 
 # Color scale function
 color_scale <- function(x) {
   # Handle case where all values are 0
-  if(all(x == 0, na.rm = TRUE)) return(rep("#edf8fb", length(x)))
+  if(all(x == 0, na.rm = TRUE)) return(rep("white", length(x)))
   
   # Replace NA with 0 and create base colors
   x[is.na(x)] <- 0
-  colors <- rep("#edf8fb", length(x))
+  colors <- rep("white", length(x))
   non_zero <- x > 0
+  
+  # Get all values from the entire table for global scaling
+  all_values <- unlist(disease_df[,-1])  # Exclude first column (names)
+  global_min <- min(all_values[all_values > 0], na.rm = TRUE)
+  global_max <- max(all_values, na.rm = TRUE)
   
   if(any(non_zero)) {
     non_zero_x <- x[non_zero]
-    scaled_values <- (non_zero_x - min(non_zero_x)) / 
-                     (max(non_zero_x) - min(non_zero_x))
+    # Scale based on global min and max
+    scaled_values <- (non_zero_x - global_min) / (global_max - global_min)
     # Ensure no NA values in color assignment
     color_indices <- pmax(1, pmin(100, round(scaled_values * 99) + 1))
-    colors[non_zero] <- colorRampPalette(c("#8c96c6", "#810f7c"))(100)[color_indices]
+    colors[non_zero] <- colorRampPalette(c("#e0ecf4","#8c96c6", "#88419d", "#810f7c"))(100)[color_indices]
   }
   
   return(colors)
 }
-
-print("Matrix header column keys:")
-print(matrix_header$col_keys)
-print("Disease df column names:")
-print(names(disease_df))
 
 # Create flextable with improved formatting
 ft <- flextable(disease_df, col_keys = matrix_header$col_keys) %>%
@@ -237,8 +241,7 @@ ft <- flextable(disease_df, col_keys = matrix_header$col_keys) %>%
   merge_h(part = "header") %>%
   merge_v(part = "header", j = c(1,nrow(matrix_header))) %>%
   theme_vanilla() %>%
-  vline(j = which(!duplicated(headers_table[[y_by]]))) %>%
-  rotate(j = 2:ncol(disease_df), rotation = "btlr", part = "header", i = 1) %>%
+  rotate(j = 2:nrow(matrix_header), rotation = "btlr", part = "header", i = 1) %>%
   align(align = "center", part = "header") %>%
   bg(bg = function(x) {
        x <- as.numeric(as.character(x))
@@ -247,7 +250,7 @@ ft <- flextable(disease_df, col_keys = matrix_header$col_keys) %>%
        if(any(is.na(colors))) colors[is.na(colors)] <- "#edf8fb"
        colors
      },
-     j = 2:ncol(disease_df),
+     j = 2:nrow(matrix_header),
      part = "body") %>%
   autofit() %>%
   fontsize(size = 9, part = "all") %>%
