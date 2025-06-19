@@ -1,0 +1,72 @@
+---
+title: "parametra"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{parametra}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#library(parametra)
+```
+
+```{r}
+library(flextable)
+library(scales)
+library(dplyr)
+load("data/parametra_long.rda")
+source("data-raw/heatmaps.R")
+
+x<-"pathogen"
+y<-"parameter"
+disease_matrix<-parametra_heatmap(x=x, y=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))
+```
+
+
+
+```{r}
+# Create color scale function using RColorBrewer
+color_scale <- colorRampPalette(c("#edf8fb", "#8c96c6","#810f7c"))
+
+
+# Convert disease_matrix to data frame if it's a matrix
+disease_df <- as.data.frame(disease_matrix)
+disease_df$Disease <- rownames(disease_matrix)
+
+# Reshape data to keep Disease as first column
+disease_df <- disease_df[, c("Disease", setdiff(names(disease_df), "Disease"))]
+
+# Create flextable
+ft <- flextable(disease_df) %>%
+  # Set theme
+  theme_vanilla() %>%
+  # Color cells based on values (excluding the Disease column)
+  bg(j = 2:ncol(disease_df), 
+     bg = function(x) {
+       scaled_values <- (as.numeric(x) - min(as.numeric(x))) / 
+                       (max(as.numeric(x)) - min(as.numeric(x)))
+       color_scale(100)[pmax(1, pmin(100, round(scaled_values * 99) + 1))]
+     }) %>%
+  # Rotate headers for better visibility
+  set_header_labels(Disease = "Disease") %>%
+  rotate(j = 2:ncol(disease_df), rotation = "btlr", part = "header") %>%
+  # Adjust column widths
+  autofit() %>%
+  # Set font size
+  fontsize(size = 9, part = "all") %>%
+  # Add borders
+  border_outer() %>%
+  border_inner()
+
+# Display table
+ft
+```
+
