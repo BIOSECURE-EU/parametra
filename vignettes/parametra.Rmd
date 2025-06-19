@@ -19,7 +19,7 @@ library(flextable)
 library(scales)
 library(dplyr)
 library(tidyr)
-library(parametra)
+#library(parametra)
 ```
 
 ```{r setup, include = FALSE}
@@ -91,7 +91,7 @@ capitalize_df <- function(df) {
 # Function to capitalize individual strings
 capitalize_vector <- function(x) {
   if(is.character(x)) {
-    s <- strsplit(tolower(x), " ")
+    s <- strsplit(x, " ")
     sapply(s, function(words) {
       paste(toupper(substring(words, 1, 1)), 
             substring(words, 2),
@@ -103,160 +103,232 @@ capitalize_vector <- function(x) {
 }
 ```
 
-
-
 ```{r, include = FALSE}
-# Define main variables
-x <- "pathogen"
-y <- "parameter"
-y_by <- "parameter_type"
+ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
+  # Generate heatmap matrix
+  heatmap_matrix <- parametra_heatmap(x=x, y=y, order_by=order_by)
+  
+  # Convert matrix to dataframe and handle NA values
+  heatmap_df <- as.data.frame(heatmap_matrix)
+  heatmap_df[is.na(heatmap_df)] <- 0
+  heatmap_df[[x]] <- rownames(heatmap_matrix)
+  heatmap_df<-heatmap_df[order(heatmap_df[[x]]),]
+  
+  # Prepare headers table
+  headers_table <- unique(parametra_long[c(y,y_by)]) %>%
+    filter(!.data[[y]]=="Other") 
+  
+  if(!is.null(order_by)){
+    headers_table<-headers_table%>%
+      arrange(across(order_by))
+  }
+  
+  # Add "Other" row
+  last_row_header <- if(is.null(y_by)) data.frame(y="Other") else data.frame(y="Other", y_by="Other")
+  names(last_row_header) <- c(y,y_by)
+  headers_table <- rbind(headers_table, last_row_header)
+  
+  # Add first row header
+  first_row_header <- if(is.null(y_by)) data.frame(y=x) else data.frame(y=x, y_by=x)
+  names(first_row_header) <- c(y,y_by)
+  headers_table <- rbind(first_row_header, headers_table)
+  
+  # Prepare matrix header
+  matrix_header <- data.frame(
+      col_keys = headers_table[[y]],
+      line2 = headers_table[[y]],
+      line3 = if(is.null(y_by)) headers_table[[y]] else headers_table[[y_by]]
+    )
+  
+  
+  # Clean parameter types
+  matrix_header <- matrix_header %>%
+    mutate(
+      # Handle parameter type categorization
+      line3 = if(!is.null(y_by)&&y_by == "parameter_type") {
+        case_when(
+          line3 == "Transmission" ~ "Transmission",
+          line3 == "InfectiousLatentIncubatperiod" ~ "Time intervals",
+          line3 == "PathogenSurvival" ~ "Survival",
+          line3 == "DiagnosticTest" ~ "Tests",
+          line3 == "RegionalPrevalence" ~ "Regional Prevalence",
+          line3 == "Other" ~ "Other",
+          TRUE ~ line3
+        )
+      } else line3,
+      
+      # Handle study type categorization
+      line3 = if(is.null(y_by)&&y== "study_type") {
+        case_when(
+          is.na(line2) ~ "Not available",
+          line2 %in% c("Experimental", "Experimental Stable", 
+                      "Experimental Isolator", "Experimental Field", 
+                      "Experimental Lab") ~ "Experimental",
+          line2 %in% c("Review", "Descriptive Review", 
+                      "Meta-analysis") ~ "Review",
+          line2 %in% c("Field", "Observational", "Seroprevalence",
+                      "Prevalence", "Retrospective", 
+                      "Retrospective cohort") ~ "Field",
+          TRUE ~ "Other"
+        )
+      } else line3
+    )
+  
 
-# Generate heatmap matrix
-disease_matrix <- parametra_heatmap(x=x, y=y, filename=paste0("data-raw/heatmaps/",x,"_",y,".csv"))
+  # Capitalize headers and column names
+  # Fix column naming by replacing "/" with "_"
+  matrix_header[["col_keys"]] <- gsub("/", " or ", matrix_header[["col_keys"]])
+  matrix_header <- capitalize_df(matrix_header)
 
-# Convert matrix to dataframe and handle NA values
-disease_df <- as.data.frame(disease_matrix)
-disease_df[is.na(disease_df)] <- 0
-disease_df[[x]] <- rownames(disease_matrix)
-
-# Prepare headers table
-headers_table <- unique(parametra_long[c(y,y_by)]) %>%
-  filter(!.data[[y]]=="Other")
-
-# Add "Other" row
-last_row_header <- data.frame(y="Other", y_by="Other")
-names(last_row_header) <- c(y,y_by)
-headers_table <- rbind(headers_table, last_row_header)
-
-# Add first row header
-first_row_header <- data.frame(y=x, y_by=x)
-names(first_row_header) <- c(y,y_by)
-headers_table <- rbind(first_row_header, headers_table)
-
-# Prepare matrix header
-matrix_header <- data.frame(
-    col_keys = headers_table[[y]],
-    line2 = headers_table[[y]],
-    line3 = headers_table[[y_by]]
-  )
-
-# Clean parameter types
-matrix_header <- matrix_header %>%
-  mutate(line3 = case_when(
-    line3 == "Transmission" ~ "Transmission",
-    line3 == "InfectiousLatentIncubatperiod" ~ "Time intervals",
-    line3 == "PathogenSurvival" ~ "Survival",
-    line3 == "DiagnosticTest" ~ "Tests",
-    line3 == "RegionalPrevalence" ~ "Regional Prevalence",
-    line3 == "Other" ~ "Other",
-    TRUE ~ line3
-  ))
-
-
-# Capitalize headers and column names
-# Fix column naming by replacing "/" with "_"
-matrix_header[["col_keys"]] <- gsub("/", " or ", matrix_header[["col_keys"]])
-matrix_header <- capitalize_df(matrix_header)
-
-# Update and check column alignment
-names(disease_df) <- gsub("/", " or ", names(disease_df))
-names(disease_df) <- capitalize_vector(names(disease_df))
-disease_df<-disease_df[intersect(matrix_header$col_keys,names(disease_df))] 
-
-parametra_count_x <- parametra_long %>%
-  group_by(across(all_of(c(x, "ref")))) %>%
-  summarise(entries = n(), .groups = 'drop') %>%
-  group_by(across(all_of(c( x)))) %>%
-  summarise(
-    n_entries = sum(entries),
-    n_studies = n_distinct(ref),
-    .groups = 'drop'
-  )
-
-
-parametra_count_y <- parametra_long %>%
-  group_by(across(all_of(c(y, "ref")))) %>%
-  summarise(entries = n(), .groups = 'drop') %>%
-  group_by(across(all_of(c( y)))) %>%
-  summarise(
-    n_entries = sum(entries),
-    n_studies = n_distinct(ref),
-    .groups = 'drop'
-  )
-
-if(!is.null(y_by)){
-  parametra_count_y_by <- parametra_long %>%
-    group_by(across(all_of(c(y_by, "ref")))) %>%
+  # Update and check column alignment
+  names(heatmap_df) <- gsub("/", " or ", names(heatmap_df))
+  names(heatmap_df) <- capitalize_vector(names(heatmap_df))
+  heatmap_df<-heatmap_df[intersect(matrix_header$col_keys,names(heatmap_df))] 
+  
+  parametra_count_x <- parametra_long %>%
+    group_by(across(all_of(c(x, "ref")))) %>%
     summarise(entries = n(), .groups = 'drop') %>%
+    group_by(across(all_of(c( x)))) %>%
+    summarise(
+      n_entries = sum(entries),
+      n_studies = n_distinct(ref),
+      .groups = 'drop'
+    )
+  
+  parametra_count_y <- parametra_long %>%
+    group_by(across(all_of(c(y, "ref")))) %>%
+    summarise(entries = n(), .groups = 'drop') %>%
+    group_by(across(all_of(c( y)))) %>%
+    summarise(
+      n_entries = sum(entries),
+      n_studies = n_distinct(ref),
+      .groups = 'drop'
+    )
+  
+  if(is.null(y_by)&&y == "study_type") y_by<-"study_type2"
+
+  if(is.null(y_by)) y_by<-y
+
+  parametra_count_y_by <- parametra_long  %>%
+    mutate(
+      study_type2=if(y_by=="study_type2") {
+        case_when(
+          is.na(study_type) ~ "Not available",
+          study_type %in% c("Experimental", "Experimental Stable", 
+                      "Experimental Isolator", "Experimental Field", 
+                      "Experimental Lab") ~ "Experimental",
+          study_type %in% c("Review", "Descriptive Review", 
+                      "Meta-analysis") ~ "Review",
+          study_type %in% c("Field", "Observational", "Seroprevalence",
+                      "Prevalence", "Retrospective", 
+                      "Retrospective cohort") ~ "Field",
+          TRUE ~ "Other"
+        )
+      } else NULL)%>%
+    group_by(across(all_of(c(y_by, "ref")))) %>%
+    summarise(entries = n(), .groups = 'drop')%>%
     group_by(across(all_of(c( y_by)))) %>%
     summarise(
       n_entries = sum(entries),
       n_studies = n_distinct(ref),
       .groups = 'drop'
     )
-}
-
-
-disease_df[[1]]<-paste0(disease_df[[1]]," (",parametra_count_x$n_studies[match(disease_df[[1]],parametra_count_x[[1]])],")")
-
-matrix_header$line2<-paste0(matrix_header$line2," (",parametra_count_y$n_studies[match(headers_table[[y]],parametra_count_y[[y]])],")")
-matrix_header$line2 <- gsub(" \\(NA\\)", "", matrix_header$line2)
-matrix_header$line2[1]<-""
-
-matrix_header$line3<-paste0(matrix_header$line3," (",parametra_count_y_by$n_studies[match(headers_table[[y_by]],parametra_count_y_by[[y_by]])],")")
-matrix_header$line3 <- gsub(" \\(NA\\)", "", matrix_header$line3)
-matrix_header$line3 <- ifelse(matrix_header$line3=="Other",matrix_header$line2,matrix_header$line3)
-matrix_header$line3[1]<-""
-
-# Color scale function
-color_scale <- function(x) {
-  # Handle case where all values are 0
-  if(all(x == 0, na.rm = TRUE)) return(rep("white", length(x)))
   
-  # Replace NA with 0 and create base colors
-  x[is.na(x)] <- 0
-  colors <- rep("white", length(x))
-  non_zero <- x > 0
   
-  # Get all values from the entire table for global scaling
-  all_values <- unlist(disease_df[,-1])  # Exclude first column (names)
-  global_min <- min(all_values[all_values > 0], na.rm = TRUE)
-  global_max <- max(all_values, na.rm = TRUE)
   
-  if(any(non_zero)) {
-    non_zero_x <- x[non_zero]
-    # Scale based on global min and max
-    scaled_values <- (non_zero_x - global_min) / (global_max - global_min)
-    # Ensure no NA values in color assignment
-    color_indices <- pmax(1, pmin(100, round(scaled_values * 99) + 1))
-    colors[non_zero] <- colorRampPalette(c("#e0ecf4","#8c96c6", "#88419d", "#810f7c"))(100)[color_indices]
+  heatmap_df[[1]]<-paste0(heatmap_df[[1]]," (",parametra_count_x$n_studies[match(heatmap_df[[1]],parametra_count_x[[1]])],")")
+  
+  matrix_header$line2<-paste0(matrix_header$line2," (",parametra_count_y$n_studies[match(headers_table[[y]],parametra_count_y[[y]])],")")
+  matrix_header$line2 <- gsub(" \\(NA\\)", "", matrix_header$line2)
+  matrix_header$line2[1]<-""
+  
+  matrix_header$line3<-paste0(matrix_header$line3," (",parametra_count_y_by$n_studies[match(headers_table[[y_by]],parametra_count_y_by[[y_by]])],")")
+  matrix_header$line3 <- gsub(" \\(NA\\)", "", matrix_header$line3)
+  matrix_header$line3 <- ifelse(matrix_header$line3=="Other",matrix_header$line2,matrix_header$line3)
+  matrix_header$line3[1]<-""
+  
+  # Color scale function
+  color_scale <- function(x) {
+    # Handle case where all values are 0
+    if(all(x == 0, na.rm = TRUE)) return(rep("white", length(x)))
+    
+    # Replace NA with 0 and create base colors
+    x[is.na(x)] <- 0
+    colors <- rep("white", length(x))
+    non_zero <- x > 0
+    
+    # Get all values from the entire table for global scaling
+    all_values <- unlist(heatmap_df[,-1])  # Exclude first column (names)
+    global_min <- min(all_values[all_values > 0], na.rm = TRUE)
+    global_max <- max(all_values, na.rm = TRUE)
+    
+    if(any(non_zero)) {
+      non_zero_x <- x[non_zero]
+      # Scale based on global min and max
+      scaled_values <- (non_zero_x - global_min) / (global_max - global_min)
+      # Ensure no NA values in color assignment
+      color_indices <- pmax(1, pmin(100, round(scaled_values * 99) + 1))
+      colors[non_zero] <- colorRampPalette(c("#e0ecf4","#8c96c6", "#88419d", "#810f7c"))(100)[color_indices]
+    }
+    
+    return(colors)
   }
   
-  return(colors)
+  # Create flextable with improved formatting
+  ft <- flextable(heatmap_df, col_keys = matrix_header$col_keys) %>%
+    set_header_df(mapping = matrix_header, key = "col_keys") %>%
+    merge_h(part = "header") %>%
+    merge_v(part = "header") %>%
+    theme_vanilla() %>%
+    rotate(j = 2:ncol(heatmap_df), rotation = "btlr", part = "header", i = 1) %>%
+    align(align = "center", part = "header") %>%
+    bg(bg = function(x) {
+         x <- as.numeric(as.character(x))
+         x[is.na(x)] <- 0
+         colors <- color_scale(x)
+         if(any(is.na(colors))) colors[is.na(colors)] <- "white"
+         colors
+       },
+       j = 2:ncol(heatmap_df),
+       part = "body") %>%
+    autofit() %>%
+    fontsize(size = 9, part = "all") %>%
+    border_outer() %>%
+    border_inner()
+  
+  ft <- set_caption(ft, caption = paste0("Number of parametra entries by ", x, " and ", y, ". The numbers in parentheses indicate the count of studies where these entries were collected. Total number of studies: ", length(unique(parametra_long$ref))))
+  return(ft)
+  
 }
 
-# Create flextable with improved formatting
-ft <- flextable(disease_df, col_keys = matrix_header$col_keys) %>%
-  set_header_df(mapping = matrix_header, key = "col_keys") %>%
-  merge_h(part = "header") %>%
-  merge_v(part = "header", j = c(1,nrow(matrix_header))) %>%
-  theme_vanilla() %>%
-  rotate(j = 2:nrow(matrix_header), rotation = "btlr", part = "header", i = 1) %>%
-  align(align = "center", part = "header") %>%
-  bg(bg = function(x) {
-       x <- as.numeric(as.character(x))
-       x[is.na(x)] <- 0
-       colors <- color_scale(x)
-       if(any(is.na(colors))) colors[is.na(colors)] <- "#edf8fb"
-       colors
-     },
-     j = 2:nrow(matrix_header),
-     part = "body") %>%
-  autofit() %>%
-  fontsize(size = 9, part = "all") %>%
-  border_outer() %>%
-  border_inner()
+```
 
-ft <- set_caption(ft, caption = paste0("Number of parametra entries by ", x, " and ", y, ". The numbers in parentheses indicate the count of studies where these entries were collected. Total number of studies: ", length(unique(parametra_long$ref))))
-ft
+## Entries by pathogen and parameter
+
+```{r}
+x <- "pathogen"
+y <- "parameter"
+ft_heatmap(x,y,y_by)
+```
+
+## Entries by pathogen and year
+
+```{r}
+x <- "pathogen"
+y <- "year"
+ft_heatmap(x,y, order_by=y)
+```
+
+## Entries by pathogen and study type
+
+```{r}
+x<-"pathogen"
+y<-"study_type"
+ft_heatmap(x,y)
+```
+
+```{r}
+x<-"pathogen"
+y<-"model_type"
+ft_heatmap(x,y, order_by=y)
 ```
