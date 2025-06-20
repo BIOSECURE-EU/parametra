@@ -8,7 +8,7 @@ Originally developed by the [BIOSECURE](https://biosecure.eu/) consortium throug
 
 The database continues to grow thanks to user contributions via the [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission).
 
-You can visualize the number of parametra entries by pathogen, parameter, year and study type [here](https://biosecure-eu.github.io/parametra/articles/parametra.html).
+The availability of parameters by pathogen, parameter type, year and study type can be visualized [here](https://biosecure-eu.github.io/parametra/articles/parametra.html).
 
 ## How to use it
 
@@ -49,7 +49,7 @@ data = pd.read_csv("https://raw.githubusercontent.com/BIOSECURE-EU/parametra/ref
 
 ## Database Structure
 
-Each PARAMETRA entry contains a parameter, pathogen, and reference. Additional information varies by parameter type and may include host species, study type, value, and upper and lower confidence intervals. The database organizes these entries into the following parameter tables:
+Each PARAMETRA entry contains a parameter, pathogen, and reference. Additional information varies by parameter type and may include host species, study type, value, and upper and lower confidence intervals. It is organized in the following tables:
 
 1.  [**Transmission**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_Transmission.csv): Reproduction number, transmission parameter, probability of infection given direct/indirect contact, probability of reactivation of latent infection, other
 2.  [**Infectious/Latent/Incubation**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_InfectiousLatentIncubatperiod.csv): Infectious period, latent period, incubation period, shape, other
@@ -60,7 +60,7 @@ Each PARAMETRA entry contains a parameter, pathogen, and reference. Additional i
 7.  [**Control Plan**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_ControlPlan.csv): Voluntary or compulsory national and regional control plans
 8.  [**Other Relevant Information**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_OtherRelevantInformation.csv): Other relevant parameters for modelling
 
-All this tables are aggregated in [**parametra_long**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/parametra_long.csv). You can fill their full documentation [here](https://biosecure-eu.github.io/parametra/reference/index.html).
+All this tables are aggregated in [**parametra_long**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/parametra_long.csv). You can find their full documentation [here](https://biosecure-eu.github.io/parametra/reference/index.html).
 
 ## Crossref
 
