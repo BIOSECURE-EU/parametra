@@ -19,7 +19,7 @@ library(flextable)
 library(scales)
 library(dplyr)
 library(tidyr)
-#library(parametra)
+library(parametra)
 ```
 
 ```{r setup, include = FALSE}
@@ -113,6 +113,7 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
   heatmap_df[is.na(heatmap_df)] <- 0
   heatmap_df[[x]] <- rownames(heatmap_matrix)
   heatmap_df<-heatmap_df[order(heatmap_df[[x]]),]
+  names(heatmap_df)[names(heatmap_df)=="NA"]<-"Not available"
   
   # Prepare headers table
   headers_table <- unique(parametra_long[c(y,y_by)]) %>%
@@ -123,15 +124,7 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
       arrange(across(order_by))
   }
   
-  # Add "Other" row
-  last_row_header <- if(is.null(y_by)) data.frame(y="Other") else data.frame(y="Other", y_by="Other")
-  names(last_row_header) <- c(y,y_by)
-  headers_table <- rbind(headers_table, last_row_header)
-  
-  # Add first row header
-  first_row_header <- if(is.null(y_by)) data.frame(y=x) else data.frame(y=x, y_by=x)
-  names(first_row_header) <- c(y,y_by)
-  headers_table <- rbind(first_row_header, headers_table)
+
   
   # Prepare matrix header
   matrix_header <- data.frame(
@@ -151,7 +144,8 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
           line3 == "InfectiousLatentIncubatperiod" ~ "Time intervals",
           line3 == "PathogenSurvival" ~ "Survival",
           line3 == "DiagnosticTest" ~ "Tests",
-          line3 == "RegionalPrevalence" ~ "Regional Prevalence",
+          line3 == "RegionalPrevalence" ~ "Prevalence",
+          line3 == "WithinHerdPrevalence" ~ "Prevalence",
           line3 == "Other" ~ "Other",
           TRUE ~ line3
         )
@@ -174,17 +168,41 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
       } else line3
     )
   
+  # Add "Other" row
+  last_row_header <- data.frame(col_keys="Other", line2="Other", line3="Other")
+  matrix_header <- rbind(matrix_header, last_row_header)
+  
+  # Add "Not available" row
+  na_row_header <- data.frame(col_keys="Not available", line2="Not available", line3="Not available")
+  matrix_header <- rbind(matrix_header, na_row_header)
+  
+  # Order by line3 and line 2
+  matrix_header <- matrix_header %>%
+    arrange(
+      line3 == "Not available",  # FALSE comes before TRUE
+      line3 == "Other", 
+      line3,
+      line2 == "Not available",
+      line2 == "Other",
+      line2
+    )
+
+  
+  # Add first row header
+  first_row_header <- data.frame(col_keys=x, line2=x, line3=x)
+  matrix_header <- rbind(first_row_header, matrix_header)
+  
 
   # Capitalize headers and column names
   # Fix column naming by replacing "/" with "_"
   matrix_header[["col_keys"]] <- gsub("/", " or ", matrix_header[["col_keys"]])
-  matrix_header <- capitalize_df(matrix_header)
+
 
   # Update and check column alignment
   names(heatmap_df) <- gsub("/", " or ", names(heatmap_df))
-  names(heatmap_df) <- capitalize_vector(names(heatmap_df))
   heatmap_df<-heatmap_df[intersect(matrix_header$col_keys,names(heatmap_df))] 
-  
+  matrix_header<-matrix_header[match(intersect(matrix_header$col_keys,names(heatmap_df)),matrix_header$col_keys),] 
+
   parametra_count_x <- parametra_long %>%
     group_by(across(all_of(c(x, "ref")))) %>%
     summarise(entries = n(), .groups = 'drop') %>%
@@ -196,6 +214,7 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
     )
   
   parametra_count_y <- parametra_long %>%
+    mutate(across(all_of(y), ~ifelse(is.na(.), "Not available", .))) %>%
     group_by(across(all_of(c(y, "ref")))) %>%
     summarise(entries = n(), .groups = 'drop') %>%
     group_by(across(all_of(c( y)))) %>%
@@ -211,6 +230,18 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
 
   parametra_count_y_by <- parametra_long  %>%
     mutate(
+      parameter_type = if(y_by == "parameter_type") {
+        case_when(
+          parameter_type == "Transmission" ~ "Transmission",
+          parameter_type == "InfectiousLatentIncubatperiod" ~ "Time intervals",
+          parameter_type == "PathogenSurvival" ~ "Survival",
+          parameter_type == "DiagnosticTest" ~ "Tests",
+          parameter_type == "RegionalPrevalence" ~ "Prevalence",
+          parameter_type == "WithinHerdPrevalence" ~ "Prevalence",
+          TRUE ~ parameter_type
+        )
+      } else parameter_type,
+      
       study_type2=if(y_by=="study_type2") {
         case_when(
           is.na(study_type) ~ "Not available",
@@ -225,6 +256,7 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
           TRUE ~ "Other"
         )
       } else NULL)%>%
+    mutate(across(all_of(y_by), ~ifelse(is.na(.), "Not available", .))) %>%
     group_by(across(all_of(c(y_by, "ref")))) %>%
     summarise(entries = n(), .groups = 'drop')%>%
     group_by(across(all_of(c( y_by)))) %>%
@@ -235,17 +267,19 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
     )
   
   
-  
   heatmap_df[[1]]<-paste0(heatmap_df[[1]]," (",parametra_count_x$n_studies[match(heatmap_df[[1]],parametra_count_x[[1]])],")")
   
-  matrix_header$line2<-paste0(matrix_header$line2," (",parametra_count_y$n_studies[match(headers_table[[y]],parametra_count_y[[y]])],")")
+  matrix_header$line2<-paste0(matrix_header$line2," (",parametra_count_y$n_studies[match(matrix_header$line2,parametra_count_y[[y]])],")")
   matrix_header$line2 <- gsub(" \\(NA\\)", "", matrix_header$line2)
   matrix_header$line2[1]<-""
   
-  matrix_header$line3<-paste0(matrix_header$line3," (",parametra_count_y_by$n_studies[match(headers_table[[y_by]],parametra_count_y_by[[y_by]])],")")
+  matrix_header$line3<-paste0(matrix_header$line3," (",parametra_count_y_by$n_studies[match(matrix_header$line3,parametra_count_y_by[[y_by]])],")")
   matrix_header$line3 <- gsub(" \\(NA\\)", "", matrix_header$line3)
   matrix_header$line3 <- ifelse(matrix_header$line3=="Other",matrix_header$line2,matrix_header$line3)
   matrix_header$line3[1]<-""
+  
+  matrix_header <- capitalize_df(matrix_header)
+  names(heatmap_df) <- capitalize_vector(names(heatmap_df))
   
   # Color scale function
   color_scale <- function(x) {
@@ -308,6 +342,7 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
 ```{r}
 x <- "pathogen"
 y <- "parameter"
+y_by<-"parameter_type"
 ft_heatmap(x,y,y_by)
 ```
 
@@ -326,6 +361,8 @@ x<-"pathogen"
 y<-"study_type"
 ft_heatmap(x,y)
 ```
+
+## Entries by pathogen and model type
 
 ```{r}
 x<-"pathogen"
