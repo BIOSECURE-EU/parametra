@@ -337,8 +337,6 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
 
 ```
 
-## Entries by pathogen and parameter
-
 ```{r}
 x <- "pathogen"
 y <- "parameter"
@@ -346,25 +344,19 @@ y_by<-"parameter_type"
 ft_heatmap(x,y,y_by)
 ```
 
-## Entries by pathogen and year
-
-```{r}
+```{r, echo=FALSE}
 x <- "pathogen"
 y <- "year"
 ft_heatmap(x,y, order_by=y)
 ```
 
-## Entries by pathogen and study type
-
-```{r}
+```{r, echo=FALSE}
 x<-"pathogen"
 y<-"study_type"
 ft_heatmap(x,y)
 ```
 
-## Entries by pathogen and model type
-
-```{r}
+```{r, echo=FALSE}
 x<-"pathogen"
 y<-"model_type"
 ft_heatmap(x,y, order_by=y)
