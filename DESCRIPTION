@@ -5,6 +5,7 @@ Authors@R:
     c(person("Natalia", "Ciria", , "Natalia.Ciria@uab.cat", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0006-2669-6634")),
       person("Alistair", "Antonopoulos", , "Alistair@kreavet.com", role = "aut"),
+           comment = c(ORCID = "0000-0002-9232-9246")),
       person("Egil A.J.", "Fischer", , role = "ctb",
            comment = c(ORCID = "0000-0002-0599-701X")),
       person("Alberto", "Allepuz", , role = "ctb",
