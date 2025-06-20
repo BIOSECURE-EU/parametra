@@ -2,8 +2,16 @@ Package: parametra
 Title: Livestock Disease Transmission Parameters Database
 Version: 0.0.0.9000
 Authors@R: 
-    c(person("Natalia", "Ciria", , "Natalia.Ciria@uab.cat", role = c("aut", "cre")),
-      person("Alistair", "Antonopoulos", , "Alistair@kreavet.com", role = "aut"))
+    c(person("Natalia", "Ciria", , "Natalia.Ciria@uab.cat", role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0006-2669-6634")),
+      person("Alistair", "Antonopoulos", , "Alistair@kreavet.com", role = "aut"),
+      person("Egil A.J.", "Fischer", , role = "ctb",
+           comment = c(ORCID = "0000-0002-0599-701X")),
+      person("Alberto", "Allepuz", , role = "ctb",
+           comment = c(ORCID = "0000-0003-3518-1991")),
+      person("Sebastien", "Lambert", , role = "ctb",
+           comment = c(ORCID = "0000-0001-6901-373X"))
+      )
 Description: The package provides access to PARAMETRA, a curated database for animal disease modeling, that contains data on infectious periods, transmission rates, pathogen survival, diagnostic tests, prevalence, and control measures for multiple livestock diseases.
 License: GPL (>= 3)
 Encoding: UTF-8

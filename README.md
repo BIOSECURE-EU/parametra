@@ -1,4 +1,4 @@
-# PARAMETRA <img src="man/figures/logo.png" align="right" height="139" alt="" />
+# PARAMETRA <img src="man/figures/logo.png" align="right" height="139"/>
 
 A curated database for animal disease modelling, that contains data on infectious periods, transmission rates, pathogen survival, diagnostic tests, prevalence, and control measures for multiple livestock diseases.
 
@@ -8,7 +8,13 @@ Originally developed by the [BIOSECURE](https://biosecure.eu/) consortium throug
 
 The database continues to grow thanks to user contributions via the [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission).
 
+You can visualize the number of parametra entries by pathogen, parameter, year and study type [here](https://biosecure-eu.github.io/parametra/articles/parametra.html).
+
 ## How to use it
+
+### Download Excel file
+
+Click [here](https://github.com/BIOSECURE-EU/parametra/raw/refs/heads/main/data-raw/parametra.xlsx) to download parametra as an Excel file. This file can also be found at `data-raw/parametra.xlsx`.
 
 ### Installation as an R package
 
@@ -16,10 +22,6 @@ The database continues to grow thanks to user contributions via the [PARAMETRA s
 # install.packages("devtools")
 devtools::install_github("BIOSECURE-EU/parametra")
 ```
-
-### Excel File Access
-
-Find the original Excel file in `data-raw/parametra.xlsx`
 
 ### URL Data Access
 
@@ -58,7 +60,7 @@ Each PARAMETRA entry contains a parameter, pathogen, and reference. Additional i
 7.  [**Control Plan**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_ControlPlan.csv): Voluntary or compulsory national and regional control plans
 8.  [**Other Relevant Information**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_OtherRelevantInformation.csv): Other relevant parameters for modelling
 
-All this tables are aggregated in [**parametra_long**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/parametra_long.csv).
+All this tables are aggregated in [**parametra_long**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/parametra_long.csv). You can fill their full documentation [here](https://biosecure-eu.github.io/parametra/reference/index.html).
 
 ## Crossref
 
