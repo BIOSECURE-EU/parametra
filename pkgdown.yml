@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   parametra: parametra.html
-last_built: 2025-06-20T09:13Z
+last_built: 2025-06-20T09:42Z
 urls:
   reference: https://biosecure-eu.github.io/parametra/reference
   article: https://biosecure-eu.github.io/parametra/articles
