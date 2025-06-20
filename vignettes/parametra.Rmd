@@ -41,7 +41,7 @@ parametra_heatmap <- function(x, y, data=parametra_long, order_by=NULL, filename
   if(is.null(order_by)){
     data <- dplyr::arrange(data, desc(n))
   }else{
-    data <- dplyr::arrange(data, across(order_by), desc(n))
+    data <- dplyr::arrange(data, across(all_of(order_by)), desc(n))
   }
 
   # Create pivot wider matrix
@@ -337,26 +337,26 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
 
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE}
 x <- "pathogen"
 y <- "parameter"
 y_by<-"parameter_type"
 ft_heatmap(x,y,y_by)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
 x <- "pathogen"
 y <- "year"
 ft_heatmap(x,y, order_by=y)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
 x<-"pathogen"
 y<-"study_type"
 ft_heatmap(x,y)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
 x<-"pathogen"
 y<-"model_type"
 ft_heatmap(x,y, order_by=y)
