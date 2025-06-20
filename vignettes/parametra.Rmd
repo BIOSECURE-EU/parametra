@@ -121,7 +121,7 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
   
   if(!is.null(order_by)){
     headers_table<-headers_table%>%
-      arrange(across(order_by))
+      arrange(across(all_of(order_by)))
   }
   
 
