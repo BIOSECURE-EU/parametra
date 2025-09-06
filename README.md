@@ -4,7 +4,7 @@ A curated database for animal disease modelling, that contains data on infectiou
 
 Originally developed by the [BIOSECURE](https://biosecure.eu/) consortium through a semi-systematic literature review. For more information on the methodology, see the accompanying publication:
 
-> Antonopoulos, Alistair and Ciria Artiga, Natalia and Regan, Áine and Tubay, Jerrold and Ciaravino, Giovanna and Hayes, Brandon H. and Lambert, Sebastien and Vergne, Timothée and Velkers, Francisca and Biebaut, Evelien and Viltrop, Arvo and Dewulf, Jeroen and Charlier, Johannes and Fischer, Egil A.J. and Allepuz, Alberto, PARAMETRA: A Transmission Modelling Database for Livestock Diseases (January 31, 2024). Available at SSRN: <https://ssrn.com/abstract=5137563> or [http://dx.doi.org/10.2139/ssrn.5137563](https://dx.doi.org/10.2139/ssrn.5137563)
+> Antonopoulos, A., Ciria, N., Regan, Á., Tubay, J., Ciaravino, G., Hayes, B., Lambert, S., Vergne, T., Velkers, F., Biebaut, E., Viltrop, A., Dewulf, J., Charlier, J., Fischer, E., & Palau, A. A. (2025). PARAMETRA: A transmission modelling database for livestock diseases. *Preventive Veterinary Medicine*, *245*, 106668. <https://doi.org/10.1016/j.prevetmed.2025.106668>
 
 The database continues to grow thanks to user contributions via the [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission).
 
