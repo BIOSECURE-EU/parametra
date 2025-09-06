@@ -1,6 +1,6 @@
 Package: parametra
 Title: Livestock Disease Transmission Parameters Database
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: 
     c(person("Natalia", "Ciria", , "Natalia.Ciria@uab.cat", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0006-2669-6634")),

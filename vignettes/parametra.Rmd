@@ -22,6 +22,8 @@ library(tidyr)
 library(parametra)
 ```
 
+The following examples show heatmap visualizations to explore different aspects of the parametra database. These visualizations help identify data gaps, research trends, and the distribution of parameters across different pathogens and study types.
+
 ```{r setup, include = FALSE}
 # Function to create a heatmap visualization
 parametra_heatmap <- function(x, y, data=parametra_long, order_by=NULL, filename = NULL, na.rm=FALSE) {
@@ -337,6 +339,8 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
 
 ```
 
+### PARAMETRA entries by pathogen and parameter type
+
 ```{r, echo=FALSE, message=FALSE}
 x <- "pathogen"
 y <- "parameter"
@@ -344,17 +348,23 @@ y_by<-"parameter_type"
 ft_heatmap(x,y,y_by)
 ```
 
+### PARAMETRA entries by pathogen and year
+
 ```{r, echo=FALSE, message=FALSE}
 x <- "pathogen"
 y <- "year"
 ft_heatmap(x,y, order_by=y)
 ```
 
+### PARAMETRA entries by pathogen and study type
+
 ```{r, echo=FALSE, message=FALSE}
 x<-"pathogen"
 y<-"study_type"
 ft_heatmap(x,y)
 ```
+
+### PARAMETRA entries by pathogen and model type
 
 ```{r, echo=FALSE, message=FALSE}
 x<-"pathogen"
