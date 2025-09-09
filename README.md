@@ -101,7 +101,7 @@ There are two ways to contribute new parameters to the PARAMETRA database:
 
 ## License
 
-![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ## Acknowledgments
 
