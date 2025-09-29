@@ -7,22 +7,171 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+## Introduction to PARAMETRA
+
+The PARAMETRA package provides access to a comprehensive database of parameters for livestock disease modeling. This vignette demonstrates how to install and use the package, explore the data, and perform some basic analyses.
+
+### Installation
+
+```{r eval=FALSE}
+# Install the package from GitHub
+# install.packages("devtools")
+devtools::install_github("BIOSECURE-EU/parametra")
 ```
+
+
+```{r setup}
+# Load packages
+library(parametra)
+library(dplyr) # Data manipulation
+library(ggplot2) # Plots
+library(ggiraph) # Interactive tooltips
+```
+
+### Database Overview
+
+PARAMETRA contains multiple tables with different parameter types. Let's first get an overview of what's available:
+
+```{r}
+# Look at the available datasets
+data(package = "parametra")
+
+# Preview the main dataset
+head(parametra_long)
+
+# Summary of parameter types
+table(parametra_long$parameter_type)
+
+# Summary of pathogens
+table(parametra_long$pathogen)
+```
+
+
+### Example 1: Exploring Transmission Parameters
+
+Let's examine transmission parameters for a specific disease:
+
+```{r}
+# Filter for African Swine Fever (ASF) transmission parameters
+asf_transmission <- parametra_long %>%
+  filter(pathogen == "African Swine Fever",
+         parameter_type == "Transmission")
+
+# View summary
+summary(asf_transmission$value)
+
+# Plot distribution of values
+g <- ggplot(asf_transmission, aes(x = value, y = host)) +
+  geom_point_interactive(
+    aes(tooltip = paste("Value:",paste(value, ifelse(!is.na(lower_cl),paste0("(95% CI: ",lower_cl,"-", upper_cl,")"),"")),
+                        "<br>Source:", ref_short, 
+                        "<br>DOI:", ref,
+                        "<br>Host:", host,
+                        "<br>Study:", study_type,
+                        ifelse(!is.na(if_other),paste("<br>Other:", if_other),""),
+                        "<br>ID:", id),
+        data_id = id),
+    color = "#0f9da4", 
+    size = 5, 
+    alpha = 0.6,
+    stroke = 1.5) +
+  labs(x = "ASF transmission parameters",
+       y = NULL) +
+  theme_minimal()+
+  facet_wrap(~parameter,  ncol=1, scales="free")
+
+# Convert to interactive graphic
+girafe(ggobj = g, width_svg = 8, height_svg = 6)
+```
+
+### Example 2: Comparing Infectious Periods Across Pathogens
+
+```{r}
+# Extract infectious period data for multiple pathogens
+infectious_periods <- parametra_long %>%
+  filter(parameter == "Infectious period",
+         pathogen %in% c("Classical Swine Fever", "Foot and Mouth Disease", 
+                        "African Swine Fever", "Avian Influenza")) %>%
+  filter(!is.na(value))
+
+# Boxplot of infectious periods by pathogen
+ggplot(infectious_periods, aes(x = pathogen, y = value)) +
+  geom_boxplot(aes(fill = pathogen)) +
+  labs(title = "Comparison of Infectious Periods Across Pathogens",
+       x = "Pathogen", 
+       y = "Infectious Period (days)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position = "none")
+```
+
+
+### Example 3: Exploring Diagnostic Test Performance
+
+```{r}
+# Extract diagnostic test sensitivity and specificity
+diagnostic_tests <- parametra_long %>%
+  filter(parameter_type == "DiagnosticTest",
+         parameter %in% c("Sensitivity", "Specificity")) %>%
+  filter(!is.na(value))
+
+# Create summary by test type
+test_summary <- diagnostic_tests %>%
+  group_by(test_type, parameter) %>%
+  summarize(
+    mean_value = mean(value, na.rm = TRUE),
+    min_value = min(value, na.rm = TRUE),
+    max_value = max(value, na.rm = TRUE),
+    n = n()
+  )
+
+# Display summary
+head(test_summary)
+
+# Visualize diagnostic test performance
+test_summary %>%
+  filter(n > 2, mean_value<1) %>%  # Filter tests with sufficient data points
+  ggplot(aes(x = test_type, y = mean_value, color = parameter)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = min_value, ymax = max_value), width = 0.2) +
+  coord_flip() +
+  labs(title = "Diagnostic Test Performance",
+       x = "Diagnostic Test",
+       y = "Value (0-1)",
+       color = "Parameter") +
+  theme_minimal()
+```
+
+
+### Example 4: Analyzing Data Availability Over Time
+
+```{r}
+# Count parameters by year and type
+params_by_year <- parametra_long %>%
+  filter(!is.na(year)) %>%
+  count(year, parameter_type)
+
+# Plot trend of parameter types over time
+ggplot(params_by_year, aes(x = year, y = n, color = parameter_type)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Livestock Disease Parameter Publications Over Time",
+       x = "Year",
+       y = "Number of Parameters",
+       color = "Parameter Type") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+## PARAMETRA entries by pathogen and parameter type
 
 ```{r, include = FALSE}
 library(flextable)
 library(scales)
-library(dplyr)
 library(tidyr)
 library(parametra)
 ```
 
-The following visualizations help identify data gaps, research trends, and the distribution of parameters across different pathogens and study types.
 
 ```{r setup, include = FALSE}
 # Function to create a heatmap visualization
@@ -339,35 +488,10 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
 
 ```
 
-### By parameter type
 
 ```{r, echo=FALSE, message=FALSE}
 x <- "pathogen"
 y <- "parameter"
 y_by<-"parameter_type"
 ft_heatmap(x,y,y_by)
-```
-
-### By year
-
-```{r, echo=FALSE, message=FALSE}
-x <- "pathogen"
-y <- "year"
-ft_heatmap(x,y, order_by=y)
-```
-
-### By study type
-
-```{r, echo=FALSE, message=FALSE}
-x<-"pathogen"
-y<-"study_type"
-ft_heatmap(x,y)
-```
-
-### By model type
-
-```{r, echo=FALSE, message=FALSE}
-x<-"pathogen"
-y<-"model_type"
-ft_heatmap(x,y, order_by=y)
 ```
