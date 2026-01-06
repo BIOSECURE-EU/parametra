@@ -106,3 +106,5 @@ There are two ways to contribute new parameters to the PARAMETRA database:
 ## Acknowledgments
 
 PARAMETRA was developed as part of the [BIOSECURE](https://biosecure.eu/) Project, funded from the European Union’s HORIZON Europe FARM2FORK project.
+
+*Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or REA. Neither the European Union nor the granting authority can be held responsible for them.*
