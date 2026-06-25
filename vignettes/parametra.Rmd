@@ -11,7 +11,7 @@ vignette: >
 
 The PARAMETRA package provides access to a comprehensive database of parameters for livestock disease modeling. This vignette demonstrates how to install and use the package, explore the data, and perform some basic analyses.
 
-## Parameters available 
+## Parameters available
 
 The following table shows the current number of entries by pathogen and parameter type. To contribute new data, you can use the [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission).
 
@@ -22,7 +22,6 @@ library(tidyr)
 library(parametra)
 library(dplyr)
 ```
-
 
 ```{r setup, include = FALSE}
 # Function to create a heatmap visualization
@@ -344,7 +343,6 @@ ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
 
 ```
 
-
 ```{r heatmap_render, echo=FALSE, message=FALSE}
 x <- "pathogen"
 y <- "parameter"
@@ -361,7 +359,6 @@ ft_heatmap(x,y,y_by)
 # install.packages("devtools")
 devtools::install_github("BIOSECURE-EU/parametra")
 ```
-
 
 ```{r load_pkgs, warnings=FALSE, message=FALSE}
 # Load packages
@@ -388,7 +385,6 @@ table(parametra_long$parameter_type)
 # Summary of pathogens
 table(parametra_long$pathogen)
 ```
-
 
 ### Example 1: Exploring Transmission Parameters for a Specific Disease
 
@@ -467,8 +463,7 @@ inf_period__plot<-ggplot(infectious_periods, aes(x = pathogen, y = value)) +
 girafe(ggobj = inf_period__plot, width_svg = 7, height_svg = 6)
 ```
 
-
-### Example 3: Sensitivity vs Specificity by test 
+### Example 3: Sensitivity vs Specificity by test
 
 ```{r diagnostic_analysis}
 # Extract diagnostic test sensitivity and specificity
