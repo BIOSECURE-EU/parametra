@@ -32,6 +32,7 @@
 suppressPackageStartupMessages({
   library(readxl)
   library(writexl)
+  library(openxlsx)
   library(dplyr)
   library(tidyr)
   library(stringr)
@@ -40,6 +41,7 @@ suppressPackageStartupMessages({
   library(janitor)
   library(tibble)
   library(httr)
+  library(lubridate)
 })
 
 DOC_SHEETS <- c(
@@ -113,11 +115,12 @@ normalise_doi <- function(x) {
   empty <- is.na(x) | x == ""
   if (all(empty)) return(rep(NA_character_, length(x)))
 
-  x[!empty] <- stringr::str_replace_all(x[!empty], "^doi:\\s*", "")
-  x[!empty] <- stringr::str_replace_all(x[!empty], "^https?://(dx\\.)?doi\\.org/", "")
+  x[!empty] <- stringr::str_replace_all(x[!empty], regex("^doi:\\s*", ignore_case = TRUE), "")
+  x[!empty] <- stringr::str_replace_all(x[!empty], regex("^https?://(dx\\.)?doi\\.org/", ignore_case = TRUE), "")
   x[!empty] <- stringr::str_replace_all(x[!empty], "%2F", "/")
   x[!empty] <- stringr::str_replace_all(x[!empty], "\\s+", "")
   x[!empty] <- stringr::str_replace(x[!empty], "[\\.,;\\)\\]]+$", "")
+  x[!empty] <- stringr::str_to_lower(x[!empty])
 
   x[empty] <- NA_character_
   x
@@ -126,6 +129,20 @@ normalise_doi <- function(x) {
 looks_like_doi <- function(x) {
   x <- normalise_doi(x)
   !is.na(x) & stringr::str_detect(x, "^10\\.[0-9]{4,9}/\\S+$")
+}
+
+normalise_url <- function(x) {
+  x <- stringr::str_trim(as.character(x))
+  empty <- is.na(x) | x == ""
+
+  x[!empty] <- stringr::str_replace_all(x[!empty], "\\s+", "")
+  x[!empty] <- stringr::str_replace(x[!empty], "#.*$", "")
+  x[!empty] <- stringr::str_replace(x[!empty], "/+$", "")
+  x[!empty] <- stringr::str_replace(x[!empty], regex("^http://", ignore_case = TRUE), "https://")
+  x[!empty] <- stringr::str_to_lower(x[!empty])
+
+  x[empty] <- NA_character_
+  x
 }
 
 looks_like_url <- function(x) {
@@ -273,12 +290,12 @@ fetch_crossref_info_safe <- function(dois) {
 
 url_check_safe <- function(
     urls,
-    timeout_sec = 15,
-    user_agent = "PARAMETRA-curator/1.0 (httr)",
+    timeout_sec = 20,
+    user_agent = "Mozilla/5.0 (compatible; PARAMETRA-curator/1.0; +https://github.com/NataliaCiria)",
     download = FALSE,
     archive_dir = "data-raw/archive_refs"
 ) {
-  urls <- unique(stringr::str_trim(as.character(urls)))
+  urls <- unique(normalise_url(urls))
   urls <- urls[!is.na(urls) & urls != ""]
   urls <- urls[looks_like_url(urls)]
   if (length(urls) == 0) return(tibble::tibble())
@@ -287,22 +304,60 @@ url_check_safe <- function(
   check_time <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 
   check_one <- function(u) {
-    resp_head <- tryCatch(
-      httr::HEAD(u, httr::user_agent(user_agent), httr::timeout(timeout_sec), httr::followlocation()),
-      error = function(e) NULL
-    )
+    request_url <- utils::URLencode(u, reserved = TRUE)
+
+    fetch_response <- function(verb = c("HEAD", "GET")) {
+      verb <- match.arg(verb)
+
+      req <- tryCatch(
+        {
+          if (identical(verb, "HEAD")) {
+            httr::HEAD(
+              request_url,
+              httr::user_agent(user_agent),
+              httr::add_headers(
+                Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,application/pdf,*/*;q=0.8",
+                `Accept-Language` = "en-US,en;q=0.9"
+              ),
+              httr::timeout(timeout_sec),
+              httr::config(followlocation = TRUE, ssl_verifypeer = FALSE)
+            )
+          } else {
+            httr::GET(
+              request_url,
+              httr::user_agent(user_agent),
+              httr::add_headers(
+                Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,application/pdf,*/*;q=0.8",
+                `Accept-Language` = "en-US,en;q=0.9"
+              ),
+              httr::timeout(timeout_sec),
+              httr::config(followlocation = TRUE, ssl_verifypeer = FALSE)
+            )
+          }
+        },
+        error = function(e) NULL
+      )
+
+      req
+    }
+
+    resp_head <- fetch_response("HEAD")
+    resp_get <- NULL
 
     status <- NA_integer_
     ct <- NA_character_
 
+    # Some servers reject HEAD, require browser-like headers, or return transient
+    # 403/405/500 codes to HEAD while a normal GET works. Always retry with GET
+    # before declaring a URL inaccessible.
     if (!is.null(resp_head)) {
       status <- httr::status_code(resp_head)
       ct <- httr::headers(resp_head)[["content-type"]]
-    } else {
-      resp_get <- tryCatch(
-        httr::GET(u, httr::user_agent(user_agent), httr::timeout(timeout_sec), httr::followlocation()),
-        error = function(e) NULL
-      )
+    }
+
+    if (is.null(resp_head) || is.na(status) || status >= 400 || status %in% c(405L, 429L)) {
+      Sys.sleep(0.25)
+      resp_get <- fetch_response("GET")
       if (!is.null(resp_get)) {
         status <- httr::status_code(resp_get)
         ct <- httr::headers(resp_get)[["content-type"]]
@@ -335,9 +390,20 @@ url_check_safe <- function(
       }
     }
 
+    url_status <- dplyr::case_when(
+      !is.na(status) & status >= 200 & status < 400 ~ "url_ok",
+      !is.na(status) & status %in% c(404L, 410L) ~ "url_not_found",
+      !is.na(status) & status %in% c(401L, 403L) ~ "url_access_restricted",
+      !is.na(status) & status == 429L ~ "url_rate_limited",
+      !is.na(status) & status >= 500 ~ "url_server_error",
+      is.na(status) ~ "url_check_failed",
+      TRUE ~ "url_check_failed"
+    )
+
     tibble::tibble(
       ref = u,
-      url_status = status,
+      http_status = status,
+      url_status = url_status,
       content_type = ct,
       url_kind = kind,
       checked_at = check_time,
@@ -347,6 +413,37 @@ url_check_safe <- function(
   }
 
   purrr::map_dfr(urls, check_one)
+}
+
+format_date_like <- function(x) {
+  if (inherits(x, "Date")) return(format(x, "%d/%m/%y"))
+  if (inherits(x, "POSIXt")) return(format(as.Date(x), "%d/%m/%y"))
+
+  x_chr <- stringr::str_trim(as.character(x))
+  out <- x_chr
+  empty <- is.na(x_chr) | x_chr == ""
+
+  parsed <- suppressWarnings(lubridate::parse_date_time(
+    x_chr,
+    orders = c(
+      "ymd HMS", "ymd HM", "ymd",
+      "dmy HMS", "dmy HM", "dmy",
+      "mdy HMS", "mdy HM", "mdy"
+    ),
+    exact = FALSE
+  ))
+
+  parsed_num <- suppressWarnings(as.Date(as.numeric(x_chr), origin = "1899-12-30"))
+  numeric_date <- !empty & stringr::str_detect(x_chr, "^[0-9]{5}$") & !is.na(parsed_num)
+  parsed[numeric_date] <- parsed_num[numeric_date]
+
+  parsed_date <- as.Date(parsed)
+  plausible_date <- !empty & !is.na(parsed_date) &
+    parsed_date >= as.Date("1900-01-01") &
+    parsed_date <= (Sys.Date() + 365)
+
+  out[plausible_date] <- format(parsed_date[plausible_date], "%d/%m/%y")
+  out
 }
 
 # ------------------------------------------------------------------------------
@@ -491,6 +588,15 @@ curate_parametra <- function(
     parametra_long <- parametra_long %>% dplyr::filter(!is.na(pathogen))
   }
 
+  # Use refs from the individual source tables, not only from parametra_long.
+  # Some tables, e.g. CostBiosecurity, may be excluded from parametra_long by
+  # pathogen filtering but still need URL/reference status classification.
+  refs_raw <- tables %>%
+    purrr::map(extract_refs, ref_col = ref_col) %>%
+    unlist(use.names = FALSE) %>%
+    unique()
+  refs_raw <- refs_raw[!is.na(refs_raw) & refs_raw != ""]
+
   if ("parameter" %in% names(parametra_long)) {
     parametra_long <- parametra_long %>%
       dplyr::mutate(parameter = dplyr::if_else(
@@ -503,7 +609,6 @@ curate_parametra <- function(
   # ---------------------------------------------------------------------------
   # Refs + PubMed resolution
   # ---------------------------------------------------------------------------
-  refs_raw <- extract_refs(parametra_long, ref_col = ref_col)
 
   pubmed_map <- tibble::tibble(pubmed_url = character(0), doi = character(0))
   if (isTRUE(pubmed_resolve)) {
@@ -528,6 +633,7 @@ curate_parametra <- function(
     }
 
     if (isTRUE(looks_like_doi(x0))) return(normalise_doi(x0))
+    if (isTRUE(looks_like_url(x0))) return(normalise_url(x0))
     x0
   }, FUN.VALUE = character(1))
 
@@ -556,7 +662,14 @@ curate_parametra <- function(
 
   crossref_table <- existing_crossref
 
-  doi_found <- character(0)
+  # DOI status should be based on the final Crossref table, not only on the
+  # current fetch result. This avoids labelling DOI refs as "doi_invalid" when
+  # they were already present in the Crossref sheet or when DOI case differs.
+  doi_found <- if (!is.null(crossref_table) && "ref" %in% names(crossref_table)) {
+    unique(normalise_doi(crossref_table$ref))
+  } else character(0)
+  doi_found <- doi_found[!is.na(doi_found) & doi_found != ""]
+
   doi_not_found <- character(0)
   fetched_at_date <- as.Date(NA)
 
@@ -571,11 +684,15 @@ curate_parametra <- function(
     issues$doi_not_found <- fetched$doi_not_found
     issues$crossref_fetch_info <- fetched$fetch_info
 
-    doi_found <- if (!is.null(fetched$crossref) && nrow(fetched$crossref) > 0 && "ref" %in% names(fetched$crossref)) {
-      unique(stringr::str_trim(as.character(fetched$crossref$ref)))
+    doi_found_fetched <- if (!is.null(fetched$crossref) && nrow(fetched$crossref) > 0 && "ref" %in% names(fetched$crossref)) {
+      unique(normalise_doi(fetched$crossref$ref))
     } else character(0)
 
-    doi_not_found <- fetched$doi_not_found
+    doi_found <- union(doi_found, doi_found_fetched)
+    doi_found <- doi_found[!is.na(doi_found) & doi_found != ""]
+
+    doi_not_found <- setdiff(fetched$doi_not_found, doi_found)
+    issues$doi_not_found <- doi_not_found
     fetched_at_date <- as.Date(substr(fetched$fetch_info$fetched_at, 1, 10))
 
     # Crossref table: only found rows
@@ -616,9 +733,9 @@ curate_parametra <- function(
 
     if (nrow(url_checked_tbl) > 0) {
       url_checked_date <- as.Date(substr(url_checked_tbl$checked_at[1], 1, 10))
-      issues$url_not_found <- unique(url_checked_tbl$ref[
-        is.na(url_checked_tbl$url_status) | url_checked_tbl$url_status >= 400
-      ])
+      issues$url_not_found <- unique(normalise_url(url_checked_tbl$ref[
+        url_checked_tbl$url_status == "url_not_found"
+      ]))
     } else {
       issues$url_not_found <- character(0)
     }
@@ -626,13 +743,40 @@ curate_parametra <- function(
     issues$url_check_fetch_info <- list(
       checked_at = if (nrow(url_checked_tbl) > 0) url_checked_tbl$checked_at[1] else format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
       n_urls = length(urls_to_check),
-      n_ok = if (nrow(url_checked_tbl) > 0) sum(!is.na(url_checked_tbl$url_status) & url_checked_tbl$url_status >= 200 & url_checked_tbl$url_status < 400) else 0,
+      n_ok = if (nrow(url_checked_tbl) > 0) sum(url_checked_tbl$url_status == "url_ok", na.rm = TRUE) else 0,
+      n_not_found = if (nrow(url_checked_tbl) > 0) sum(url_checked_tbl$url_status == "url_not_found", na.rm = TRUE) else 0,
+      n_access_restricted = if (nrow(url_checked_tbl) > 0) sum(url_checked_tbl$url_status == "url_access_restricted", na.rm = TRUE) else 0,
+      n_rate_limited = if (nrow(url_checked_tbl) > 0) sum(url_checked_tbl$url_status == "url_rate_limited", na.rm = TRUE) else 0,
+      n_server_error = if (nrow(url_checked_tbl) > 0) sum(url_checked_tbl$url_status == "url_server_error", na.rm = TRUE) else 0,
+      n_check_failed = if (nrow(url_checked_tbl) > 0) sum(url_checked_tbl$url_status == "url_check_failed", na.rm = TRUE) else 0,
       n_pdf = if (nrow(url_checked_tbl) > 0) sum(url_checked_tbl$url_kind == "pdf", na.rm = TRUE) else 0
     )
   }
 
+  if (nrow(url_checked_tbl) > 0 && "ref" %in% names(url_checked_tbl)) {
+    url_checked_tbl <- url_checked_tbl %>%
+      dplyr::mutate(ref_norm = normalise_url(ref))
+    issues$url_checked <- url_checked_tbl
+  }
+
   url_ok <- if (nrow(url_checked_tbl) > 0) {
-    unique(url_checked_tbl$ref[!is.na(url_checked_tbl$url_status) & url_checked_tbl$url_status >= 200 & url_checked_tbl$url_status < 400])
+    unique(url_checked_tbl$ref_norm[url_checked_tbl$url_status == "url_ok"])
+  } else character(0)
+
+  url_access_restricted <- if (nrow(url_checked_tbl) > 0) {
+    unique(url_checked_tbl$ref_norm[url_checked_tbl$url_status == "url_access_restricted"])
+  } else character(0)
+
+  url_rate_limited <- if (nrow(url_checked_tbl) > 0) {
+    unique(url_checked_tbl$ref_norm[url_checked_tbl$url_status == "url_rate_limited"])
+  } else character(0)
+
+  url_server_error <- if (nrow(url_checked_tbl) > 0) {
+    unique(url_checked_tbl$ref_norm[url_checked_tbl$url_status == "url_server_error"])
+  } else character(0)
+
+  url_check_failed <- if (nrow(url_checked_tbl) > 0) {
+    unique(url_checked_tbl$ref_norm[url_checked_tbl$url_status == "url_check_failed"])
   } else character(0)
 
   # ---------------------------------------------------------------------------
@@ -651,6 +795,7 @@ curate_parametra <- function(
     }
 
     if (isTRUE(looks_like_doi(rv))) rv <- as.character(normalise_doi(rv))[1]
+    if (isTRUE(looks_like_url(rv))) rv <- as.character(normalise_url(rv))[1]
 
     if (isTRUE(looks_like_doi(rv))) {
       if (rv %in% doi_found) return("doi_found")
@@ -661,6 +806,10 @@ curate_parametra <- function(
     if (isTRUE(looks_like_url(rv))) {
       if (rv %in% url_ok) return("url_ok")
       if (rv %in% issues$url_not_found) return("url_not_found")
+      if (rv %in% url_access_restricted) return("url_access_restricted")
+      if (rv %in% url_rate_limited) return("url_rate_limited")
+      if (rv %in% url_server_error) return("url_server_error")
+      if (rv %in% url_check_failed) return("url_check_failed")
       return("url_unchecked")
     }
 
@@ -682,7 +831,110 @@ curate_parametra <- function(
     as.Date(NA)
   }
 
+  format_date_like <- function(x) {
+    if (inherits(x, "Date")) return(format(x, "%d/%m/%y"))
+    if (inherits(x, "POSIXt")) return(format(as.Date(x), "%d/%m/%y"))
+
+    x_chr <- stringr::str_trim(as.character(x))
+    out <- x_chr
+    empty <- is.na(x_chr) | x_chr == ""
+
+    parsed <- suppressWarnings(lubridate::parse_date_time(
+      x_chr,
+      orders = c(
+        "ymd HMS", "ymd HM", "ymd",
+        "dmy HMS", "dmy HM", "dmy",
+        "mdy HMS", "mdy HM", "mdy"
+      ),
+      exact = FALSE
+    ))
+
+    parsed_num <- suppressWarnings(as.Date(as.numeric(x_chr), origin = "1899-12-30"))
+    numeric_date <- !empty & stringr::str_detect(x_chr, "^[0-9]{5}$") & !is.na(parsed_num)
+    parsed[numeric_date] <- parsed_num[numeric_date]
+
+    parsed_date <- as.Date(parsed)
+    plausible_date <- !empty & !is.na(parsed_date) &
+      parsed_date >= as.Date("1900-01-01") &
+      parsed_date <= (Sys.Date() + 365)
+
+    out[plausible_date] <- format(parsed_date[plausible_date], "%d/%m/%y")
+    out
+  }
+
+  format_date_like_columns <- function(tbl) {
+    tbl %>%
+      dplyr::mutate(dplyr::across(
+        dplyr::everything(),
+        ~ {
+          if (inherits(.x, "Date") || inherits(.x, "POSIXt")) return(format_date_like(.x))
+          if (!is.character(.x)) return(.x)
+
+          x_chr <- stringr::str_trim(.x)
+          non_empty <- !is.na(x_chr) & x_chr != ""
+          if (!any(non_empty)) return(.x)
+
+          date_pattern <- stringr::str_detect(
+            x_chr[non_empty],
+            "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}|^[0-9]{1,2}[/-][0-9]{1,2}[/-][0-9]{2,4}|^[0-9]{5}$"
+          )
+
+          if (mean(date_pattern, na.rm = TRUE) == 0) return(.x)
+          format_date_like(.x)
+        }
+      ))
+  }
+
+  make_id_part <- function(x, fallback = "mul") {
+    x <- stringr::str_to_lower(stringr::str_trim(as.character(x)))
+    x[is.na(x) | x == "" | x %in% c("na", "n/a", "multiple", "various", "several")] <- fallback
+
+    out <- vapply(x, function(z) {
+      z <- stringr::str_replace_all(z, "&", " and ")
+      words <- unlist(stringr::str_extract_all(z, "[a-z0-9]+"))
+      words <- words[words != ""]
+
+      if (length(words) >= 3) {
+        code <- paste0(substr(words[1:3], 1, 1), collapse = "")
+      } else if (length(words) == 2) {
+        code <- paste0(substr(words[1], 1, 2), substr(words[2], 1, 1))
+      } else if (length(words) == 1) {
+        code <- substr(stringr::str_pad(words[1], 3, side = "right", pad = "x"), 1, 3)
+      } else {
+        code <- fallback
+      }
+
+      stringr::str_pad(substr(code, 1, 3), 3, side = "right", pad = "x")
+    }, FUN.VALUE = character(1))
+
+    out
+  }
+
+  make_parametra_id <- function(tbl) {
+    n <- nrow(tbl)
+    if (n == 0) return(character(0))
+
+    type_part <- make_id_part(tbl$parameter_type %||% rep(NA_character_, n), fallback = "typ")
+    parameter_part <- make_id_part(tbl$parameter %||% rep("Other", n), fallback = "par")
+    pathogen_part <- make_id_part(tbl$pathogen %||% rep(NA_character_, n), fallback = "mul")
+
+    year_raw <- tbl$year %||% rep(NA_character_, n)
+    year_part <- stringr::str_extract(as.character(year_raw), "[0-9]{4}")
+    year_part[is.na(year_part) | year_part == ""] <- "0000"
+
+    base_id <- paste(type_part, parameter_part, pathogen_part, year_part, sep = "-")
+    suffix <- ave(seq_along(base_id), base_id, FUN = seq_along)
+
+    paste0(base_id, "-", suffix)
+  }
+
   tables <- purrr::imap(tables, function(tbl, sh) {
+    tbl <- format_date_like_columns(tbl)
+
+    tbl <- tbl %>%
+      dplyr::mutate(id = make_parametra_id(dplyr::cur_data_all())) %>%
+      dplyr::relocate(id, .before = dplyr::everything())
+
     if (!ref_col %in% names(tbl)) return(tbl)
 
     # Ensure ref is a plain character vector (not list-col)
@@ -700,6 +952,14 @@ curate_parametra <- function(
 
     tbl
   })
+
+  parametra_long <- format_date_like_columns(parametra_long)
+
+  if ("id" %in% names(parametra_long)) {
+    parametra_long <- parametra_long %>%
+      dplyr::mutate(id = make_parametra_id(dplyr::cur_data_all())) %>%
+      dplyr::relocate(id, .before = dplyr::everything())
+  }
 
   if (ref_col %in% names(parametra_long)) {
     parametra_long[[ref_col]] <- as.character(unlist(parametra_long[[ref_col]]))
@@ -730,7 +990,7 @@ curate_parametra <- function(
   if (!is.null(issues$crossref_sheet_problem)) warning(issues$crossref_sheet_problem)
 
   if (!is.null(issues$url_checked) && nrow(issues$url_checked) > 0) warning("URL check completed. See $issues$url_checked (and $issues$url_check_fetch_info).")
-  if (length(issues$url_not_found) > 0) warning("Some URLs were not accessible. See $issues$url_not_found")
+  if (length(issues$url_not_found) > 0) warning("Some URLs returned 404/410. See $issues$url_not_found")
   if (length(issues$ref_neither_doi_nor_url) > 0) warning("Some refs are neither DOI nor URL. See $issues$ref_neither_doi_nor_url")
 
   list(
@@ -746,19 +1006,251 @@ curate_parametra <- function(
 # Backup + write outputs
 # ------------------------------------------------------------------------------
 
+write_readme_text_sheet <- function(wb, sheet = "README", update_time = Sys.time()) {
+  if (sheet %in% names(wb)) openxlsx::removeWorksheet(wb, sheet)
+  openxlsx::addWorksheet(wb, sheet)
+
+  title_style <- openxlsx::createStyle(
+    textDecoration = "bold",
+    fontSize = 16,
+    valign = "top"
+  )
+  heading_style <- openxlsx::createStyle(
+    textDecoration = "bold",
+    fontSize = 12,
+    fgFill = "#D9EAF7",
+    border = "Bottom",
+    valign = "top"
+  )
+  bold_style <- openxlsx::createStyle(textDecoration = "bold", valign = "top")
+  text_style <- openxlsx::createStyle(wrapText = TRUE, valign = "top")
+  table_header_style <- openxlsx::createStyle(
+    textDecoration = "bold",
+    fgFill = "#D9EAF7",
+    border = "TopBottomLeftRight",
+    halign = "left",
+    valign = "top"
+  )
+  table_body_style <- openxlsx::createStyle(
+    border = "TopBottomLeftRight",
+    wrapText = TRUE,
+    valign = "top"
+  )
+
+  write_line <- function(row, col, value, style = text_style) {
+    openxlsx::writeData(wb, sheet, value, startRow = row, startCol = col, colNames = FALSE)
+    openxlsx::addStyle(wb, sheet, style, rows = row, cols = col, stack = TRUE)
+  }
+
+  r <- 1
+  write_line(r, 1, "PARAMETRA", title_style)
+  write_line(r, 2, "v1.1.0", bold_style)
+
+  r <- r + 2
+  write_line(r, 1, "Last update:", bold_style)
+  write_line(r, 2, format(update_time, "%Y-%m-%d %H:%M:%S %Z"), text_style)
+
+  r <- r + 2
+  write_line(
+    r, 1,
+    "PARAMETRA is a parameter database for 20 pathogens of livestock, envisaged as an open-source collaborative tool for the research community to aid in the development of future transmission models of livestock pathogens. Parameters of interest were selected by experts with a strong background in epidemiology and mathematical modelling.",
+    text_style
+  )
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+
+  r <- r + 2
+  write_line(r, 1, "General description of the tables included", heading_style)
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+
+  main_tables <- tibble::tribble(
+    ~`Table name`, ~Description,
+    "Transmission", "Reproduction number, transmission parameter, probability of infection given direct/indirect contact, probability of reactivation of latent infection and other transmission parameters",
+    "InfectiousLatentIncubationperiod", "Infectious period, latent period, incubation period, shape and other disease period parameters",
+    "PathogenSurvival", "Survival parameters in different materials and environmental conditions",
+    "DiagnosticTest", "Diagnostic test parameters such as test specificity and sensitivity",
+    "WithinHerdPrevalence", "Within-herd pathogen prevalence parameters",
+    "RegionalPrevalence", "Regional pathogen prevalence parameters at country or sub-division level",
+    "ControlPlan", "Information about disease control programs and plans implemented in different countries",
+    "CostBiosecurity", "Information about prices of products needed to implement biosecurity measures",
+    "OtherRelevantInformation", "Additional parameters and information related to various infectious diseases in animal populations that do not fit into other specific categories"
+  )
+
+  r <- r + 1
+  openxlsx::writeData(wb, sheet, main_tables, startRow = r, startCol = 1, colNames = TRUE)
+  openxlsx::addStyle(wb, sheet, table_header_style, rows = r, cols = 1:2, gridExpand = TRUE)
+  openxlsx::addStyle(wb, sheet, table_body_style, rows = (r + 1):(r + nrow(main_tables)), cols = 1:2, gridExpand = TRUE)
+
+  r <- r + nrow(main_tables) + 2
+  write_line(r, 1, "Description of complementary tables", heading_style)
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+
+  complementary_tables <- tibble::tribble(
+    ~`Table name`, ~Description,
+    "LOT", "List of terms used in the database and their meanings",
+    "ChangesLog", "Tracks modifications, updates, and version history",
+    "Endemic_Pathogens", "List of endemic pathogens and parameter availability summary",
+    "Epidemic_Pathogens", "List of epidemic pathogens and parameter availability summary",
+    "AMR_Pathogens", "List of antimicrobial resistance pathogens and parameter availability summary",
+    "Crossref", "Metadata extracted from CrossRef using the rcrossref package for scientific publications referenced in the parametra_long dataset"
+  )
+
+  r <- r + 1
+  openxlsx::writeData(wb, sheet, complementary_tables, startRow = r, startCol = 1, colNames = TRUE)
+  openxlsx::addStyle(wb, sheet, table_header_style, rows = r, cols = 1:2, gridExpand = TRUE)
+  openxlsx::addStyle(wb, sheet, table_body_style, rows = (r + 1):(r + nrow(complementary_tables)), cols = 1:2, gridExpand = TRUE)
+
+  r <- r + nrow(complementary_tables) + 2
+  write_line(r, 1, "Usage tips", heading_style)
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+  r <- r + 1
+  write_line(
+    r, 1,
+    "- Use filters to explore specific categories.\n- The database can be installed as an R package: https://biosecure-eu.github.io/parametra/index.html",
+    text_style
+  )
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+
+  r <- r + 2
+  write_line(r, 1, "Submitting new parameters to the database", heading_style)
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+  r <- r + 1
+  write_line(
+    r, 1,
+    "New parameters can be submitted to the PARAMETRA database. All submissions will be reviewed by PARAMETRA administrators before being added to the database to ensure data quality and consistency. Information on how to submit new parameters can be found at: https://biosecure-eu.github.io/parametra/index.html",
+    text_style
+  )
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+
+  r <- r + 2
+  write_line(r, 1, "Contact", heading_style)
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+  r <- r + 1
+  write_line(r, 1, "General from the ModAH-hub or specific persons (Natalia, Alistair, Egil, Evelien)?", text_style)
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+
+  r <- r + 2
+  write_line(r, 1, "Funding", heading_style)
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+  r <- r + 1
+  write_line(
+    r, 1,
+    "This work was funded by the European Union under the Horizon Europe grant 101083923 (BIOSECURE). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Executive Agency (REA). Neither the European Union nor the granting authority can be held responsible for them.",
+    text_style
+  )
+  openxlsx::mergeCells(wb, sheet, cols = 1:4, rows = r)
+
+  openxlsx::setColWidths(wb, sheet, cols = 1, widths = 32)
+  openxlsx::setColWidths(wb, sheet, cols = 2, widths = 85)
+  openxlsx::setColWidths(wb, sheet, cols = 3:4, widths = 18)
+  openxlsx::setRowHeights(wb, sheet, rows = 1:(r + 1), heights = "auto")
+  openxlsx::freezePane(wb, sheet, firstActiveRow = 3)
+
+  invisible(NULL)
+}
+
+update_readme_last_update <- function(wb, sheet = "README", update_time = Sys.time()) {
+  if (!sheet %in% names(wb)) return(invisible(NULL))
+
+  readme_values <- openxlsx::read.xlsx(
+    wb,
+    sheet = sheet,
+    colNames = FALSE,
+    skipEmptyRows = FALSE,
+    skipEmptyCols = FALSE
+  )
+
+  if (is.null(readme_values) || nrow(readme_values) == 0 || ncol(readme_values) == 0) {
+    return(invisible(NULL))
+  }
+
+  last_update_pos <- which(
+    stringr::str_detect(
+      stringr::str_to_lower(stringr::str_trim(as.character(as.matrix(readme_values)))),
+      "^last update:?$"
+    ),
+    arr.ind = TRUE
+  )
+
+  if (nrow(last_update_pos) > 0) {
+    row <- last_update_pos[1, "row"]
+    col <- last_update_pos[1, "col"] + 1
+  } else {
+    # Fallback if the label has been edited: write to the conventional location.
+    row <- 3
+    col <- 2
+  }
+
+  openxlsx::writeData(
+    wb,
+    sheet = sheet,
+    x = format(update_time, "%Y-%m-%d %H:%M:%S %Z"),
+    startRow = row,
+    startCol = col,
+    colNames = FALSE
+  )
+
+  invisible(NULL)
+}
+
+auto_widths <- function(wb, sheet, df, min_width = 8, max_width = 60) {
+  if (is.null(df) || ncol(df) == 0) return(invisible(NULL))
+
+  widths <- purrr::map_dbl(seq_along(df), function(i) {
+    vals <- as.character(df[[i]])
+    vals <- vals[!is.na(vals)]
+    max(nchar(c(names(df)[i], vals)), na.rm = TRUE) + 2
+  })
+
+  widths <- pmin(pmax(widths, min_width), max_width)
+  openxlsx::setColWidths(wb, sheet = sheet, cols = seq_along(widths), widths = widths)
+  invisible(NULL)
+}
+
+write_sheet_as_table <- function(wb, sheet, df, table_style = "TableStyleMedium1") {
+  if (sheet %in% names(wb)) openxlsx::removeWorksheet(wb, sheet)
+  openxlsx::addWorksheet(wb, sheet)
+
+  df <- as.data.frame(df)
+  if (nrow(df) == 0 && ncol(df) == 0) {
+    openxlsx::writeData(wb, sheet, x = "No data", startRow = 1, startCol = 1)
+    return(invisible(NULL))
+  }
+
+  if (nrow(df) == 0) {
+    openxlsx::writeData(wb, sheet, x = df, startRow = 1, startCol = 1, colNames = TRUE)
+  } else {
+    openxlsx::writeDataTable(
+      wb,
+      sheet = sheet,
+      x = df,
+      startRow = 1,
+      startCol = 1,
+      tableStyle = table_style,
+      withFilter = TRUE
+    )
+  }
+
+  openxlsx::freezePane(wb, sheet, firstRow = TRUE)
+  auto_widths(wb, sheet, df)
+  invisible(NULL)
+}
+
 backup_and_write_outputs <- function(
     file,
     curated,
     out_dir = "data-raw/tables",
     out_long = "data-raw/parametra_long.csv",
+    out_crossref = "data-raw/parametra_crossref.csv",
     backup_dir = "data-raw/backups",
     write_excel_updated = FALSE,
-    crossref_sheet = "Crossref"
+    crossref_sheet = "Crossref",
+    keep_metadata_sheets = c("README", "ChangesLog", "LOT")
 ) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   dir.create(backup_dir, recursive = TRUE, showWarnings = FALSE)
 
   ts <- format(Sys.time(), "%Y%m%d-%H%M%S")
+  update_time <- Sys.time()
   backup_file <- file.path(backup_dir, paste0("parametra_backup_", ts, ".xlsx"))
   file.copy(file, backup_file, overwrite = FALSE)
 
@@ -768,15 +1260,60 @@ backup_and_write_outputs <- function(
   })
 
   write.csv(curated$parametra_long, out_long, row.names = FALSE)
+  if (!is.null(curated$crossref)) write.csv(curated$crossref, out_crossref, row.names = FALSE)
 
   if (isTRUE(write_excel_updated)) {
     new_xlsx <- file.path("data-raw", paste0("parametra_curated_", ts, ".xlsx"))
-    sheets_out <- curated$tables
-    if (!is.null(sheets_out[[crossref_sheet]]) && "reference" %in% names(sheets_out[[crossref_sheet]])) {
-      sheets_out[[crossref_sheet]] <- dplyr::select(sheets_out[[crossref_sheet]], -reference)
+
+    existing_sheets <- readxl::excel_sheets(file)
+    sheets_to_keep <- intersect(keep_metadata_sheets, existing_sheets)
+
+    # Keep README as an Excel-editable source sheet: copy it from the previous
+    # workbook and update only its "Last update:" value. If README is missing,
+    # start from a clean workbook.
+    if ("README" %in% sheets_to_keep) {
+      wb <- openxlsx::loadWorkbook(file)
+
+      sheets_to_remove <- setdiff(openxlsx::sheets(wb), "README")
+      purrr::walk(sheets_to_remove, ~ openxlsx::removeWorksheet(wb, .x))
+
+      # Removing sheets from the original workbook can leave stale defined names
+      # from old Excel tables / print areas. Clear them before adding fresh sheets
+      # so Excel does not show a repair warning.
+      wb$workbook$definedNames <- NULL
+
+      update_readme_last_update(wb, "README", update_time = update_time)
+    } else {
+      wb <- openxlsx::createWorkbook()
     }
-    if (!is.null(curated$crossref)) sheets_out[[crossref_sheet]] <- curated$crossref
-    writexl::write_xlsx(sheets_out, path = new_xlsx)
+
+    if ("LOT" %in% sheets_to_keep) {
+      write_sheet_as_table(wb, "LOT", curated$lot, table_style = "TableStyleMedium1")
+    }
+
+    if ("ChangesLog" %in% sheets_to_keep) {
+      changelog <- readxl::read_xlsx(file, sheet = "ChangesLog", col_names = TRUE)
+
+      date_cols <- names(changelog)[tolower(names(changelog)) == "date"]
+      if (length(date_cols) > 0) {
+        changelog <- changelog %>%
+          dplyr::mutate(dplyr::across(dplyr::all_of(date_cols), format_date_like))
+      }
+
+      write_sheet_as_table(wb, "ChangesLog", changelog, table_style = "TableStyleMedium1")
+    }
+
+    sheets_out <- curated$tables
+    if (!is.null(curated$crossref)) {
+      crossref_out <- curated$crossref[setdiff(names(curated$crossref), c("reference", "abstract"))]
+      sheets_out[[crossref_sheet]] <- crossref_out
+    }
+
+    purrr::iwalk(sheets_out, function(tbl, sh) {
+      write_sheet_as_table(wb, sh, tbl, table_style = "TableStyleMedium1")
+    })
+
+    openxlsx::saveWorkbook(wb, file = new_xlsx, overwrite = TRUE)
   }
 
   invisible(list(backup = backup_file))
@@ -785,19 +1322,19 @@ backup_and_write_outputs <- function(
 # ------------------------------------------------------------------------------
 # Example run
 # ------------------------------------------------------------------------------
-# path <- "data-raw/parametra-2026-06-01_EB_NC.xlsx"
-# curated <- curate_parametra(
-#   path,
-#   crossref = NULL,         # NULL=fetch missing DOIs; TRUE=refetch all DOIs; FALSE=no fetch
-#   url_check = NULL,        # NULL=check URL refs missing in Crossref; TRUE=check all URLs; FALSE=skip
-#   url_download = FALSE,    # TRUE downloads PDFs into archive_dir
-#   archive_dir = "data-raw/archive_refs",
-#   pubmed_resolve = TRUE
-# )
-#
-# curated$issues$doi_not_found
-# curated$issues$url_not_found
-# curated$issues$ref_neither_doi_nor_url
-# curated$issues$pubmed_not_resolved
-#
-# backup_and_write_outputs(path, curated, write_excel_updated = TRUE)
+path <- "data-raw/parametra-2026-06-01_EB_NC.xlsx"
+curated <- curate_parametra(
+  path,
+  crossref = TRUE,         # NULL=fetch missing DOIs; TRUE=refetch all DOIs; FALSE=no fetch
+  url_check = TRUE,        # NULL=check URL refs missing in Crossref; TRUE=check all URLs; FALSE=skip
+  url_download = FALSE,    # TRUE downloads PDFs into archive_dir
+  archive_dir = "data-raw/archive_refs",
+  pubmed_resolve = TRUE
+)
+
+curated$issues$doi_not_found
+curated$issues$url_not_found
+curated$issues$ref_neither_doi_nor_url
+curated$issues$pubmed_not_resolved
+
+backup_and_write_outputs(path, curated, write_excel_updated = TRUE)
