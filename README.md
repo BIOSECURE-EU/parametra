@@ -96,8 +96,7 @@ There are two ways to contribute new parameters to the PARAMETRA database:
 
 ## Contact
 
--   Natalia Ciria Artiga: [Natalia.Ciria\@uab.cat](mailto:Natalia.Ciria@uab.cat)
--   Alistair Antonopoulos: [Alistair\@kreavet.com](mailto:Alistair@kreavet.com)
+[contact\@parametra.eu](mailto:contact@parametra.eu)
 
 ## License
 
