@@ -7,6 +7,9 @@
 \format{
 A data frame.
 }
+\source{
+Compiled from various scientific publications; see the "ref" column.
+}
 \usage{
 crossref
 }
@@ -15,9 +18,11 @@ Metadata extracted from CrossRef using the rcrossref package for scientific publ
 }
 \details{
 Columns:
-\describe{\item{id}{Parameter identifier}}
-\describe{\item{ref}{Reference: source DOI or URL}}
-\describe{\item{ref_last_access}{Date reference was automatically checked for the last time}}
-\describe{\item{ref_status}{Reference status in the last aoutomatic check}}
+\describe{
+\item{id}{Parameter identifier}
+\item{ref}{Reference: source DOI or URL}
+\item{ref_last_access}{Date reference was automatically checked for the last time}
+\item{ref_status}{Reference status in the last aoutomatic check}
+}
 }
 \keyword{datasets}

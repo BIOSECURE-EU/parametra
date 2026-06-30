@@ -7,6 +7,9 @@
 \format{
 A data frame.
 }
+\source{
+Compiled from various scientific publications; see the "ref" column.
+}
 \usage{
 control_plan
 }
@@ -15,26 +18,28 @@ Information about disease control programs and plans implemented in different co
 }
 \details{
 Columns:
-\describe{\item{country}{Country or region where data was collected}}
-\describe{\item{country_disease_status}{Disease status classification}}
-\describe{\item{filled_by}{Data entry person identifier}}
-\describe{\item{host}{Host species}}
-\describe{\item{host_age}{Age or age group of host}}
-\describe{\item{host_breed}{Specific breed of host}}
-\describe{\item{host_other}{Additional host characteristics}}
-\describe{\item{host_type}{Type of host}}
-\describe{\item{id}{Parameter identifier}}
-\describe{\item{last_updated}{Date of last control plan update}}
-\describe{\item{pathogen}{Name of the infectious agent}}
-\describe{\item{plan_coverage}{Geographical scope of the plan}}
-\describe{\item{plan_implemented}{Whether a control plan is implemented}}
-\describe{\item{plan_type}{Type of control plan}}
-\describe{\item{plan_voluntary_compulsary}{Voluntary or compulsory plan}}
-\describe{\item{ref}{Reference: source DOI or URL}}
-\describe{\item{ref_last_access}{Date reference was automatically checked for the last time}}
-\describe{\item{ref_short}{Short reference: source author and year}}
-\describe{\item{ref_status}{Reference status in the last aoutomatic check}}
-\describe{\item{remarks}{Additional notes or comments}}
-\describe{\item{year}{Year of publication}}
+\describe{
+\item{country}{Country or region where data was collected}
+\item{country_disease_status}{Disease status classification}
+\item{filled_by}{Data entry person identifier}
+\item{host}{Host species}
+\item{host_age}{Age or age group of host}
+\item{host_breed}{Specific breed of host}
+\item{host_other}{Additional host characteristics}
+\item{host_type}{Type of host}
+\item{id}{Parameter identifier}
+\item{last_updated}{Date of last control plan update}
+\item{pathogen}{Name of the infectious agent}
+\item{plan_coverage}{Geographical scope of the plan}
+\item{plan_implemented}{Whether a control plan is implemented}
+\item{plan_type}{Type of control plan}
+\item{plan_voluntary_compulsary}{Voluntary or compulsory plan}
+\item{ref}{Reference: source DOI or URL}
+\item{ref_last_access}{Date reference was automatically checked for the last time}
+\item{ref_short}{Short reference: source author and year}
+\item{ref_status}{Reference status in the last aoutomatic check}
+\item{remarks}{Additional notes or comments}
+\item{year}{Year of publication}
+}
 }
 \keyword{datasets}

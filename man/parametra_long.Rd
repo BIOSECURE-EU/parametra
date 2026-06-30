@@ -7,6 +7,9 @@
 \format{
 A data frame.
 }
+\source{
+Compiled from various scientific publications; see the "ref" column.
+}
 \usage{
 parametra_long
 }
@@ -15,62 +18,64 @@ Curated PARAMETRA records from all parameter sheets combined in long format.
 }
 \details{
 Columns:
-\describe{\item{biosecurity_measure}{Category of measure}}
-\describe{\item{country}{Country or region where data was collected}}
-\describe{\item{country_disease_status}{Disease status classification}}
-\describe{\item{estimation_method}{Method used for estimation}}
-\describe{\item{estimation_type}{Statistical approach used (Frequentist/Bayesian)}}
-\describe{\item{filled_by}{Data entry person identifier}}
-\describe{\item{filled_date}{Data entry date}}
-\describe{\item{host}{Host species}}
-\describe{\item{host_age}{Age or age group of host}}
-\describe{\item{host_breed}{Specific breed of host}}
-\describe{\item{host_other}{Additional host characteristics}}
-\describe{\item{host_type}{Type of host}}
-\describe{\item{id}{Parameter identifier}}
-\describe{\item{if_other}{Additional parameter specifications}}
-\describe{\item{info_level}{Geographical level of information detail}}
-\describe{\item{inoculated_contact}{Inoculation of contact status}}
-\describe{\item{last_access}{URL last access date}}
-\describe{\item{last_updated}{Date of last control plan update}}
-\describe{\item{lifespan}{Expected lifespan of the product if applicable and based on typical usage}}
-\describe{\item{lower_cl}{Lower bound of confidence/credible interval}}
-\describe{\item{material}{Type of material or medium where survival was measured}}
-\describe{\item{model_mixing}{Mixing pattern in the population}}
-\describe{\item{model_scale}{Scale of the model}}
-\describe{\item{model_type}{Model classification (e.g., SI, SIR)}}
-\describe{\item{parameter}{Parameter measured}}
-\describe{\item{pathogen}{Name of the infectious agent}}
-\describe{\item{plan_coverage}{Geographical scope of the plan}}
-\describe{\item{plan_implemented}{Whether a control plan is implemented}}
-\describe{\item{plan_type}{Type of control plan}}
-\describe{\item{plan_voluntary_compulsary}{Voluntary or compulsory plan}}
-\describe{\item{price}{Price of the product available online without VAT}}
-\describe{\item{price_by_event}{Total cost per event to implement the biosecurity measure without VAT}}
-\describe{\item{product_name}{Commercial name of the product}}
-\describe{\item{product_type}{Specific type of product needed to implement the biosecurity measure}}
-\describe{\item{qty_by_event}{Quantity of the product used per event to implement the biosecurity measure}}
-\describe{\item{ref}{Reference: source DOI or URL}}
-\describe{\item{ref_last_access}{Date reference was automatically checked for the last time}}
-\describe{\item{ref_short}{Short reference: source author and year}}
-\describe{\item{ref_status}{Reference status in the last aoutomatic check}}
-\describe{\item{remarks}{Additional notes or comments}}
-\describe{\item{sample_type}{Type of biological sample used}}
-\describe{\item{sampling_purpose}{Purpose of the sampling conducted}}
-\describe{\item{scale}{Scale of the study}}
-\describe{\item{study_type}{Study type}}
-\describe{\item{test_type}{Type of diagnostic test used}}
-\describe{\item{time_period}{Time period of the study}}
-\describe{\item{transmission_pathway}{Transmission pathway targeted by this biosecurity measure}}
-\describe{\item{unit}{Units of measurement}}
-\describe{\item{unit_needed}{Unit of the product needed per event to implement the biosecurity measure (e.g. gram, liter, unit)}}
-\describe{\item{upper_cl}{Upper bound of confidence/credible interval}}
-\describe{\item{vaccine}{Type of vaccine used if applicable}}
-\describe{\item{vaccine_contact}{Vaccination status of contact animals}}
-\describe{\item{vaccine_seeder}{Vaccination status of seeder/inoculated animals}}
-\describe{\item{value}{Numeric value of the parameter}}
-\describe{\item{variant_strain}{Specific variant or strain}}
-\describe{\item{year}{Year of publication}}
-\describe{\item{year_cost}{Year the cost was included}}
+\describe{
+\item{biosecurity_measure}{Category of measure}
+\item{country}{Country or region where data was collected}
+\item{country_disease_status}{Disease status classification}
+\item{estimation_method}{Method used for estimation}
+\item{estimation_type}{Statistical approach used (Frequentist/Bayesian)}
+\item{filled_by}{Data entry person identifier}
+\item{filled_date}{Data entry date}
+\item{host}{Host species}
+\item{host_age}{Age or age group of host}
+\item{host_breed}{Specific breed of host}
+\item{host_other}{Additional host characteristics}
+\item{host_type}{Type of host}
+\item{id}{Parameter identifier}
+\item{if_other}{Additional parameter specifications}
+\item{info_level}{Geographical level of information detail}
+\item{inoculated_contact}{Inoculation of contact status}
+\item{last_access}{URL last access date}
+\item{last_updated}{Date of last control plan update}
+\item{lifespan}{Expected lifespan of the product if applicable and based on typical usage}
+\item{lower_cl}{Lower bound of confidence/credible interval}
+\item{material}{Type of material or medium where survival was measured}
+\item{model_mixing}{Mixing pattern in the population}
+\item{model_scale}{Scale of the model}
+\item{model_type}{Model classification (e.g., SI, SIR)}
+\item{parameter}{Parameter measured}
+\item{pathogen}{Name of the infectious agent}
+\item{plan_coverage}{Geographical scope of the plan}
+\item{plan_implemented}{Whether a control plan is implemented}
+\item{plan_type}{Type of control plan}
+\item{plan_voluntary_compulsary}{Voluntary or compulsory plan}
+\item{price}{Price of the product available online without VAT}
+\item{price_by_event}{Total cost per event to implement the biosecurity measure without VAT}
+\item{product_name}{Commercial name of the product}
+\item{product_type}{Specific type of product needed to implement the biosecurity measure}
+\item{qty_by_event}{Quantity of the product used per event to implement the biosecurity measure}
+\item{ref}{Reference: source DOI or URL}
+\item{ref_last_access}{Date reference was automatically checked for the last time}
+\item{ref_short}{Short reference: source author and year}
+\item{ref_status}{Reference status in the last aoutomatic check}
+\item{remarks}{Additional notes or comments}
+\item{sample_type}{Type of biological sample used}
+\item{sampling_purpose}{Purpose of the sampling conducted}
+\item{scale}{Scale of the study}
+\item{study_type}{Study type}
+\item{test_type}{Type of diagnostic test used}
+\item{time_period}{Time period of the study}
+\item{transmission_pathway}{Transmission pathway targeted by this biosecurity measure}
+\item{unit}{Units of measurement}
+\item{unit_needed}{Unit of the product needed per event to implement the biosecurity measure (e.g. gram, liter, unit)}
+\item{upper_cl}{Upper bound of confidence/credible interval}
+\item{vaccine}{Type of vaccine used if applicable}
+\item{vaccine_contact}{Vaccination status of contact animals}
+\item{vaccine_seeder}{Vaccination status of seeder/inoculated animals}
+\item{value}{Numeric value of the parameter}
+\item{variant_strain}{Specific variant or strain}
+\item{year}{Year of publication}
+\item{year_cost}{Year the cost was included}
+}
 }
 \keyword{datasets}

@@ -26,6 +26,22 @@ auto_widths <- function(wb, sheet, df, min_width = 8, max_width = 60) {
   invisible(NULL)
 }
 
+format_excel_dates <- function(df, date_format = "%d/%m/%Y") {
+  if (is.null(df) || ncol(df) == 0) return(df)
+
+  df <- as.data.frame(df)
+
+  date_cols <- vapply(df, inherits, logical(1), what = "Date")
+
+  if (any(date_cols)) {
+    df[date_cols] <- lapply(df[date_cols], function(x) {
+      ifelse(is.na(x), NA_character_, format(x, date_format))
+    })
+  }
+
+  df
+}
+
 write_sheet_as_table <- function(wb, sheet, df, table_style = "TableStyleMedium1") {
   existing_sheet <- openxlsx::sheets(wb)
   existing_match <- existing_sheet[tolower(existing_sheet) == tolower(sheet)]
@@ -36,7 +52,7 @@ write_sheet_as_table <- function(wb, sheet, df, table_style = "TableStyleMedium1
 
   openxlsx::addWorksheet(wb, sheet)
 
-  df <- as.data.frame(df)
+  df <- format_excel_dates(df)
 
   if (nrow(df) == 0) {
     openxlsx::writeData(wb, sheet, x = df, startRow = 1, startCol = 1, colNames = TRUE)
@@ -157,7 +173,7 @@ write_updated_excel <- function(
   update_fixed_cell(
     wb,
     sheet = "README",
-    value = format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z"),
+    value = format(Sys.time(), "%d/%m/%Y %H:%M:%S %Z"),
     row = 3,
     col = 2
   )
@@ -214,7 +230,7 @@ create_parametra_template <- function(
   update_fixed_cell(
     wb,
     "SUBMISSION",
-    paste0("Last update:", format(update_time, "%Y-%m-%d %H:%M:%S %Z")),
+    paste0("Last update:", format(update_time, "%d/%m/%Y %H:%M:%S %Z")),
     row = 2,
     col = 1
   )
@@ -286,7 +302,13 @@ read_readme_table_descriptions <- function(
     dplyr::distinct(.data$table, .keep_all = TRUE)
 }
 
-format_roxygen_data_doc <- function(object_name, title, description, columns = NULL) {
+format_roxygen_data_doc <- function(
+    object_name,
+    title,
+    description,
+    columns = NULL,
+    source = 'Compiled from various scientific publications; see the "ref" column.'
+) {
   lines <- c(
     paste0("#' ", title),
     "#'",
@@ -296,17 +318,30 @@ format_roxygen_data_doc <- function(object_name, title, description, columns = N
   )
 
   if (!is.null(columns) && nrow(columns) > 0) {
-    lines <- c(lines, "#' @details Columns:")
-
     lines <- c(
       lines,
-      paste0(
-        "#' \\describe{\\item{",
-        escape_roxygen(columns$column),
-        "}{",
-        escape_roxygen(columns$description),
-        "}}"
-      )
+      "#'",
+      "#' @details",
+      "#' Columns:",
+      "#' \\describe{"
+    )
+
+    column_lines <- paste0(
+      "#'   \\item{",
+      escape_roxygen(columns$column),
+      "}{",
+      escape_roxygen(columns$description),
+      "}"
+    )
+
+    lines <- c(lines, column_lines, "#' }")
+  }
+
+  if (!is.null(source) && !is.na(source) && nzchar(source)) {
+    lines <- c(
+      lines,
+      "#'",
+      paste0("#' @source ", source)
     )
   }
 
@@ -355,7 +390,8 @@ write_data_documentation <- function(
         object_name = object_name,
         title = paste0("PARAMETRA ", sheet, " data"),
         description = table_description(sheet),
-        columns = column_docs %>% dplyr::filter(.data$column %in% names(tbl))
+        columns = column_docs %>% dplyr::filter(.data$column %in% names(tbl)),
+        source = 'Compiled from various scientific publications; see the "ref" column.'
       )
     )
   })
@@ -366,7 +402,8 @@ write_data_documentation <- function(
       object_name = "parametra_long",
       title = "PARAMETRA long-format data",
       description = "Curated PARAMETRA records from all parameter sheets combined in long format.",
-      columns = column_docs %>% dplyr::filter(.data$column %in% names(curated$parametra_long))
+      columns = column_docs %>% dplyr::filter(.data$column %in% names(curated$parametra_long)),
+      source = 'Compiled from various scientific publications; see the "ref" column.'
     )
   )
 
@@ -377,7 +414,8 @@ write_data_documentation <- function(
         object_name = "parametra_crossref",
         title = "PARAMETRA Crossref metadata",
         description = "Crossref metadata for DOI references used in PARAMETRA.",
-        columns = NULL
+        columns = NULL,
+        source = "Metadata retrieved from Crossref for DOI references used in PARAMETRA."
       )
     )
   }

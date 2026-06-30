@@ -7,6 +7,9 @@
 \format{
 A data frame.
 }
+\source{
+Compiled from various scientific publications; see the "ref" column.
+}
 \usage{
 within_herd_prevalence
 }
@@ -15,26 +18,28 @@ Within-herd pathogen prevalence parameters
 }
 \details{
 Columns:
-\describe{\item{filled_by}{Data entry person identifier}}
-\describe{\item{filled_date}{Data entry date}}
-\describe{\item{host}{Host species}}
-\describe{\item{host_age}{Age or age group of host}}
-\describe{\item{host_breed}{Specific breed of host}}
-\describe{\item{host_other}{Additional host characteristics}}
-\describe{\item{host_type}{Type of host}}
-\describe{\item{id}{Parameter identifier}}
-\describe{\item{lower_cl}{Lower bound of confidence/credible interval}}
-\describe{\item{parameter}{Parameter measured}}
-\describe{\item{pathogen}{Name of the infectious agent}}
-\describe{\item{ref}{Reference: source DOI or URL}}
-\describe{\item{ref_last_access}{Date reference was automatically checked for the last time}}
-\describe{\item{ref_short}{Short reference: source author and year}}
-\describe{\item{ref_status}{Reference status in the last aoutomatic check}}
-\describe{\item{remarks}{Additional notes or comments}}
-\describe{\item{study_type}{Study type}}
-\describe{\item{time_period}{Time period of the study}}
-\describe{\item{upper_cl}{Upper bound of confidence/credible interval}}
-\describe{\item{value}{Numeric value of the parameter}}
-\describe{\item{year}{Year of publication}}
+\describe{
+\item{filled_by}{Data entry person identifier}
+\item{filled_date}{Data entry date}
+\item{host}{Host species}
+\item{host_age}{Age or age group of host}
+\item{host_breed}{Specific breed of host}
+\item{host_other}{Additional host characteristics}
+\item{host_type}{Type of host}
+\item{id}{Parameter identifier}
+\item{lower_cl}{Lower bound of confidence/credible interval}
+\item{parameter}{Parameter measured}
+\item{pathogen}{Name of the infectious agent}
+\item{ref}{Reference: source DOI or URL}
+\item{ref_last_access}{Date reference was automatically checked for the last time}
+\item{ref_short}{Short reference: source author and year}
+\item{ref_status}{Reference status in the last aoutomatic check}
+\item{remarks}{Additional notes or comments}
+\item{study_type}{Study type}
+\item{time_period}{Time period of the study}
+\item{upper_cl}{Upper bound of confidence/credible interval}
+\item{value}{Numeric value of the parameter}
+\item{year}{Year of publication}
+}
 }
 \keyword{datasets}

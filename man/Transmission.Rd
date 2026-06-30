@@ -7,6 +7,9 @@
 \format{
 A data frame.
 }
+\source{
+Compiled from various scientific publications; see the "ref" column.
+}
 \usage{
 transmission
 }
@@ -15,36 +18,38 @@ Reproduction number, transmission parameter, probability of infection given dire
 }
 \details{
 Columns:
-\describe{\item{estimation_method}{Method used for estimation}}
-\describe{\item{estimation_type}{Statistical approach used (Frequentist/Bayesian)}}
-\describe{\item{filled_by}{Data entry person identifier}}
-\describe{\item{filled_date}{Data entry date}}
-\describe{\item{host}{Host species}}
-\describe{\item{host_age}{Age or age group of host}}
-\describe{\item{host_breed}{Specific breed of host}}
-\describe{\item{host_other}{Additional host characteristics}}
-\describe{\item{host_type}{Type of host}}
-\describe{\item{id}{Parameter identifier}}
-\describe{\item{if_other}{Additional parameter specifications}}
-\describe{\item{lower_cl}{Lower bound of confidence/credible interval}}
-\describe{\item{model_mixing}{Mixing pattern in the population}}
-\describe{\item{model_scale}{Scale of the model}}
-\describe{\item{model_type}{Model classification (e.g., SI, SIR)}}
-\describe{\item{parameter}{Parameter measured}}
-\describe{\item{pathogen}{Name of the infectious agent}}
-\describe{\item{ref}{Reference: source DOI or URL}}
-\describe{\item{ref_last_access}{Date reference was automatically checked for the last time}}
-\describe{\item{ref_short}{Short reference: source author and year}}
-\describe{\item{ref_status}{Reference status in the last aoutomatic check}}
-\describe{\item{remarks}{Additional notes or comments}}
-\describe{\item{study_type}{Study type}}
-\describe{\item{unit}{Units of measurement}}
-\describe{\item{upper_cl}{Upper bound of confidence/credible interval}}
-\describe{\item{vaccine}{Type of vaccine used if applicable}}
-\describe{\item{vaccine_contact}{Vaccination status of contact animals}}
-\describe{\item{vaccine_seeder}{Vaccination status of seeder/inoculated animals}}
-\describe{\item{value}{Numeric value of the parameter}}
-\describe{\item{variant_strain}{Specific variant or strain}}
-\describe{\item{year}{Year of publication}}
+\describe{
+\item{estimation_method}{Method used for estimation}
+\item{estimation_type}{Statistical approach used (Frequentist/Bayesian)}
+\item{filled_by}{Data entry person identifier}
+\item{filled_date}{Data entry date}
+\item{host}{Host species}
+\item{host_age}{Age or age group of host}
+\item{host_breed}{Specific breed of host}
+\item{host_other}{Additional host characteristics}
+\item{host_type}{Type of host}
+\item{id}{Parameter identifier}
+\item{if_other}{Additional parameter specifications}
+\item{lower_cl}{Lower bound of confidence/credible interval}
+\item{model_mixing}{Mixing pattern in the population}
+\item{model_scale}{Scale of the model}
+\item{model_type}{Model classification (e.g., SI, SIR)}
+\item{parameter}{Parameter measured}
+\item{pathogen}{Name of the infectious agent}
+\item{ref}{Reference: source DOI or URL}
+\item{ref_last_access}{Date reference was automatically checked for the last time}
+\item{ref_short}{Short reference: source author and year}
+\item{ref_status}{Reference status in the last aoutomatic check}
+\item{remarks}{Additional notes or comments}
+\item{study_type}{Study type}
+\item{unit}{Units of measurement}
+\item{upper_cl}{Upper bound of confidence/credible interval}
+\item{vaccine}{Type of vaccine used if applicable}
+\item{vaccine_contact}{Vaccination status of contact animals}
+\item{vaccine_seeder}{Vaccination status of seeder/inoculated animals}
+\item{value}{Numeric value of the parameter}
+\item{variant_strain}{Specific variant or strain}
+\item{year}{Year of publication}
+}
 }
 \keyword{datasets}

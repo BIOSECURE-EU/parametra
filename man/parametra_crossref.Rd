@@ -7,6 +7,9 @@
 \format{
 A data frame.
 }
+\source{
+Metadata retrieved from Crossref for DOI references used in PARAMETRA.
+}
 \usage{
 parametra_crossref
 }

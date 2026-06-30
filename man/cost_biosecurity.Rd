@@ -7,6 +7,9 @@
 \format{
 A data frame.
 }
+\source{
+Compiled from various scientific publications; see the "ref" column.
+}
 \usage{
 cost_biosecurity
 }
@@ -15,26 +18,28 @@ Information about prices of products needed to implement biosecurity measures
 }
 \details{
 Columns:
-\describe{\item{biosecurity_measure}{Category of measure}}
-\describe{\item{country}{Country or region where data was collected}}
-\describe{\item{filled_by}{Data entry person identifier}}
-\describe{\item{filled_date}{Data entry date}}
-\describe{\item{id}{Parameter identifier}}
-\describe{\item{last_access}{URL last access date}}
-\describe{\item{lifespan}{Expected lifespan of the product if applicable and based on typical usage}}
-\describe{\item{parameter}{Parameter measured}}
-\describe{\item{price}{Price of the product available online without VAT}}
-\describe{\item{price_by_event}{Total cost per event to implement the biosecurity measure without VAT}}
-\describe{\item{product_name}{Commercial name of the product}}
-\describe{\item{product_type}{Specific type of product needed to implement the biosecurity measure}}
-\describe{\item{qty_by_event}{Quantity of the product used per event to implement the biosecurity measure}}
-\describe{\item{ref}{Reference: source DOI or URL}}
-\describe{\item{ref_last_access}{Date reference was automatically checked for the last time}}
-\describe{\item{ref_short}{Short reference: source author and year}}
-\describe{\item{ref_status}{Reference status in the last aoutomatic check}}
-\describe{\item{remarks}{Additional notes or comments}}
-\describe{\item{transmission_pathway}{Transmission pathway targeted by this biosecurity measure}}
-\describe{\item{unit_needed}{Unit of the product needed per event to implement the biosecurity measure (e.g. gram, liter, unit)}}
-\describe{\item{year_cost}{Year the cost was included}}
+\describe{
+\item{biosecurity_measure}{Category of measure}
+\item{country}{Country or region where data was collected}
+\item{filled_by}{Data entry person identifier}
+\item{filled_date}{Data entry date}
+\item{id}{Parameter identifier}
+\item{last_access}{URL last access date}
+\item{lifespan}{Expected lifespan of the product if applicable and based on typical usage}
+\item{parameter}{Parameter measured}
+\item{price}{Price of the product available online without VAT}
+\item{price_by_event}{Total cost per event to implement the biosecurity measure without VAT}
+\item{product_name}{Commercial name of the product}
+\item{product_type}{Specific type of product needed to implement the biosecurity measure}
+\item{qty_by_event}{Quantity of the product used per event to implement the biosecurity measure}
+\item{ref}{Reference: source DOI or URL}
+\item{ref_last_access}{Date reference was automatically checked for the last time}
+\item{ref_short}{Short reference: source author and year}
+\item{ref_status}{Reference status in the last aoutomatic check}
+\item{remarks}{Additional notes or comments}
+\item{transmission_pathway}{Transmission pathway targeted by this biosecurity measure}
+\item{unit_needed}{Unit of the product needed per event to implement the biosecurity measure (e.g. gram, liter, unit)}
+\item{year_cost}{Year the cost was included}
+}
 }
 \keyword{datasets}
