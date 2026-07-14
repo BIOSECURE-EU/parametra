@@ -20,7 +20,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/BIOSECURE-EU/parametra/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/BIOSECURE-EU/parametra/blob/v1.1.0/inst/CITATION)
 
 Antonopoulos A, Ciria N, Regan Á, Tubay J, Ciaravino G, Hayes B, Lambert
 S, Vergne T, Velkers F, Biebaut E, Viltrop A, Dewulf J, Charlier J,

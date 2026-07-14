@@ -28,5 +28,5 @@
 
 Number of parametra entries by pathogen and parameter. The numbers in
 parentheses indicate the count of studies where these entries were
-collected. Total number of studies: 414 {.table .cl-f8514b48
+collected. Total number of studies: 414 {.table .cl-301adc1a
 quarto-disable-processing="true"}
