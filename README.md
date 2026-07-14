@@ -51,14 +51,15 @@ data = pd.read_csv("https://raw.githubusercontent.com/BIOSECURE-EU/parametra/ref
 
 Each PARAMETRA entry contains a parameter, pathogen, and reference. Additional information varies by parameter type and may include host species, study type, value, and upper and lower confidence intervals. It is organized in the following tables:
 
-1.  [**Transmission**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_Transmission.csv): Reproduction number, transmission parameter, probability of infection given direct/indirect contact, probability of reactivation of latent infection, other
-2.  [**Infectious/Latent/Incubation**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_InfectiousLatentIncubatperiod.csv): Infectious period, latent period, incubation period, shape, other
-3.  [**Pathogen survival**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_PathogenSurvival.csv): Pathogen survival on various surfaces and disinfection procedures
-4.  [**Diagnostic Test**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_DiagnosticTest.csv): Specificity, sensitivity
-5.  [**Within Herd Prevalence**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_WithinHerdPrevalence.csv): Within herd prevalence
-6.  [**Regional Prevalence**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_RegionalPrevalence.csv): Herd prevalence, global prevalence
-7.  [**Control Plan**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_ControlPlan.csv): Voluntary or compulsory national and regional control plans
-8.  [**Other Relevant Information**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_OtherRelevantInformation.csv): Other relevant parameters for modelling
+1.  [**transmission**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_Transmission.csv): Reproduction number, transmission parameter, probability of infection given direct/indirect contact, probability of reactivation of latent infection and other transmission parameters.
+2.  [**infectious_latent_incuba_period**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_InfectiousLatentIncubatperiod.csv): Infectious period, latent period, incubation period, shape and other disease period parameters.
+3.  [**pathogen_survival**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_PathogenSurvival.csv): Survival parameters in different materials and environmental conditions
+4.  [**diagnostic_test**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_DiagnosticTest.csv): Diagnostic test parameters such as test specificity and sensitivity.
+5.  [**within_herd_prevalence**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_WithinHerdPrevalence.csv): Within-herd pathogen prevalence parameters.
+6.  [**regional_prevalence**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_RegionalPrevalence.csv): Regional pathogen prevalence parameters at country or sub-division level.
+7.  [**control_plan**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_ControlPlan.csv): Information about disease control programs and plans implemented in different countries.
+8.  [**cost_biosecurity**](https://github.com/BIOSECURE-EU/parametra/blob/use-examples/data-raw/tables/cost_biosecurity.csv): Information about prices of products needed to implement biosecurity measures
+9.  [**other**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/tables/parametra_OtherRelevantInformation.csv): Additional parameters and information related to various infectious diseases in animal populations that do not fit into other specific categories
 
 All this tables are aggregated in [**parametra_long**](https://github.com/BIOSECURE-EU/parametra/blob/main/data-raw/parametra_long.csv). You can find their full documentation [here](https://biosecure-eu.github.io/parametra/reference/index.html).
 
@@ -70,11 +71,9 @@ The [**parametra_crossref**](https://raw.githubusercontent.com/BIOSECURE-EU/para
 
 Only available in the excel file:
 
-1.  **LOT (List of Terms)**: List of terms used in the database and their meanings
-2.  **Change log**: Tracks modifications, updates, and version history
-3.  **Endemic pathogens**: List of endemic pathogens and parameter availability summary
-4.  **Epidemic pathogens**: List of epidemic pathogens and parameter availability summary
-5.  **AMR pathogens**: List of antimicrobial resistance pathogens and parameter availability summary
+1.  **LOT (List of Terms)**: List of terms used in the database and their meanings.
+2.  **CHANGELOG** : Tracks modifications, updates, and version history.
+3.  **crossref**: Metadata extracted from CrossRef using the rcrossref package for scientific publications referenced in the `parametra_long` dataset.
 
 ## How to Submit New Parameters
 
@@ -96,8 +95,7 @@ There are two ways to contribute new parameters to the PARAMETRA database:
 
 ## Contact
 
-[contact\@parametra.eu](mailto:contact@parametra.eu)
-[natalia.ciria\@uab.cat](mailto:natalia.ciria@uab.cat)
+[contact\@parametra.eu](mailto:contact@parametra.eu) [natalia.ciria\@uab.cat](mailto:natalia.ciria@uab.cat)
 
 ## License
 
