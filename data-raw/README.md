@@ -31,6 +31,14 @@ Add one row before running the final export, or before replacing the source work
 
 The `CHANGELOG` entry should briefly state what changed, for example new records, corrected values, updated references, removed duplicates, or LOT updates.
 
+## Requirements
+
+Maintainers must [clone parametra repository](https://happygitwithr.com/existing-github-first.html) as an R project. Changes should always be made in a **new branch**, since the `main` branch requires a pull request before new commits can be merged. The following packages must also be installed to run the curation scripts:
+
+``` r
+install.packages(c("readxl", "openxlsx", "dplyr", "stringr", "purr", "tibble", "httr", "rcrossref", "janitor"))
+```
+
 ## Standard run
 
 From the package root:
@@ -148,7 +156,6 @@ Common issues are:
 | Workbook backup (.gitignore) | `data-raw/backups/` |
 | Updated template workbook | `data-raw/parametra_template.xlsx` |
 
-
 ## Submission template maintenance
 
 The file:
@@ -176,12 +183,12 @@ All parameter sheets in the template are regenerated as empty sheets with curren
 
 The pipeline assumes:
 
-- every data-table column is described in `LOT`;
-- column descriptions are stored as rows where `term_type == "column"`;
-- the column name is in `key`;
-- the column description is in `description`.
-- each table description is stored in `README`, with the table name in column A and the description in column B, starting around rows 7–23;
-- the table-description reader checks `README!A7:B100`, so it can still work if more table rows are added later.
+-   every data-table column is described in `LOT`;
+-   column descriptions are stored as rows where `term_type == "column"`;
+-   the column name is in `key`;
+-   the column description is in `description`.
+-   each table description is stored in `README`, with the table name in column A and the description in column B, starting around rows 7–23;
+-   the table-description reader checks `README!A7:B100`, so it can still work if more table rows are added later.
 
 After regenerating `R/data.R`, run:
 

@@ -351,7 +351,7 @@ url_check_safe <- function(
         !is.na(status) & status %in% c(401L, 403L) ~ "url_access_restricted",
         !is.na(status) & status == 429L ~ "url_rate_limited",
         !is.na(status) & status >= 500 ~ "url_server_error",
-        TRUE ~ "url_check_failed"
+        TRUE ~ "url_manual_check"
       ),
       content_type = content_type,
       url_kind = ifelse(is_pdf, "pdf", "web"),

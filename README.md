@@ -97,7 +97,7 @@ There are two ways to contribute new parameters to the PARAMETRA database:
 
 [contact\@parametra.eu](mailto:contact@parametra.eu)
 
-Or directly to maintainers: [natalia.ciria\@uab.cat](mailto:natalia.ciria@uab.cat)
+Or directly to maintainers: [natalia.ciria\@uab.cat](mailto:natalia.ciria@uab.cat) and [alistair@kreavet.com](mailto:alistair@kreavet.com)
 
 ## License
 
