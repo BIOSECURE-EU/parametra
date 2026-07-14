@@ -1,129 +1,215 @@
-# parametra
+# Getting started with PARAMETRA
 
-The following visualizations help identify data gaps, research trends,
-and the distribution of parameters across different pathogens and study
-types.
+## Introduction
 
-### By parameter type
+PARAMETRA is an R data package containing curated parameters for
+livestock disease modelling. The package includes one combined dataset,
+`parametra_long`, plus one dataset per parameter group.
 
-|                                         | Global Prevalence (1) | Herd Prevalence (73) | Within Herd Prevalence (39) | Pathogen Survival/Disinfection (39) | Probability Fomite Testing Positive (1) | Transmission On Fomites (4) | Sensitivity (57) | Specificity (46) | Incubation Period (18) | Infectious Period (74) | Latent Period (56) | Shape (4) | Basic Reproduction Number (79) | Probability Of Reactivation Of Latent Infection (2) | Probability Of Transmission Between Farms (1) | Probability Of Transmission Via Direct Contact (11) | Probability Of Transmission Via Indirect Contact (14) | Reproduction Number (17) | Transmission Parameter (124) | Other (65) |
-|-----------------------------------------|-----------------------|----------------------|-----------------------------|-------------------------------------|-----------------------------------------|-----------------------------|------------------|------------------|------------------------|------------------------|--------------------|-----------|--------------------------------|-----------------------------------------------------|-----------------------------------------------|-----------------------------------------------------|-------------------------------------------------------|--------------------------|------------------------------|------------|
-|                                         | Prevalence (101)      |                      |                             | Survival (44)                       |                                         |                             | Tests (62)       |                  | Time Intervals (92)    |                        |                    |           | Transmission (175)             |                                                     |                                               |                                                     |                                                       |                          |                              |            |
-| African Swine Fever (36)                | 0                     | 0                    | 0                           | 6                                   | 0                                       | 0                           | 15               | 8                | 0                      | 23                     | 7                  | 29        | 32                             | 0                                                   | 0                                             | 2                                                   | 7                                                     | 0                        | 36                           | 21         |
-| Avian Influenza (68)                    | 0                     | 0                    | 0                           | 3                                   | 0                                       | 0                           | 15               | 15               | 32                     | 91                     | 58                 | 0         | 190                            | 0                                                   | 1                                             | 6                                                   | 6                                                     | 0                        | 160                          | 0          |
-| Bluetongue (4)                          | 0                     | 0                    | 1                           | 0                                   | 0                                       | 0                           | 3                | 3                | 0                      | 0                      | 0                  | 0         | 15                             | 0                                                   | 0                                             | 0                                                   | 0                                                     | 0                        | 0                            | 4          |
-| Bovine Respiratory Syncytial Virus (20) | 0                     | 9                    | 1                           | 2                                   | 0                                       | 0                           | 3                | 2                | 2                      | 0                      | 0                  | 0         | 11                             | 0                                                   | 0                                             | 0                                                   | 0                                                     | 0                        | 9                            | 2          |
-| Bovine Tuberculosis (26)                | 1                     | 9                    | 7                           | 2                                   | 0                                       | 0                           | 65               | 39               | 0                      | 0                      | 6                  | 0         | 12                             | 0                                                   | 0                                             | 0                                                   | 0                                                     | 6                        | 15                           | 15         |
-| Bovine Viral Diarrhoea Virus (23)       | 0                     | 8                    | 7                           | 0                                   | 3                                       | 0                           | 7                | 7                | 0                      | 3                      | 0                  | 0         | 3                              | 0                                                   | 0                                             | 0                                                   | 1                                                     | 0                        | 7                            | 1          |
-| Campylobacter (26)                      | 0                     | 5                    | 5                           | 2                                   | 0                                       | 0                           | 18               | 17               | 0                      | 3                      | 2                  | 0         | 0                              | 0                                                   | 0                                             | 0                                                   | 0                                                     | 0                        | 12                           | 7          |
-| Classical Swine Fever (7)               | 0                     | 0                    | 0                           | 0                                   | 0                                       | 0                           | 2                | 2                | 0                      | 2                      | 1                  | 2         | 10                             | 0                                                   | 0                                             | 2                                                   | 2                                                     | 5                        | 13                           | 0          |
-| Contagious agalactia (7)                | 0                     | 5                    | 0                           | 1                                   | 0                                       | 0                           | 0                | 0                | 0                      | 0                      | 0                  | 0         | 0                              | 0                                                   | 0                                             | 0                                                   | 0                                                     | 0                        | 0                            | 1          |
-| Coxiella burnetii (21)                  | 0                     | 11                   | 12                          | 2                                   | 0                                       | 0                           | 4                | 3                | 0                      | 5                      | 0                  | 0         | 0                              | 0                                                   | 0                                             | 0                                                   | 0                                                     | 1                        | 15                           | 0          |
-| E. coli (23)                            | 0                     | 0                    | 0                           | 1                                   | 0                                       | 0                           | 99               | 90               | 0                      | 3                      | 3                  | 0         | 18                             | 0                                                   | 0                                             | 4                                                   | 8                                                     | 1                        | 51                           | 22         |
-| Foot and Mouth Disease (14)             | 0                     | 0                    | 0                           | 3                                   | 0                                       | 0                           | 13               | 11               | 0                      | 13                     | 3                  | 0         | 6                              | 0                                                   | 0                                             | 0                                                   | 0                                                     | 19                       | 8                            | 3          |
-| Hepatitis E (25)                        | 0                     | 17                   | 94                          | 2                                   | 0                                       | 0                           | 2                | 2                | 0                      | 36                     | 29                 | 1         | 25                             | 0                                                   | 0                                             | 0                                                   | 0                                                     | 7                        | 32                           | 1          |
-| Infectious Bovine Rhinotracheitis (14)  | 0                     | 2                    | 3                           | 4                                   | 0                                       | 0                           | 3                | 2                | 0                      | 1                      | 0                  | 0         | 1                              | 1                                                   | 0                                             | 1                                                   | 0                                                     | 0                        | 0                            | 1          |
-| Multiple (5)                            | 0                     | 0                    | 0                           | 0                                   | 0                                       | 0                           | 0                | 0                | 0                      | 0                      | 0                  | 0         | 0                              | 0                                                   | 0                                             | 0                                                   | 0                                                     | 0                        | 0                            | 5          |
-| Paratuberculosis (28)                   | 0                     | 8                    | 0                           | 4                                   | 0                                       | 0                           | 111              | 101              | 0                      | 2                      | 3                  | 0         | 22                             | 1                                                   | 0                                             | 2                                                   | 1                                                     | 0                        | 47                           | 11         |
-| Peste des Petits Ruminants (9)          | 0                     | 0                    | 0                           | 1                                   | 0                                       | 0                           | 10               | 3                | 2                      | 1                      | 0                  | 0         | 4                              | 0                                                   | 0                                             | 0                                                   | 0                                                     | 2                        | 3                            | 1          |
-| PRRS (26)                               | 0                     | 2                    | 10                          | 1                                   | 0                                       | 4                           | 11               | 8                | 0                      | 2                      | 3                  | 0         | 20                             | 0                                                   | 0                                             | 11                                                  | 16                                                    | 13                       | 4                            | 15         |
-| S. aureus (1)                           | 0                     | 0                    | 0                           | 0                                   | 0                                       | 0                           | 0                | 0                | 0                      | 0                      | 0                  | 0         | 0                              | 0                                                   | 0                                             | 0                                                   | 0                                                     | 0                        | 0                            | 1          |
-| Salmonella (23)                         | 0                     | 5                    | 27                          | 4                                   | 0                                       | 0                           | 11               | 8                | 0                      | 2                      | 2                  | 0         | 30                             | 0                                                   | 0                                             | 0                                                   | 0                                                     | 0                        | 7                            | 6          |
-| Swine Influenza (19)                    | 0                     | 4                    | 8                           | 2                                   | 0                                       | 0                           | 6                | 2                | 0                      | 16                     | 10                 | 0         | 2                              | 0                                                   | 0                                             | 0                                                   | 0                                                     | 16                       | 43                           | 0          |
+## Installation
 
-Number of parametra entries by pathogen and parameter. The numbers in
-parentheses indicate the count of studies where these entries were
-collected. Total number of studies: 411
+``` r
 
-### By year
+# Install from GitHub
+# install.packages("remotes")
+remotes::install_github("BIOSECURE-EU/parametra")
+```
 
-|                                         | 1995 (1) | 1996 (2) | 1998 (1) | 2000 (5) | 2001 (3) | 2002 (8) | 2003 (5) | 2004 (8) | 2005 (8) | 2006 (7) | 2007 (19) | 2008 (14) | 2009 (15) | 2010 (13) | 2011 (22) | 2012 (21) | 2013 (27) | 2014 (24) | 2015 (16) | 2016 (11) | 2017 (31) | 2018 (18) | 2019 (20) | 2020 (30) | 2021 (30) | 2022 (28) | 2023 (21) | 2024 (2) | Not Available (1) |
-|-----------------------------------------|----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|----------|-------------------|
-|                                         |          |          |          |          |          |          |          |          |          |          |           |           |           |           |           |           |           |           |           |           |           |           |           |           |           |           |           |          |                   |
-| African Swine Fever (36)                | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0         | 0         | 0         | 0         | 1         | 0         | 11        | 0         | 5         | 0         | 53        | 0         | 2         | 10        | 74        | 19        | 11        | 0        | 0                 |
-| Avian Influenza (68)                    | 0        | 0        | 0        | 0        | 0        | 0        | 27       | 14       | 4        | 10       | 36        | 9         | 23        | 32        | 51        | 73        | 31        | 12        | 5         | 0         | 94        | 21        | 17        | 36        | 50        | 30        | 2         | 0        | 0                 |
-| Bluetongue (4)                          | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 10        | 7         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 9         | 0         | 0         | 0        | 0                 |
-| Bovine Respiratory Syncytial Virus (20) | 0        | 1        | 0        | 2        | 0        | 0        | 0        | 0        | 0        | 0        | 2         | 4         | 15        | 1         | 0         | 2         | 1         | 0         | 2         | 0         | 0         | 5         | 0         | 0         | 5         | 0         | 1         | 0        | 0                 |
-| Bovine Tuberculosis (26)                | 0        | 0        | 0        | 0        | 0        | 1        | 0        | 0        | 0        | 71       | 0         | 0         | 0         | 0         | 2         | 2         | 0         | 60        | 0         | 0         | 0         | 6         | 12        | 3         | 2         | 5         | 13        | 0        | 0                 |
-| Bovine Viral Diarrhoea Virus (23)       | 0        | 0        | 0        | 0        | 0        | 0        | 1        | 0        | 5        | 0        | 5         | 0         | 0         | 0         | 3         | 0         | 4         | 1         | 4         | 0         | 9         | 5         | 0         | 1         | 3         | 0         | 0         | 6        | 0                 |
-| Campylobacter (26)                      | 0        | 0        | 0        | 0        | 2        | 0        | 2        | 0        | 2        | 0        | 2         | 0         | 2         | 0         | 1         | 5         | 1         | 5         | 0         | 3         | 3         | 0         | 33        | 1         | 6         | 1         | 0         | 0        | 2                 |
-| Classical Swine Fever (7)               | 0        | 0        | 0        | 0        | 0        | 3        | 0        | 8        | 0        | 0        | 0         | 0         | 0         | 0         | 12        | 0         | 0         | 3         | 0         | 0         | 0         | 0         | 0         | 4         | 11        | 0         | 0         | 0        | 0                 |
-| Contagious agalactia (7)                | 0        | 0        | 0        | 0        | 0        | 1        | 0        | 0        | 1        | 0        | 0         | 0         | 0         | 1         | 0         | 2         | 0         | 0         | 0         | 0         | 0         | 1         | 1         | 0         | 0         | 0         | 0         | 0        | 0                 |
-| Coxiella burnetii (21)                  | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 5         | 0         | 4         | 2         | 12        | 1         | 10        | 1         | 0         | 1         | 6         | 6         | 0         | 4         | 0         | 1         | 0         | 0        | 0                 |
-| E. coli (23)                            | 1        | 0        | 0        | 0        | 0        | 0        | 0        | 5        | 4        | 12       | 23        | 20        | 0         | 1         | 6         | 0         | 0         | 4         | 0         | 6         | 9         | 0         | 39        | 4         | 0         | 15        | 151       | 0        | 0                 |
-| Foot and Mouth Disease (14)             | 0        | 0        | 0        | 0        | 0        | 0        | 3        | 6        | 0        | 0        | 4         | 12        | 14        | 0         | 0         | 0         | 0         | 0         | 18        | 5         | 0         | 0         | 7         | 10        | 0         | 0         | 0         | 0        | 0                 |
-| Hepatitis E (25)                        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0         | 67        | 0         | 5         | 2         | 78        | 9         | 4         | 1         | 0         | 29        | 0         | 1         | 3         | 45        | 1         | 3         | 0        | 0                 |
-| Infectious Bovine Rhinotracheitis (14)  | 0        | 1        | 1        | 1        | 1        | 0        | 0        | 0        | 0        | 0        | 1         | 0         | 0         | 0         | 0         | 0         | 3         | 2         | 0         | 0         | 3         | 2         | 1         | 1         | 2         | 0         | 0         | 0        | 0                 |
-| Multiple (5)                            | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 1        | 0         | 0         | 0         | 0         | 1         | 2         | 1         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0        | 0                 |
-| Paratuberculosis (28)                   | 0        | 0        | 0        | 2        | 0        | 6        | 1        | 3        | 0        | 16       | 0         | 150       | 1         | 0         | 1         | 0         | 2         | 2         | 16        | 7         | 1         | 33        | 2         | 0         | 6         | 64        | 0         | 0        | 0                 |
-| Peste des Petits Ruminants (9)          | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0         | 0         | 1         | 0         | 0         | 0         | 0         | 2         | 1         | 9         | 0         | 0         | 0         | 6         | 6         | 2         | 0         | 0        | 0                 |
-| PRRS (26)                               | 0        | 0        | 0        | 1        | 0        | 18       | 0        | 2        | 0        | 0        | 0         | 0         | 1         | 23        | 0         | 3         | 2         | 3         | 4         | 20        | 4         | 0         | 0         | 12        | 6         | 18        | 0         | 3        | 0                 |
-| S. aureus (1)                           | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0         | 0         | 0         | 0         | 1         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0         | 0        | 0                 |
-| Salmonella (23)                         | 0        | 0        | 0        | 0        | 0        | 1        | 0        | 0        | 0        | 2        | 25        | 6         | 0         | 0         | 0         | 2         | 27        | 21        | 0         | 0         | 6         | 0         | 0         | 6         | 4         | 0         | 2         | 0        | 0                 |
-| Swine Influenza (19)                    | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 4        | 0        | 0        | 0         | 0         | 2         | 2         | 23        | 0         | 17        | 12        | 0         | 9         | 6         | 11        | 0         | 5         | 5         | 1         | 12        | 0        | 0                 |
+``` r
 
-Number of parametra entries by pathogen and year. The numbers in
-parentheses indicate the count of studies where these entries were
-collected. Total number of studies: 411
+library(parametra)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
 
-### By study type
+## Data included in the package
 
-|                                         | Experimental (24) | Experimental Field (14) | Experimental Isolator (1) | Experimental Lab (20) | Experimental Stable (32) | Field (50)  | Observational (69) | Prevalence (1) | Retrospective (1) | Retrospective Cohort (1) | Seroprevalence (29) | Descriptive Review (18) | Meta-analysis (4) | Review (30) | Comparative (30) | Cross-sectional (1) | EU Report (1) | Faecal Culture (1) | Manufacturer Claim (3) | Prevalence (PCR) (1) | Questionairre (1) | Survey (54) | Systematic Review (2) | WOAH Technical Disease Card (1) | Other (15) | Not Available (50) |
-|-----------------------------------------|-------------------|-------------------------|---------------------------|-----------------------|--------------------------|-------------|--------------------|----------------|-------------------|--------------------------|---------------------|-------------------------|-------------------|-------------|------------------|---------------------|---------------|--------------------|------------------------|----------------------|-------------------|-------------|-----------------------|---------------------------------|------------|--------------------|
-|                                         | Experimental (89) |                         |                           |                       |                          | Field (150) |                    |                |                   |                          |                     | Review (50)             |                   |             | Other (109)      |                     |               |                    |                        |                      |                   |             |                       |                                 |            |                    |
-| African Swine Fever (36)                | 9                 | 0                       | 0                         | 3                     | 3                        | 0           | 36                 | 0              | 0                 | 0                        | 0                   | 3                       | 0                 | 77          | 19               | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 0           | 0                     | 0                               | 0          | 36                 |
-| Avian Influenza (68)                    | 135               | 0                       | 1                         | 0                     | 0                        | 397         | 13                 | 0              | 0                 | 0                        | 0                   | 19                      | 0                 | 0           | 12               | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 0           | 0                     | 0                               | 0          | 0                  |
-| Bluetongue (4)                          | 0                 | 0                       | 0                         | 0                     | 0                        | 0           | 0                  | 0              | 0                 | 0                        | 0                   | 0                       | 0                 | 0           | 6                | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 1           | 0                     | 0                               | 0          | 19                 |
-| Bovine Respiratory Syncytial Virus (20) | 1                 | 0                       | 0                         | 2                     | 3                        | 0           | 19                 | 0              | 0                 | 0                        | 9                   | 0                       | 0                 | 2           | 4                | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 1           | 0                     | 0                               | 0          | 0                  |
-| Bovine Tuberculosis (26)                | 3                 | 0                       | 0                         | 1                     | 0                        | 0           | 13                 | 1              | 1                 | 1                        | 1                   | 1                       | 1                 | 106         | 30               | 0                   | 1             | 0                  | 0                      | 0                    | 0                 | 6           | 0                     | 0                               | 0          | 11                 |
-| Bovine Viral Diarrhoea Virus (23)       | 0                 | 0                       | 0                         | 3                     | 1                        | 0           | 0                  | 0              | 0                 | 0                        | 7                   | 0                       | 1                 | 6           | 0                | 2                   | 0             | 0                  | 0                      | 0                    | 1                 | 0           | 0                     | 0                               | 7          | 19                 |
-| Campylobacter (26)                      | 0                 | 0                       | 0                         | 0                     | 8                        | 0           | 7                  | 0              | 0                 | 0                        | 0                   | 1                       | 0                 | 1           | 5                | 0                   | 0             | 0                  | 2                      | 0                    | 0                 | 16          | 0                     | 0                               | 0          | 31                 |
-| Classical Swine Fever (7)               | 0                 | 0                       | 0                         | 0                     | 0                        | 0           | 18                 | 0              | 0                 | 0                        | 0                   | 0                       | 0                 | 17          | 0                | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 0           | 0                     | 0                               | 0          | 6                  |
-| Contagious agalactia (7)                | 0                 | 0                       | 0                         | 0                     | 0                        | 0           | 0                  | 0              | 0                 | 0                        | 0                   | 1                       | 0                 | 0           | 0                | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 5           | 0                     | 0                               | 0          | 1                  |
-| Coxiella burnetii (21)                  | 0                 | 6                       | 0                         | 1                     | 0                        | 0           | 16                 | 0              | 0                 | 0                        | 10                  | 0                       | 0                 | 4           | 0                | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 9           | 0                     | 0                               | 0          | 7                  |
-| E. coli (23)                            | 142               | 40                      | 0                         | 1                     | 43                       | 0           | 4                  | 0              | 0                 | 0                        | 0                   | 0                       | 11                | 3           | 39               | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 0           | 0                     | 0                               | 17         | 0                  |
-| Foot and Mouth Disease (14)             | 3                 | 0                       | 0                         | 1                     | 47                       | 0           | 0                  | 0              | 0                 | 0                        | 0                   | 8                       | 0                 | 5           | 7                | 0                   | 0             | 0                  | 8                      | 0                    | 0                 | 0           | 0                     | 0                               | 0          | 0                  |
-| Hepatitis E (25)                        | 0                 | 0                       | 0                         | 1                     | 7                        | 0           | 66                 | 0              | 0                 | 0                        | 3                   | 1                       | 0                 | 58          | 2                | 0                   | 0             | 0                  | 2                      | 0                    | 0                 | 83          | 0                     | 0                               | 0          | 25                 |
-| Infectious Bovine Rhinotracheitis (14)  | 0                 | 1                       | 0                         | 1                     | 1                        | 0           | 0                  | 0              | 0                 | 0                        | 2                   | 2                       | 0                 | 0           | 0                | 0                   | 0             | 0                  | 0                      | 0                    | 1                 | 0           | 0                     | 0                               | 2          | 9                  |
-| Multiple (5)                            | 0                 | 0                       | 0                         | 0                     | 0                        | 0           | 5                  | 0              | 0                 | 0                        | 0                   | 0                       | 0                 | 0           | 0                | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 0           | 0                     | 0                               | 0          | 0                  |
-| Paratuberculosis (28)                   | 0                 | 11                      | 0                         | 1                     | 0                        | 0           | 70                 | 0              | 0                 | 0                        | 3                   | 3                       | 0                 | 2           | 0                | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 4           | 212                   | 0                               | 3          | 4                  |
-| Peste des Petits Ruminants (9)          | 0                 | 0                       | 0                         | 0                     | 0                        | 0           | 4                  | 0              | 0                 | 0                        | 0                   | 1                       | 0                 | 2           | 7                | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 0           | 0                     | 1                               | 7          | 5                  |
-| PRRS (26)                               | 2                 | 4                       | 0                         | 10                    | 5                        | 0           | 9                  | 0              | 0                 | 0                        | 6                   | 1                       | 0                 | 15          | 15               | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 6           | 0                     | 0                               | 43         | 4                  |
-| S. aureus (1)                           | 0                 | 0                       | 0                         | 0                     | 0                        | 0           | 1                  | 0              | 0                 | 0                        | 0                   | 0                       | 0                 | 0           | 0                | 0                   | 0             | 0                  | 0                      | 0                    | 0                 | 0           | 0                     | 0                               | 0          | 0                  |
-| Salmonella (23)                         | 2                 | 0                       | 0                         | 3                     | 0                        | 0           | 47                 | 0              | 0                 | 0                        | 18                  | 0                       | 0                 | 0           | 8                | 0                   | 0             | 12                 | 0                      | 0                    | 0                 | 1           | 0                     | 0                               | 0          | 11                 |
-| Swine Influenza (19)                    | 7                 | 18                      | 0                         | 2                     | 38                       | 0           | 31                 | 0              | 0                 | 0                        | 0                   | 0                       | 3                 | 2           | 0                | 0                   | 0             | 0                  | 0                      | 1                    | 0                 | 3           | 0                     | 0                               | 0          | 4                  |
+The main dataset is `parametra_long`, which stacks all parameter-group
+tables into a single analysis-ready table. The column `parameter_type`
+identifies the original parameter group.
 
-Number of parametra entries by pathogen and study_type. The numbers in
-parentheses indicate the count of studies where these entries were
-collected. Total number of studies: 411
+A quick overview of the number of records by parameter group:
 
-### By model type
+``` r
 
-|                                         | Annual Rate (1) | Descriptive (1) | Doubling Time (2) | Exponential Growth (2) | Final Size (7) | GLM (1) | Markov Chain (1) | Multiscale (1) | Nearest Neighbor (2) | Network Analysis (1) | Phylodynamic (1) | SEIR (3) | SI (7) | SIR (30) | SIRS (6) | SIS (4) | SLICE (1) | SLIR (32) | SOEI (1) | SUD (1) | Seasonal Matrix (1) | Stochastic (1) | Time Series (1) | White & Pagano (1) | Not Available (375) |
-|-----------------------------------------|-----------------|-----------------|-------------------|------------------------|----------------|---------|------------------|----------------|----------------------|----------------------|------------------|----------|--------|----------|----------|---------|-----------|-----------|----------|---------|---------------------|----------------|-----------------|--------------------|---------------------|
-|                                         |                 |                 |                   |                        |                |         |                  |                |                      |                      |                  |          |        |          |          |         |           |           |          |         |                     |                |                 |                    |                     |
-| African Swine Fever (36)                | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 2        | 9      | 0        | 0        | 0       | 0         | 7         | 0        | 0       | 0                   | 0              | 0               | 0                  | 168                 |
-| Avian Influenza (68)                    | 0               | 0               | 2                 | 13                     | 26             | 0       | 0                | 0              | 3                    | 0                    | 3                | 0        | 0      | 84       | 48       | 0       | 0         | 159       | 0        | 0       | 0                   | 0              | 4               | 9                  | 226                 |
-| Bluetongue (4)                          | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 26                  |
-| Bovine Respiratory Syncytial Virus (20) | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 41                  |
-| Bovine Tuberculosis (26)                | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 4         | 5        | 0       | 0                   | 0              | 0               | 0                  | 168                 |
-| Bovine Viral Diarrhoea Virus (23)       | 0               | 1               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 46                  |
-| Campylobacter (26)                      | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 7      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 64                  |
-| Classical Swine Fever (7)               | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 3        | 11     | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 27                  |
-| Contagious agalactia (7)                | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 7                   |
-| Coxiella burnetii (21)                  | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 53                  |
-| E. coli (23)                            | 0               | 0               | 0                 | 0                      | 0              | 0       | 3                | 0              | 0                    | 0                    | 0                | 0        | 23     | 5        | 0        | 38      | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 231                 |
-| Foot and Mouth Disease (14)             | 0               | 0               | 0                 | 0                      | 1              | 6       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 8        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 64                  |
-| Hepatitis E (25)                        | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 248                 |
-| Infectious Bovine Rhinotracheitis (14)  | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 1        | 0        | 0       | 0         | 1         | 0        | 0       | 0                   | 0              | 0               | 0                  | 17                  |
-| Multiple (5)                            | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 5                   |
-| Paratuberculosis (28)                   | 2               | 0               | 0                 | 0                      | 0              | 0       | 0                | 1              | 0                    | 0                    | 0                | 0        | 6      | 0        | 0        | 0       | 30        | 4         | 0        | 0       | 0                   | 8              | 0               | 0                  | 262                 |
-| Peste des Petits Ruminants (9)          | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 5        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 1                   | 0              | 0               | 0                  | 21                  |
-| PRRS (26)                               | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 2                    | 0                | 0        | 0      | 3        | 23       | 0       | 0         | 0         | 0        | 3       | 0                   | 0              | 0               | 0                  | 89                  |
-| S. aureus (1)                           | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 1                   |
-| Salmonella (23)                         | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 10       | 28       | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 64                  |
-| Swine Influenza (19)                    | 0               | 0               | 0                 | 0                      | 0              | 0       | 0                | 0              | 0                    | 0                    | 0                | 0        | 0      | 0        | 0        | 0       | 0         | 0         | 0        | 0       | 0                   | 0              | 0               | 0                  | 109                 |
+parametra_long %>%
+  count(parameter_type, sort = TRUE)
+```
 
-Number of parametra entries by pathogen and model_type. The numbers in
-parentheses indicate the count of studies where these entries were
-collected. Total number of studies: 411
+    ## # A tibble: 8 × 2
+    ##   parameter_type                      n
+    ##   <chr>                           <int>
+    ## 1 transmission                     1076
+    ## 2 diagnostic_test                   721
+    ## 3 infectious_latent_incuba_period   420
+    ## 4 within_herd_prevalence            175
+    ## 5 regional_prevalence                92
+    ## 6 pathogen_survival                  48
+    ## 7 other                              22
+    ## 8 control_plan                        9
+
+And the number of records by pathogen:
+
+``` r
+
+parametra_long %>%
+  count(pathogen, sort = TRUE)
+```
+
+    ## # A tibble: 24 × 2
+    ##    pathogen                   n
+    ##    <chr>                  <int>
+    ##  1 Avian Influenza          577
+    ##  2 Paratuberculosis         313
+    ##  3 E. coli                  300
+    ##  4 Hepatitis E              248
+    ##  5 African Swine Fever      186
+    ##  6 Bovine Tuberculosis      177
+    ##  7 PRRS                     120
+    ##  8 Swine Influenza          109
+    ##  9 Salmonella               102
+    ## 10 Foot and Mouth Disease    79
+    ## # ℹ 14 more rows
+
+## Finding relevant records
+
+Most analyses start by filtering `parametra_long`. For example, the code
+below finds African swine fever transmission records with an available
+numeric value.
+
+``` r
+
+asf_transmission <- parametra_long %>%
+  filter(
+    pathogen == "African Swine Fever",
+    parameter_type == "transmission",
+    !is.na(value)
+  )
+```
+
+Use [`distinct()`](https://dplyr.tidyverse.org/reference/distinct.html)
+to see which values are available before filtering:
+
+``` r
+
+parametra_long %>%
+  distinct(parameter_type, parameter) %>%
+  arrange(parameter_type, parameter) %>%
+  head(20)
+```
+
+    ## # A tibble: 20 × 2
+    ##    parameter_type                  parameter                                    
+    ##    <chr>                           <chr>                                        
+    ##  1 control_plan                    NA                                           
+    ##  2 diagnostic_test                 Sensitivity                                  
+    ##  3 diagnostic_test                 Specificity                                  
+    ##  4 infectious_latent_incuba_period Incubation period                            
+    ##  5 infectious_latent_incuba_period Infectious period                            
+    ##  6 infectious_latent_incuba_period Latent period                                
+    ##  7 infectious_latent_incuba_period Other                                        
+    ##  8 infectious_latent_incuba_period Shape                                        
+    ##  9 other                           Other                                        
+    ## 10 pathogen_survival               Fomites transmission                         
+    ## 11 pathogen_survival               Survival/Disinfection                        
+    ## 12 regional_prevalence             Global Prevalence                            
+    ## 13 regional_prevalence             Herd prevalence                              
+    ## 14 regional_prevalence             Other                                        
+    ## 15 transmission                    Basic reproduction number                    
+    ## 16 transmission                    Other                                        
+    ## 17 transmission                    Probability of reactivation of latent infect…
+    ## 18 transmission                    Probability of transmission between farms    
+    ## 19 transmission                    Probability of transmission via direct conta…
+    ## 20 transmission                    Probability of transmission via indirect con…
+
+## Example 1: Transmission parameters for African swine fever
+
+This example plots transmission-parameter values for African swine
+fever, faceted by parameter. The record `id` is kept in the plotting
+data so the source row can be traced back to PARAMETRA.
+
+``` r
+
+asf_transmission %>%
+  ggplot(aes(x = value, y = host)) +
+  geom_point(color = "#0F9DA4", size = 2.5, alpha = 0.8) +
+  facet_wrap(~ parameter, ncol = 1, scales = "free_x") +
+  labs(
+    title = "African swine fever transmission parameters",
+    subtitle = "Each point is one PARAMETRA record",
+    x = "Value",
+    y = "Host"
+  ) +
+  theme_minimal()
+```
+
+![](parametra_files/figure-html/asf-transmission-plot-1.png)
+
+## Example 2: Comparing infectious periods across pathogens
+
+Here we compare infectious-period estimates for three pathogens. This
+example is useful for checking the range of values before selecting
+parameters for a model.
+
+``` r
+
+infectious_periods <- parametra_long %>%
+  filter(
+    parameter == "Infectious period",
+    pathogen %in% c("Foot and Mouth Disease", "African Swine Fever", "Avian Influenza"),
+    !is.na(value)
+  )
+ggplot(infectious_periods, aes(x = pathogen, y = value, fill = pathogen)) +
+  geom_boxplot(outlier.shape = NA, alpha = 0.4) +
+  geom_jitter(width = 0.15, height = 0, alpha = 0.7, size = 1.5) +
+  labs(
+    title = "Infectious-period estimates across pathogens",
+    x = NULL,
+    y = "Infectious period"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+![](parametra_files/figure-html/infectious-periods-1.png)
+
+## Working with references
+
+Each record includes reference fields so parameter values can be traced
+to their source. Useful columns include:
+
+- `ref`: DOI, DOI URL, PubMed URL, or stable web URL
+
+- `ref_short`: short human-readable citation, when available
+
+- `ref_status`: status assigned during PARAMETRA curation
+
+- `ref_last_access`: date when a URL reference was last checked.
+
+``` r
+
+parametra_long %>%
+  count(ref_status, sort = TRUE)
+```
+
+    ## # A tibble: 3 × 2
+    ##   ref_status        n
+    ##   <chr>         <int>
+    ## 1 doi_found      2530
+    ## 2 url_unchecked    32
+    ## 3 doi_not_found     1
+
+## Interpreting PARAMETRA data
+
+PARAMETRA is curated to support disease-modelling work, but users should
+still assess whether each record is appropriate for their specific
+modelling context. Before accepting a parameter value as suitable, we
+recommend reviewing the contextual information and notes provided in the
+database, and consulting the original reference.
+
+## Contributing new records
+
+New records can be submitted through the [PARAMETRA submission
+form](https://ec.europa.eu/eusurvey/runner/parametra-submission) or via
+<contact@parametra.eu>.

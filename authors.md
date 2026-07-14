@@ -26,8 +26,8 @@ Antonopoulos A, Ciria N, Regan Á, Tubay J, Ciaravino G, Hayes B, Lambert
 S, Vergne T, Velkers F, Biebaut E, Viltrop A, Dewulf J, Charlier J,
 Fischer E, Palau AA (2025). “PARAMETRA: A transmission modelling
 database for livestock diseases.” *Preventive Veterinary Medicine*,
-**245**, 106668. ISSN 0167-5877,
-[doi:10.1016/j.prevetmed.2025.106668](https://doi.org/10.1016/j.prevetmed.2025.106668),
+**245**, 106668. ISSN 0167-5877.
+[doi:10.1016/j.prevetmed.2025.106668](https://doi.org/10.1016/j.prevetmed.2025.106668).
 <https://www.sciencedirect.com/science/article/pii/S0167587725002533>.
 
     @Article{,

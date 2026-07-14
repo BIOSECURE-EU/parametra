@@ -1,10 +1,7 @@
-# Parameters Table (Long Format)
+# PARAMETRA long-format data
 
-A comprehensive dataset combining all parameter tables into a single
-long-format table. Contains information about infectious diseases in
-animal populations, including: transmission parameters, pathogen
-survival, diagnostic tests, prevalence data, and control measures. The
-source table for each entry is identified in the "ParameterType" column.
+Curated PARAMETRA records from all parameter sheets combined in long
+format.
 
 ## Usage
 
@@ -14,23 +11,100 @@ parametra_long
 
 ## Format
 
-A data frame with 41 variables:
+A data frame.
 
-- parameter:
+## Source
 
-  Parameter measured
+Compiled from various scientific publications; see the "ref" column.
+
+## Details
+
+Columns:
+
+- biosecurity_measure:
+
+  Category of measure
+
+- country:
+
+  Country or region where data was collected
+
+- country_disease_status:
+
+  Disease status classification
+
+- estimation_method:
+
+  Method used for estimation
+
+- estimation_type:
+
+  Statistical approach used (Frequentist/Bayesian)
+
+- filled_by:
+
+  Data entry person identifier
+
+- filled_date:
+
+  Data entry date
+
+- host:
+
+  Host species
+
+- host_age:
+
+  Age or age group of host
+
+- host_breed:
+
+  Specific breed of host
+
+- host_other:
+
+  Additional host characteristics
+
+- host_type:
+
+  Type of host
+
+- id:
+
+  Parameter identifier
 
 - if_other:
 
   Additional parameter specifications
 
-- unit:
+- info_level:
 
-  Units of measurement
+  Geographical level of information detail
 
-- model_type:
+- inoculated_contact:
 
-  Model classification (e.g., SI, SIR)
+  Inoculation of contact status
+
+- last_access:
+
+  URL last access date
+
+- last_updated:
+
+  Date of last control plan update
+
+- lifespan:
+
+  Expected lifespan of the product if applicable and based on typical
+  usage
+
+- lower_cl:
+
+  Lower bound of confidence/credible interval
+
+- material:
+
+  Type of material or medium where survival was measured
 
 - model_mixing:
 
@@ -40,151 +114,140 @@ A data frame with 41 variables:
 
   Scale of the model
 
-- study_type:
+- model_type:
 
-  Study type
+  Model classification (e.g., SI, SIR)
+
+- parameter:
+
+  Parameter measured
 
 - pathogen:
 
   Name of the infectious agent
 
-- variant_strain:
+- plan_coverage:
 
-  Specific variant or strain
-
-- host:
-
-  Host species
-
-- host_type:
-
-  Type of host
-
-- host_breed:
-
-  Specific breed of host
-
-- host_age:
-
-  Age or age group of hosts
-
-- host_other:
-
-  Additional host characteristics
-
-- vaccine_seeder:
-
-  Vaccination status of seeder/inoculated animals
-
-- vaccine_contact:
-
-  Vaccination status of contact animals
-
-- vaccine:
-
-  Type of vaccine used if applicable
-
-- value:
-
-  Numeric value of the parameter
-
-- lower_cl:
-
-  Lower bound of confidence/credible interval
-
-- upper_cl:
-
-  Upper bound of confidence/credible interval
-
-- estimation_type:
-
-  Statistical approach used (Frequentist/Bayesian)
-
-- estimation_method:
-
-  Method used for estimation
-
-- remarks:
-
-  Additional notes or comments
-
-- ref_short:
-
-  Short reference: source author and year
-
-- year:
-
-  Year of publication
-
-- ref:
-
-  Reference: source doi or url
-
-- filled_by:
-
-  Data entry person identifier
-
-- parameter_type:
-
-  Category of parameter
-
-- inoculated_contact:
-
-  Inoculation or contact status
-
-- material:
-
-  Type of material or medium where survival was measured
-
-- test_type:
-
-  Type of diagnostic test used
-
-- sample_type:
-
-  Type of biological sample used
-
-- time_period:
-
-  Time period of the study
-
-- country:
-
-  Country or region where data was collected
-
-- sampling_purpose:
-
-  Purpose of the sampling conducted
-
-- info_level:
-
-  Level of information detail
+  Geographical scope of the plan
 
 - plan_implemented:
 
   Whether a control plan is implemented
 
-- plan_voluntary_compulsary:
-
-  Voluntary or compulsary plan
-
-- plan_coverage:
-
-  Geographical scope of the plan
-
-- country_disease_status:
-
-  Disease status classification
-
 - plan_type:
 
   Type of control plan
 
-- last_updated:
+- plan_voluntary_compulsary:
 
-  Date of last control plan update
+  Voluntary or compulsory plan
 
-## Source
+- price:
 
-Combination of all individual parameter tables, compiled from various
-scientific publications (see "ref" column)
+  Price of the product available online without VAT
+
+- price_by_event:
+
+  Total cost per event to implement the biosecurity measure without VAT
+
+- product_name:
+
+  Commercial name of the product
+
+- product_type:
+
+  Specific type of product needed to implement the biosecurity measure
+
+- qty_by_event:
+
+  Quantity of the product used per event to implement the biosecurity
+  measure
+
+- ref:
+
+  Reference: source DOI or URL
+
+- ref_last_access:
+
+  Date reference was automatically checked for the last time
+
+- ref_short:
+
+  Short reference: source author and year
+
+- ref_status:
+
+  Reference status in the last aoutomatic check
+
+- remarks:
+
+  Additional notes or comments
+
+- sample_type:
+
+  Type of biological sample used
+
+- sampling_purpose:
+
+  Purpose of the sampling conducted
+
+- scale:
+
+  Scale of the study
+
+- study_type:
+
+  Study type
+
+- test_type:
+
+  Type of diagnostic test used
+
+- time_period:
+
+  Time period of the study
+
+- transmission_pathway:
+
+  Transmission pathway targeted by this biosecurity measure
+
+- unit:
+
+  Units of measurement
+
+- unit_needed:
+
+  Unit of the product needed per event to implement the biosecurity
+  measure (e.g. gram, liter, unit)
+
+- upper_cl:
+
+  Upper bound of confidence/credible interval
+
+- vaccine:
+
+  Type of vaccine used if applicable
+
+- vaccine_contact:
+
+  Vaccination status of contact animals
+
+- vaccine_seeder:
+
+  Vaccination status of seeder/inoculated animals
+
+- value:
+
+  Numeric value of the parameter
+
+- variant_strain:
+
+  Specific variant or strain
+
+- year:
+
+  Year of publication
+
+- year_cost:
+
+  Year the cost was included
