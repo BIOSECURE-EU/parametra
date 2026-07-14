@@ -97,6 +97,7 @@ There are two ways to contribute new parameters to the PARAMETRA database:
 ## Contact
 
 [contact\@parametra.eu](mailto:contact@parametra.eu)
+[natalia.ciria\@uab.cat](mailto:natalia.ciria@uab.cat)
 
 ## License
 

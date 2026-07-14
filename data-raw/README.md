@@ -1,11 +1,9 @@
 # Maintainer documentation
 
-This pipeline maintains PARAMETRA R package and csv data from the source Excel workbook.
+This workflow maintains PARAMETRA R package and csv data from the source Excel workbook.
 
-The workflow:
-
-1.  Reads the source workbook.
-2.  Validates column names and controlled terms against the `LOT` sheet.
+1.  Reads the source Excel workbook.
+2.  Validates column names and terms against the `LOT` sheet.
 3.  Checks required fields and value/year formatting.
 4.  Updates DOI metadata from Crossref (resolves PubMed references to DOI where possible).
 5.  Checks URL references.
