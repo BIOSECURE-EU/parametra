@@ -1,373 +1,133 @@
 ---
-title: "parametra"
+title: "Getting started with PARAMETRA"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{parametra}
+  %\VignetteIndexEntry{Getting started with PARAMETRA}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+## Introduction
+
+PARAMETRA is an R data package containing curated parameters for livestock disease modelling. The package includes one combined dataset, `parametra_long`, plus one dataset per parameter group.
+
+## Installation
+
+```{r install, eval = FALSE}
+# Install from GitHub
+# install.packages("remotes")
+remotes::install_github("BIOSECURE-EU/parametra")
 ```
 
-```{r, include = FALSE}
-library(flextable)
-library(scales)
-library(dplyr)
-library(tidyr)
+```{r setup, message = FALSE, warning = FALSE}
 library(parametra)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
 ```
 
-The following visualizations help identify data gaps, research trends, and the distribution of parameters across different pathogens and study types.
+## Data included in the package
 
-```{r setup, include = FALSE}
-# Function to create a heatmap visualization
-parametra_heatmap <- function(x, y, data=parametra_long, order_by=NULL, filename = NULL, na.rm=FALSE) {
-  # Create data summary
-  data <- data %>%
-    dplyr::filter(!grepl(";", .data[[x]])) %>%  # Filter for only individual items
-    dplyr::group_by(across(all_of(c(x, y)))) %>%
-    dplyr::summarise(n = n())
+The main dataset is `parametra_long`, which stacks all parameter-group tables into a single analysis-ready table. The column `parameter_type` identifies the original parameter group.
 
-  # Remove NA values if specified
-  if(na.rm){
-    data <- data %>%
-      dplyr::filter(!is.na(.data[[y]]))
-  }
-  
-  # Order rows based on specified criteria or default to descending count
-  if(is.null(order_by)){
-    data <- dplyr::arrange(data, desc(n))
-  }else{
-    data <- dplyr::arrange(data, across(all_of(order_by)), desc(n))
-  }
+A quick overview of the number of records by parameter group:
 
-  # Create pivot wider matrix
-  matrix <- tidyr::pivot_wider(
-    data = data[!is.na(data$n), ],
-    id_cols = all_of(x),
-    names_from = all_of(y),
-    values_from = n
+```{r parameter-type-summary}
+parametra_long %>%
+  count(parameter_type, sort = TRUE)
+```
+
+And the number of records by pathogen:
+
+```{r pathogen-summary}
+parametra_long %>%
+  count(pathogen, sort = TRUE)
+```
+
+## Finding relevant records
+
+Most analyses start by filtering `parametra_long`. For example, the code below finds African swine fever transmission records with an available numeric value.
+
+```{r filter-example}
+asf_transmission <- parametra_long %>%
+  filter(
+    pathogen == "African Swine Fever",
+    parameter_type == "transmission",
+    !is.na(value)
   )
-
-  # Convert to matrix format
-  rnames <- matrix[[x]]
-  matrix[[x]] <- NULL
-  matrix <- as.matrix(matrix)
-  row.names(matrix) <- rnames
-
-  # Replace NA with 0
-  matrix[is.na(matrix)] <- 0
-
-  # Save to file if filename provided
-  if (!is.null(filename)) {
-    matrix_df <- as.data.frame(matrix)
-    matrix_df[[x]] <- row.names(matrix)
-    write.csv(matrix_df, file = filename, row.names = FALSE)
-  }
-
-  return(matrix)
-}
-
-# Function to capitalize all character columns in a dataframe
-capitalize_df <- function(df) {
-  df[] <- lapply(df, function(x) {
-    if(is.character(x)) {
-      sapply(x, function(str) {
-        s <- strsplit(str, " ")[[1]]
-        paste(toupper(substring(s, 1, 1)), 
-              substring(s, 2),
-              sep = "", collapse = " ")
-      })
-    } else {
-      x
-    }
-  })
-  return(df)
-}
-
-# Function to capitalize individual strings
-capitalize_vector <- function(x) {
-  if(is.character(x)) {
-    s <- strsplit(x, " ")
-    sapply(s, function(words) {
-      paste(toupper(substring(words, 1, 1)), 
-            substring(words, 2),
-            sep = "", collapse = " ")
-    })
-  } else {
-    x
-  }
-}
 ```
 
-```{r, include = FALSE}
-ft_heatmap<-function(x,y,y_by=NULL, order_by=NULL){
-  # Generate heatmap matrix
-  heatmap_matrix <- parametra_heatmap(x=x, y=y, order_by=order_by)
-  
-  # Convert matrix to dataframe and handle NA values
-  heatmap_df <- as.data.frame(heatmap_matrix)
-  heatmap_df[is.na(heatmap_df)] <- 0
-  heatmap_df[[x]] <- rownames(heatmap_matrix)
-  heatmap_df<-heatmap_df[order(heatmap_df[[x]]),]
-  names(heatmap_df)[names(heatmap_df)=="NA"]<-"Not available"
-  
-  # Prepare headers table
-  headers_table <- unique(parametra_long[c(y,y_by)]) %>%
-    filter(!.data[[y]]=="Other") 
-  
-  if(!is.null(order_by)){
-    headers_table<-headers_table%>%
-      arrange(across(all_of(order_by)))
-  }
-  
+Use `distinct()` to see which values are available before filtering:
 
-  
-  # Prepare matrix header
-  matrix_header <- data.frame(
-      col_keys = headers_table[[y]],
-      line2 = headers_table[[y]],
-      line3 = if(is.null(y_by)) headers_table[[y]] else headers_table[[y_by]]
-    )
-  
-  
-  # Clean parameter types
-  matrix_header <- matrix_header %>%
-    mutate(
-      # Handle parameter type categorization
-      line3 = if(!is.null(y_by)&&y_by == "parameter_type") {
-        case_when(
-          line3 == "Transmission" ~ "Transmission",
-          line3 == "InfectiousLatentIncubatperiod" ~ "Time intervals",
-          line3 == "PathogenSurvival" ~ "Survival",
-          line3 == "DiagnosticTest" ~ "Tests",
-          line3 == "RegionalPrevalence" ~ "Prevalence",
-          line3 == "WithinHerdPrevalence" ~ "Prevalence",
-          line3 == "Other" ~ "Other",
-          TRUE ~ line3
-        )
-      } else line3,
-      
-      # Handle study type categorization
-      line3 = if(is.null(y_by)&&y== "study_type") {
-        case_when(
-          is.na(line2) ~ "Not available",
-          line2 %in% c("Experimental", "Experimental Stable", 
-                      "Experimental Isolator", "Experimental Field", 
-                      "Experimental Lab") ~ "Experimental",
-          line2 %in% c("Review", "Descriptive Review", 
-                      "Meta-analysis") ~ "Review",
-          line2 %in% c("Field", "Observational", "Seroprevalence",
-                      "Prevalence", "Retrospective", 
-                      "Retrospective cohort") ~ "Field",
-          TRUE ~ "Other"
-        )
-      } else line3
-    )
-  
-  # Add "Other" row
-  last_row_header <- data.frame(col_keys="Other", line2="Other", line3="Other")
-  matrix_header <- rbind(matrix_header, last_row_header)
-  
-  # Add "Not available" row
-  na_row_header <- data.frame(col_keys="Not available", line2="Not available", line3="Not available")
-  matrix_header <- rbind(matrix_header, na_row_header)
-  
-  # Order by line3 and line 2
-  matrix_header <- matrix_header %>%
-    arrange(
-      line3 == "Not available",  # FALSE comes before TRUE
-      line3 == "Other", 
-      line3,
-      line2 == "Not available",
-      line2 == "Other",
-      line2
-    )
-
-  
-  # Add first row header
-  first_row_header <- data.frame(col_keys=x, line2=x, line3=x)
-  matrix_header <- rbind(first_row_header, matrix_header)
-  
-
-  # Capitalize headers and column names
-  # Fix column naming by replacing "/" with "_"
-  matrix_header[["col_keys"]] <- gsub("/", " or ", matrix_header[["col_keys"]])
-
-
-  # Update and check column alignment
-  names(heatmap_df) <- gsub("/", " or ", names(heatmap_df))
-  heatmap_df<-heatmap_df[intersect(matrix_header$col_keys,names(heatmap_df))] 
-  matrix_header<-matrix_header[match(intersect(matrix_header$col_keys,names(heatmap_df)),matrix_header$col_keys),] 
-
-  parametra_count_x <- parametra_long %>%
-    group_by(across(all_of(c(x, "ref")))) %>%
-    summarise(entries = n(), .groups = 'drop') %>%
-    group_by(across(all_of(c( x)))) %>%
-    summarise(
-      n_entries = sum(entries),
-      n_studies = n_distinct(ref),
-      .groups = 'drop'
-    )
-  
-  parametra_count_y <- parametra_long %>%
-    mutate(across(all_of(y), ~ifelse(is.na(.), "Not available", .))) %>%
-    group_by(across(all_of(c(y, "ref")))) %>%
-    summarise(entries = n(), .groups = 'drop') %>%
-    group_by(across(all_of(c( y)))) %>%
-    summarise(
-      n_entries = sum(entries),
-      n_studies = n_distinct(ref),
-      .groups = 'drop'
-    )
-  
-  if(is.null(y_by)&&y == "study_type") y_by<-"study_type2"
-
-  if(is.null(y_by)) y_by<-y
-
-  parametra_count_y_by <- parametra_long  %>%
-    mutate(
-      parameter_type = if(y_by == "parameter_type") {
-        case_when(
-          parameter_type == "Transmission" ~ "Transmission",
-          parameter_type == "InfectiousLatentIncubatperiod" ~ "Time intervals",
-          parameter_type == "PathogenSurvival" ~ "Survival",
-          parameter_type == "DiagnosticTest" ~ "Tests",
-          parameter_type == "RegionalPrevalence" ~ "Prevalence",
-          parameter_type == "WithinHerdPrevalence" ~ "Prevalence",
-          TRUE ~ parameter_type
-        )
-      } else parameter_type,
-      
-      study_type2=if(y_by=="study_type2") {
-        case_when(
-          is.na(study_type) ~ "Not available",
-          study_type %in% c("Experimental", "Experimental Stable", 
-                      "Experimental Isolator", "Experimental Field", 
-                      "Experimental Lab") ~ "Experimental",
-          study_type %in% c("Review", "Descriptive Review", 
-                      "Meta-analysis") ~ "Review",
-          study_type %in% c("Field", "Observational", "Seroprevalence",
-                      "Prevalence", "Retrospective", 
-                      "Retrospective cohort") ~ "Field",
-          TRUE ~ "Other"
-        )
-      } else NULL)%>%
-    mutate(across(all_of(y_by), ~ifelse(is.na(.), "Not available", .))) %>%
-    group_by(across(all_of(c(y_by, "ref")))) %>%
-    summarise(entries = n(), .groups = 'drop')%>%
-    group_by(across(all_of(c( y_by)))) %>%
-    summarise(
-      n_entries = sum(entries),
-      n_studies = n_distinct(ref),
-      .groups = 'drop'
-    )
-  
-  
-  heatmap_df[[1]]<-paste0(heatmap_df[[1]]," (",parametra_count_x$n_studies[match(heatmap_df[[1]],parametra_count_x[[1]])],")")
-  
-  matrix_header$line2<-paste0(matrix_header$line2," (",parametra_count_y$n_studies[match(matrix_header$line2,parametra_count_y[[y]])],")")
-  matrix_header$line2 <- gsub(" \\(NA\\)", "", matrix_header$line2)
-  matrix_header$line2[1]<-""
-  
-  matrix_header$line3<-paste0(matrix_header$line3," (",parametra_count_y_by$n_studies[match(matrix_header$line3,parametra_count_y_by[[y_by]])],")")
-  matrix_header$line3 <- gsub(" \\(NA\\)", "", matrix_header$line3)
-  matrix_header$line3 <- ifelse(matrix_header$line3=="Other",matrix_header$line2,matrix_header$line3)
-  matrix_header$line3[1]<-""
-  
-  matrix_header <- capitalize_df(matrix_header)
-  names(heatmap_df) <- capitalize_vector(names(heatmap_df))
-  
-  # Color scale function
-  color_scale <- function(x) {
-    # Handle case where all values are 0
-    if(all(x == 0, na.rm = TRUE)) return(rep("white", length(x)))
-    
-    # Replace NA with 0 and create base colors
-    x[is.na(x)] <- 0
-    colors <- rep("white", length(x))
-    non_zero <- x > 0
-    
-    # Get all values from the entire table for global scaling
-    all_values <- unlist(heatmap_df[,-1])  # Exclude first column (names)
-    global_min <- min(all_values[all_values > 0], na.rm = TRUE)
-    global_max <- max(all_values, na.rm = TRUE)
-    
-    if(any(non_zero)) {
-      non_zero_x <- x[non_zero]
-      # Scale based on global min and max
-      scaled_values <- (non_zero_x - global_min) / (global_max - global_min)
-      # Ensure no NA values in color assignment
-      color_indices <- pmax(1, pmin(100, round(scaled_values * 99) + 1))
-      colors[non_zero] <- colorRampPalette(c("#e0ecf4","#8c96c6", "#88419d", "#810f7c"))(100)[color_indices]
-    }
-    
-    return(colors)
-  }
-  
-  # Create flextable with improved formatting
-  ft <- flextable(heatmap_df, col_keys = matrix_header$col_keys) %>%
-    set_header_df(mapping = matrix_header, key = "col_keys") %>%
-    merge_h(part = "header") %>%
-    merge_v(part = "header") %>%
-    theme_vanilla() %>%
-    rotate(j = 2:ncol(heatmap_df), rotation = "btlr", part = "header", i = 1) %>%
-    align(align = "center", part = "header") %>%
-    bg(bg = function(x) {
-         x <- as.numeric(as.character(x))
-         x[is.na(x)] <- 0
-         colors <- color_scale(x)
-         if(any(is.na(colors))) colors[is.na(colors)] <- "white"
-         colors
-       },
-       j = 2:ncol(heatmap_df),
-       part = "body") %>%
-    autofit() %>%
-    fontsize(size = 9, part = "all") %>%
-    border_outer() %>%
-    border_inner()
-  
-  ft <- set_caption(ft, caption = paste0("Number of parametra entries by ", x, " and ", y, ". The numbers in parentheses indicate the count of studies where these entries were collected. Total number of studies: ", length(unique(parametra_long$ref))))
-  return(ft)
-  
-}
-
+```{r available-values}
+parametra_long %>%
+  distinct(parameter_type, parameter) %>%
+  arrange(parameter_type, parameter) %>%
+  head(20)
 ```
 
-### By parameter type
+## Example 1: Transmission parameters for African swine fever
 
-```{r, echo=FALSE, message=FALSE}
-x <- "pathogen"
-y <- "parameter"
-y_by<-"parameter_type"
-ft_heatmap(x,y,y_by)
+This example plots transmission-parameter values for African swine fever, faceted by parameter. The record `id` is kept in the plotting data so the source row can be traced back to PARAMETRA.
+
+```{r asf-transmission-plot, fig.width = 8, fig.height = 6}
+asf_transmission %>%
+  ggplot(aes(x = value, y = host)) +
+  geom_point(color = "#0F9DA4", size = 2.5, alpha = 0.8) +
+  facet_wrap(~ parameter, ncol = 1, scales = "free_x") +
+  labs(
+    title = "African swine fever transmission parameters",
+    subtitle = "Each point is one PARAMETRA record",
+    x = "Value",
+    y = "Host"
+  ) +
+  theme_minimal()
 ```
 
-### By year
+## Example 2: Comparing infectious periods across pathogens
 
-```{r, echo=FALSE, message=FALSE}
-x <- "pathogen"
-y <- "year"
-ft_heatmap(x,y, order_by=y)
+Here we compare infectious-period estimates for three pathogens. This example is useful for checking the range of values before selecting parameters for a model.
+
+```{r infectious-periods, fig.width = 8, fig.height = 5}
+infectious_periods <- parametra_long %>%
+  filter(
+    parameter == "Infectious period",
+    pathogen %in% c("Foot and Mouth Disease", "African Swine Fever", "Avian Influenza"),
+    !is.na(value)
+  )
+ggplot(infectious_periods, aes(x = pathogen, y = value, fill = pathogen)) +
+  geom_boxplot(outlier.shape = NA, alpha = 0.4) +
+  geom_jitter(width = 0.15, height = 0, alpha = 0.7, size = 1.5) +
+  labs(
+    title = "Infectious-period estimates across pathogens",
+    x = NULL,
+    y = "Infectious period"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
 
-### By study type
+## Working with references
 
-```{r, echo=FALSE, message=FALSE}
-x<-"pathogen"
-y<-"study_type"
-ft_heatmap(x,y)
+Each record includes reference fields so parameter values can be traced to their source. Useful columns include:
+
+-   `ref`: DOI, DOI URL, PubMed URL, or stable web URL
+
+-   `ref_short`: short human-readable citation, when available
+
+-   `ref_status`: status assigned during PARAMETRA curation
+
+-   `ref_last_access`: date when a URL reference was last checked.
+
+```{r references}
+parametra_long %>%
+  count(ref_status, sort = TRUE)
 ```
 
-### By model type
+## Interpreting PARAMETRA data
 
-```{r, echo=FALSE, message=FALSE}
-x<-"pathogen"
-y<-"model_type"
-ft_heatmap(x,y, order_by=y)
-```
+PARAMETRA is curated to support disease-modelling work, but users should still assess whether each record is appropriate for their specific modelling context. Before accepting a parameter value as suitable, we recommend reviewing the contextual information and notes provided in the database, and consulting the original reference.
+
+## Contributing new records
+
+New records can be submitted through the [PARAMETRA submission form](https://ec.europa.eu/eusurvey/runner/parametra-submission) or via [contact\@parametra.eu](mailto:contact@parametra.eu).

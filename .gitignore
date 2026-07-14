@@ -10,3 +10,6 @@ docs
 inst/doc
 /doc/
 /Meta/
+/data-raw/backups
+/data-raw/submission/*
+!/data-raw/submission/gitkeep.txt
